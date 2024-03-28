@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6ad53dd-58d7-4f9a-9f0a-0c2093cb7007" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="a6ad53dd-58d7-4f9a-9f0a-0c2093cb7007" name="Changes" comment="Add: &quot;주문 페이지 생성&quot;&#10;&#10;order-list, order-datail, delivery-modify 페이지 생성" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -34,6 +32,9 @@
   &quot;associatedIndex&quot;: 2
 }</component>
   <component name="ProjectId" id="2eCqPDSZXV6XsxilRmpt4OUuj46" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
@@ -46,9 +47,9 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;Spring Boot.EliceGymApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;chandol&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/modev/Desktop/healthcare&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/modev/Desktop/healthcare/src/main/resources/templates/order&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -61,6 +62,11 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\modev\Desktop\healthcare\src\main\resources\templates\order" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="EliceGymApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="eliceGym.main" />
@@ -86,12 +92,46 @@
       <option name="presentableId" value="Default" />
       <updated>1711418883327</updated>
       <workItem from="1711418884516" duration="513000" />
-      <workItem from="1711419461125" duration="818000" />
-      <workItem from="1711588410858" duration="7000" />
+      <workItem from="1711464043419" duration="1306000" />
+      <workItem from="1711497480330" duration="11873000" />
+      <workItem from="1711588351745" duration="7723000" />
+      <workItem from="1711599595755" duration="683000" />
     </task>
+    <task id="LOCAL-00001" summary="Add: &quot;주문 페이지 생성&quot;&#10;&#10;order-list, order-datail, delivery-modify 페이지 생성">
+      <option name="closed" value="true" />
+      <created>1711595939432</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1711595939432</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Add: &quot;주문 페이지 생성&quot;&#10;&#10;order-list, order-datail, delivery-modify 페이지 생성">
+      <option name="closed" value="true" />
+      <created>1711600028071</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1711600028071</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add: &quot;주문 페이지 생성&quot;&#10;&#10;order-list, order-datail, delivery-modify 페이지 생성" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add: &quot;주문 페이지 생성&quot;&#10;&#10;order-list, order-datail, delivery-modify 페이지 생성" />
   </component>
 </project>
