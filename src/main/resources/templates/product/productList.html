@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script
+            defer
+            src="https://kit.fontawesome.com/9daa42bcef.js"
+            crossorigin="anonymous"
+    ></script>
+    <title>Document</title>
+    <style>
+        .page{
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        .pagination {
+            display: inline-block;
+            margin-bottom: 20px;
+
+        }
+
+        .pagination button {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+            transition: background-color .3s;
+            border: 1px solid #ddd;
+            margin: 0 4px;
+            cursor: pointer;
+            background-color: white;
+        }
+
+        .pagination button.active {
+            background-color: dodgerblue;
+            color: white;
+            border: 1px solid #4CAF50;
+        }
+
+        .pagination button:hover:not(.active) {background-color: #ddd;}
+
+        .pagination .prev, .pagination .next {
+            background-color: #f2f2f2;
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            margin: 0 4px;
+            cursor: pointer;
+        }
+
+        .pagination .prev:hover, .pagination .next:hover {
+            background-color: #ddd;
+        }
+
+
+
+        .container {
+            max-width: 1200px;
+            min-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 20px;
+            justify-content: center;
+        }
+
+        .product {
+            border: 1px solid #ddd;
+            position: relative;
+            text-align: center;
+            padding-bottom: 20px;
+
+        }
+        /*.product:hover{*/
+        /*  //  box-shadow: 5px 5px 5px 5px gray inset;*/
+
+        /*}*/
+
+        .product img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .product h4 {
+            margin-top: 10px;
+            margin-bottom: 0px;
+        }
+
+        .product .price {
+            font-weight: bold;
+            font-size: 15px;
+            margin-bottom: 0px;
+        }
+
+        .product .btn-add-to-cart {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: transparent;
+            color: dodgerblue;
+            border: none;
+            cursor: pointer;
+        }
+        .sort-select {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding: 5px;
+        }
+        #sort-select{
+            padding: 5px;
+        }
+
+        .product_tag{
+            display: flex;
+            flex-direction: column;
+            text-align: start;
+            margin-left: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Top menu -->
+<div class="container">
+    <div class="sort-select">
+        <select id="sort-select">
+            <option value="newest">최신 상품 순</option>
+            <option value="sales">판매량 순</option>
+        </select>
+    </div>
+<div class="product-list">
+
+
+
+
+    <!-- 상품 목록 시작 -->
+    <div class="product">
+        <img src="/img/product_test1.jpg" alt="Product 1">
+        <button class="btn-add-to-cart"><i class="fas fa-shopping-cart"></i></button>
+        <div class="product_tag">
+            <div class="product_name">
+        <h4>상품 입력란</h4>
+            </div>
+            <div class="product_price">
+        <p class="price">50,341 원</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="product">
+        <img src="/img/product_test1.jpg" alt="Product 1">
+        <button class="btn-add-to-cart"><i class="fas fa-shopping-cart"></i></button>
+        <div class="product_tag">
+            <div class="product_name">
+                <h4>상품 입력란</h4>
+            </div>
+            <div class="product_price">
+                <p class="price">50,341 원</p>
+            </div>
+        </div>
+    </div>
+    <div class="product">
+        <img src="/img/product_test1.jpg" alt="Product 1">
+        <button class="btn-add-to-cart"><i class="fas fa-shopping-cart"></i></button>
+        <div class="product_tag">
+            <div class="product_name">
+                <h4>상품 입력란</h4>
+            </div>
+            <div class="product_price">
+                <p class="price">50,341 원</p>
+            </div>
+        </div>
+    </div>
+    <div class="product">
+        <img src="/img/product_test1.jpg" alt="Product 1">
+        <button class="btn-add-to-cart"><i class="fas fa-shopping-cart"></i></button>
+        <div class="product_tag">
+            <div class="product_name">
+                <h4>상품 입력란</h4>
+            </div>
+            <div class="product_price">
+                <p class="price">50,341 원</p>
+            </div>
+        </div>
+    </div>
+    <div class="product">
+        <img src="/img/product_test1.jpg" alt="Product 1">
+        <button class="btn-add-to-cart"><i class="fas fa-shopping-cart"></i></button>
+        <div class="product_tag">
+            <div class="product_name">
+                <h4>상품 입력란</h4>
+            </div>
+            <div class="product_price">
+                <p class="price">50,341 원</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 여러 상품 추가 가능 -->
+</div>
+    <div class="page">
+    <div class="pagination">
+        <button class="prev"><i class="fas fa-chevron-left"></i></button>
+        <button>1</button>
+        <button>2</button>
+        <button class="active">3</button>
+        <button>4</button>
+        <button>5</button>
+        <button class="next"><i class="fas fa-chevron-right"></i></button>
+    </div>
+    </div>
+</div>
+
+
+    <!-- Pagination -->
+
+
+</body>
+</html>
