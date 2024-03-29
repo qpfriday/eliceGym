@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b44a36c4-9b49-462a-9262-556bda8dfa6a" name="Changes" comment="" />
+    <list default="true" id="b44a36c4-9b49-462a-9262-556bda8dfa6a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -91,7 +94,7 @@
       <recent name="com.project.elicegym.user" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Spring Boot.EliceGymApplication">
     <configuration name="EliceGymApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="eliceGym.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.project.elicegym.EliceGymApplication" />
@@ -100,12 +103,17 @@
       </method>
     </configuration>
     <configuration name="EliceGymApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <module name="com.project.eliceGym.main" />
+      <option name="ACTIVE_PROFILES" />
+      <module name="eliceGym.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.project.elicegym.EliceGymApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Spring Boot.EliceGymApplication" />
+      <item itemvalue="Spring Boot.EliceGymApplication (1)" />
+    </list>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
