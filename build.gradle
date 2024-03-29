@@ -28,9 +28,12 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 //    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+<<<<<<< HEAD
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     testImplementation 'org.springframework.security:spring-security-test'
+=======
+>>>>>>> 8024f0b0b985b0bbb0ae25ef29f0372553b66626
 }
 
 tasks.named('test') {
