@@ -27,6 +27,7 @@ public class SecurityConfig {
                 );
         http
                 .formLogin((auth) -> auth.loginPage("/login") // 로그인 페이지로 이동
+                        .usernameParameter("loginId") // login 할때 loginId 로 로그인
                         .loginProcessingUrl("/loginProc") // login 폼에서 전달하는 loginProc 페이지로 이동
                         .permitAll()
                 );
