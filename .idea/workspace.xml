@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b44a36c4-9b49-462a-9262-556bda8dfa6a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/project/elicegym/admin/controller/AdminController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/styles.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/datatables-simple-demo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/scripts.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/userManagement.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/elicegym/testController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/elicegym/testController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="eliceGym" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="Class" />
+        <option value="Interface" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2eCqPDSZXV6XsxilRmpt4OUuj46" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.EliceGymApplication.executor": "Run",
+    "git-widget-placeholder": "dev 병합 중",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/modev/Desktop/chan/eliceGym/src/main/resources/templates/user",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\modev\Desktop\chan\eliceGym\src\main\resources\templates\user" />
+      <recent name="C:\Users\modev\Desktop\healthcare\src\main\resources\templates\order" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.project.elicegym.user" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="EliceGymApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="eliceGym.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.project.elicegym.EliceGymApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EliceGymApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="com.project.eliceGym.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.project.elicegym.EliceGymApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-17.0.10-corretto-17.0.10-4caba194b151-5cd809f4" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a6ad53dd-58d7-4f9a-9f0a-0c2093cb7007" name="Changes" comment="" />
+      <created>1711418883327</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1711418883327</updated>
+      <workItem from="1711418884516" duration="513000" />
+      <workItem from="1711464043419" duration="1306000" />
+      <workItem from="1711497480330" duration="11873000" />
+      <workItem from="1711588351745" duration="7723000" />
+      <workItem from="1711599595755" duration="683000" />
+      <workItem from="1711600665783" duration="13367000" />
+      <workItem from="1711671055342" duration="110000" />
+      <workItem from="1711671189364" duration="55000" />
+    </task>
+    <task id="LOCAL-00001" summary="Add: &quot;주문 페이지 생성&quot;&#10;&#10;order-list, order-datail, delivery-modify 페이지 생성">
+      <option name="closed" value="true" />
+      <created>1711595939432</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1711595939432</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Add: &quot;주문 페이지 생성&quot;&#10;&#10;order-list, order-datail, delivery-modify 페이지 생성">
+      <option name="closed" value="true" />
+      <created>1711600028071</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1711600028071</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add: &quot;주문 페이지 생성&quot;&#10;&#10;order-list, order-datail, delivery-modify 페이지 생성" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add: &quot;주문 페이지 생성&quot;&#10;&#10;order-list, order-datail, delivery-modify 페이지 생성" />
+  </component>
+</project>

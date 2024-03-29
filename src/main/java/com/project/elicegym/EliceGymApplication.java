@@ -9,5 +9,4 @@ public class EliceGymApplication {
     public static void main(String[] args) {
         SpringApplication.run(EliceGymApplication.class, args);
     }
-
 }
