@@ -23,8 +23,12 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
+<<<<<<< HEAD
 
     implementation 'org.springframework.boot:spring-boot-starter-security'
+=======
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+>>>>>>> 06dc74126a0f14095f360ebfa63e5e0c536e453f
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.mysql:mysql-connector-j'
