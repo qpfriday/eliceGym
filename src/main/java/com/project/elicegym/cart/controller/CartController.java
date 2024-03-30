@@ -1,4 +1,4 @@
-package com.project.elicegym.controller;
+package com.project.elicegym.cart.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

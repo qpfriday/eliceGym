@@ -20,7 +20,7 @@ public class UserEntity {
     private String password;
     private String name;
     private String email;
-    private String roll; // admin
+    private String roll; // admin, user
     @CreationTimestamp
     private Timestamp createdAt;
     @UpdateTimestamp
