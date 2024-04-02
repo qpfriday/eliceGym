@@ -19,7 +19,7 @@ public class User {
     @Column(length = 50, nullable = false)
     private String loginId;
     @Column(length = 500)
-    private String deliverAddress;
+    private String deliveryAddress;
     @Column(length = 10)
     private String roll;
     @Column(length = 50)

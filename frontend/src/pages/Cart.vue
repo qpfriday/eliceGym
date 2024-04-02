@@ -30,6 +30,7 @@ export default {
 <template>
   <div class="cart">
     <div class="container">
+      <div class="py-5 text-center"><h2>내 장바구니</h2></div>
       <ul>
         <li v-for="(i, idx) in state.items" :key="idx">
           <img :src="i.imgPath"/>
