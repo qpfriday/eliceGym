@@ -1,4 +1,9 @@
 # 주요 사항
+## 1. 프로젝트 개요
+- frontend: vue.js
+- backend: Spring Boot
+- database: mariaDB
+
 ## 1. 현제 구현 상태
 1. 메인 페이지에 card 로 상품 진열
 2. Header, Footer 구현 (로그인 상태에 따라 구성 요소 바뀜)
