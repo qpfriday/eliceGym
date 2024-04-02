@@ -13,7 +13,7 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column
-    private int memberId;
+    private int userId;
     @Column
     private int itemId;
 }

@@ -13,7 +13,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column
-    private int memberId;
+    private int userId;
     @Column(length = 50, nullable = false)
     private String name;
     @Column(length = 50, nullable = false)
@@ -28,4 +28,8 @@ public class Order {
     private String cardNumber;
     @Column(length = 500, nullable = false)
     private String items;
+    @Column(length = 50)
+    private String createdAt;
+    @Column(length = 50)
+    private String updatedAt;
 }

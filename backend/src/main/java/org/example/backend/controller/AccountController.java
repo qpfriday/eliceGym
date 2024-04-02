@@ -3,12 +3,9 @@ package org.example.backend.controller;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
-import org.example.backend.entity.Item;
-import org.example.backend.entity.Member;
-import org.example.backend.repository.ItemRepository;
-import org.example.backend.repository.MemberRepository;
+import org.example.backend.entity.User;
+import org.example.backend.repository.UserRepository;
 import org.example.backend.service.JwtService;
-import org.example.backend.service.JwtServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,16 +19,16 @@ import java.util.Map;
 public class AccountController {
 
     @Autowired
-    MemberRepository memberRepository;
+    UserRepository userRepository;
 
     @Autowired
     JwtService jwtService;
 
     @PostMapping("/api/account/login")
     public ResponseEntity login(@RequestBody Map<String, String> params, HttpServletResponse res) {
-        Member member = memberRepository.findByEmailAndPassword(params.get("email"), params.get("password"));
-        if (member != null) {
-            int id = member.getId();
+        User user = userRepository.findByEmailAndPassword(params.get("email"), params.get("password"));
+        if (user != null) {
+            int id = user.getId();
             String token = jwtService.getToken("id", id);
 
             Cookie cookie = new Cookie("token", token);

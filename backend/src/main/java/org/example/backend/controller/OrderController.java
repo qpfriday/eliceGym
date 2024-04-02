@@ -36,8 +36,8 @@ public class OrderController {
         if (!jwtService.isValid(token)) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
-        int memberId = jwtService.getId(token);
-        List<Order> orders = orderRepository.findByMemberIdOrderByIdDesc(memberId);
+        int userId = jwtService.getId(token);
+        List<Order> orders = orderRepository.findByUserIdOrderByIdDesc(userId);
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
@@ -52,10 +52,10 @@ public class OrderController {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
 
-        int memberId = jwtService.getId(token);
+        int userId = jwtService.getId(token);
         Order newOrder = new Order();
 
-        newOrder.setMemberId(jwtService.getId(token));
+        newOrder.setUserId(jwtService.getId(token));
         newOrder.setName(dto.getName());
         newOrder.setPhoneNumber(dto.getPhoneNumber());
         newOrder.setAddress(dto.getAddress());
@@ -65,7 +65,7 @@ public class OrderController {
         newOrder.setItems(dto.getItems());
 
         orderRepository.save(newOrder);
-        cartRepository.deleteByMemberId(memberId);
+        cartRepository.deleteByUserId(userId);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
