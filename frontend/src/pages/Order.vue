@@ -25,7 +25,7 @@ export default {
         state.items = data;
       })
     }
-    const submit = () => {
+    const purchase = () => {
       const args = JSON.parse(JSON.stringify(state.form));
       args.items = JSON.stringify(state.items);
       axios.post("api/orders", args).then(() => {
@@ -44,7 +44,7 @@ export default {
 
     load();
 
-    return {state, addCommas, computedPrice, submit}
+    return {state, addCommas, computedPrice, purchase}
   },
 }
 </script>
@@ -119,7 +119,7 @@ export default {
               <input
                   type="text" class="form-control" id="cc-number" v-model="state.form.cardNumber">
               <hr class="my-4">
-              <button class="w-100 btn btn-primary btn-lg" @click="submit()">결제하기</button>
+              <button class="w-100 btn btn-primary btn-lg" @click="purchase()">결제하기</button>
             </div>
           </div>
         </div>

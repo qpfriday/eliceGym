@@ -8,8 +8,10 @@ export default {
   setup() {
     const state = reactive({
       form: {
+        name: "",
+        loginId: "",
+        password: "",
         email: "",
-        password: ""
       }
     })
     const submit = () => {
@@ -32,16 +34,28 @@ export default {
     <main class="form-signin">
       <h1 class="h3 mb-3 fw-normal text-center">회원가입</h1>
       <div class="form-floating">
-        <input type="email" class="form-control" id="floatingInput" placeholder="Email"
+        <input type="text" class="form-control" id="floatingInput" placeholder="Name"
                @keyup.enter="submit()"
-               v-model="state.form.email">
-        <label for="floatingInput">Email</label>
+               v-model="state.form.name">
+        <label for="floatingInput">Name</label>
+      </div>
+      <div class="form-floating">
+        <input type="text" class="form-control" id="floatingInput" placeholder="ID"
+               @keyup.enter="submit()"
+               v-model="state.form.loginId">
+        <label for="floatingInput">ID</label>
       </div>
       <div class="form-floating">
         <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
                @keyup.enter="submit()"
                v-model="state.form.password">
         <label for="floatingPassword">Password</label>
+      </div>
+      <div class="form-floating">
+        <input type="email" class="form-control" id="floatingInput" placeholder="Email"
+               @keyup.enter="submit()"
+               v-model="state.form.email">
+        <label for="floatingInput">Email</label>
       </div>
       <button class="w-100 btn btn-lg btn-success" @click="submit">로그인</button>
       <a href="login">로그인 하러가기</a>
