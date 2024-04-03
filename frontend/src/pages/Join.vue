@@ -30,7 +30,7 @@ export default {
 <template>
   <div class="container">
     <main class="form-signin">
-      <h1 class="h3 mb-3 fw-normal text-center">로그인</h1>
+      <h1 class="h3 mb-3 fw-normal text-center">회원가입</h1>
       <div class="form-floating">
         <input type="email" class="form-control" id="floatingInput" placeholder="Email"
                @keyup.enter="submit()"
@@ -44,7 +44,7 @@ export default {
         <label for="floatingPassword">Password</label>
       </div>
       <button class="w-100 btn btn-lg btn-success" @click="submit">로그인</button>
-      <a href="join">회원가입 하러가기</a>
+      <a href="login">로그인 하러가기</a>
     </main>
   </div>
 </template>
