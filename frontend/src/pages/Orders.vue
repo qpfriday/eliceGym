@@ -35,7 +35,7 @@ export default {
           <th>주문자명</th>
           <th>전화번호</th>
           <th>주소</th>
-          <th>주문자명</th>
+          <th>배송 요청사항</th>
           <th>결제 수단</th>
           <th>구입 항목</th>
         </tr>

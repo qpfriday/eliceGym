@@ -52,10 +52,9 @@ public class AccountController {
         Claims claims = jwtService.getClaims(token);
         if (claims != null) {
             int id = Integer.parseInt(claims.get("id").toString());
-            String name = userService.getNameById(id); // Assuming you have a method to fetch user's name by ID
             Map<String, Object> responseData = new HashMap<>();
             responseData.put("id", id);
-            responseData.put("name", name);
+            responseData.put("name", userService.getNameById(id));
             return new ResponseEntity<>(responseData, HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.OK);
