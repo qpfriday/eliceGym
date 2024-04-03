@@ -11,7 +11,7 @@
           <li v-if="$store.state.account.id">
             <ul class="d-flex flex-wrap">
               <li class="nav-link link-body-emphasis px-2 active">
-                {{$store.state.account.name}} 님
+                {{ $store.state.account.name }} 님
               </li>
               <li>
                 <router-link class="nav-link link-body-emphasis px-2 active" to="/my">마이페이지</router-link>

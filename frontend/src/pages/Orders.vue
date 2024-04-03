@@ -1,3 +1,30 @@
+<script>
+import {reactive} from "vue";
+import axios from "axios";
+
+export default {
+  setup() {
+    const state = reactive({
+      orders: [],
+    })
+
+    axios.get("/api/orders").then(({data}) => {
+      state.orders = [];
+
+      for (let d of data) {
+        if (d.items) {
+          d.items = JSON.parse(d.items);
+        }
+
+        state.orders.push(d);
+      }
+    })
+
+    return {state}
+  }
+}
+</script>
+
 <template>
   <div class="orders">
     <div class="container">
@@ -30,33 +57,6 @@
     </div>
   </div>
 </template>
-
-<script>
-import {reactive} from "vue";
-import axios from "axios";
-
-export default {
-  setup() {
-    const state = reactive({
-      orders: [],
-    })
-
-    axios.get("/api/orders").then(({data}) => {
-      state.orders = [];
-
-      for (let d of data) {
-        if (d.items) {
-          d.items = JSON.parse(d.items);
-        }
-
-        state.orders.push(d);
-      }
-    })
-
-    return {state}
-  }
-}
-</script>
 
 <style scoped>
 .table {

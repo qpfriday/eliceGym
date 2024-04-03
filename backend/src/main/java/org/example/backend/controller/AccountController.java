@@ -6,12 +6,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.example.backend.entity.User;
 import org.example.backend.repository.UserRepository;
 import org.example.backend.service.JwtService;
+import org.example.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,10 +24,14 @@ public class AccountController {
     UserRepository userRepository;
 
     @Autowired
+    UserService userService;
+
+    @Autowired
     JwtService jwtService;
 
     @PostMapping("/api/account/login")
     public ResponseEntity login(@RequestBody Map<String, String> params, HttpServletResponse res) {
+
         User user = userRepository.findByEmailAndPassword(params.get("email"), params.get("password"));
         if (user != null) {
             int id = user.getId();
@@ -46,7 +52,11 @@ public class AccountController {
         Claims claims = jwtService.getClaims(token);
         if (claims != null) {
             int id = Integer.parseInt(claims.get("id").toString());
-            return new ResponseEntity<>(id, HttpStatus.OK);
+            String name = userService.getNameById(id); // Assuming you have a method to fetch user's name by ID
+            Map<String, Object> responseData = new HashMap<>();
+            responseData.put("id", id);
+            responseData.put("name", name);
+            return new ResponseEntity<>(responseData, HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
