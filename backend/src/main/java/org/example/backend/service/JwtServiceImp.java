@@ -62,7 +62,6 @@ public class JwtServiceImp implements JwtService {
     @Override
     public int getId(String token) {
         Claims claims = this.getClaims(token);
-
         if (claims != null) {
             return Integer.parseInt(claims.get("id").toString());
         }
