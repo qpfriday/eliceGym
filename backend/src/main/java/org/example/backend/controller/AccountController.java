@@ -32,7 +32,7 @@ public class AccountController {
     @PostMapping("/api/account/login")
     public ResponseEntity login(@RequestBody Map<String, String> params, HttpServletResponse res) {
 
-        User user = userRepository.findByEmailAndPassword(params.get("email"), params.get("password"));
+        User user = userRepository.findByLoginIdAndPassword(params.get("loginId"), params.get("password"));
         if (user != null) {
             int id = user.getId();
             String token = jwtService.getToken("id", id);
