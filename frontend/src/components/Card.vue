@@ -33,7 +33,7 @@ export default {
     :to="{ name: 'productDetail', params: { itemId: `${item.id}` } }"
   >
     <div class="product">
-      <div class="img" :style="{ backgroundImage: `url(/img/protein.png)` }" />
+      <div class="img" :style="{ backgroundImage: `url(${item.imgPath})` }" />
       <!-- <img src="/img/product_test1.jpg" alt="Product 1" /> -->
       <div class="btn-cart" v-on:click="addToCart">
         <!-- <button class="btn-add-to-cart"> -->

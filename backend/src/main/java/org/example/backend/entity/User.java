@@ -23,7 +23,7 @@ public class User {
     @Column(length = 500)
     private String deliveryAddress;
     @Column(length = 10)
-    private String roll;
+    private String role;
     @Column(length = 50)
     private String createdAt;
     @Column(length = 50)

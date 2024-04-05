@@ -61,7 +61,7 @@ export default {
         <div class="section_view">
           <div class="section_left">
             <div class="thumb">
-              <img src="/img/protein.png" alt="상품 대표 이미지" class="bg" />
+              <img src="${item.imgPath}" alt="상품 대표 이미지" class="bg" />
             </div>
           </div>
           <div class="section_right">
