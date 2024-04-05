@@ -1,6 +1,7 @@
 <script>
 import { addCommas } from "@/scripts/lib";
 import axios from "axios";
+//import { ref } from "vue";
 export default {
   name: "Card",
   props: {
@@ -9,9 +10,15 @@ export default {
       required: true,
     },
   },
-  setup() {
-    const addToCart = (itemId) => {
+  setup(props) {
+    const addToCart = (e) => {
+      e.preventDefault();
+      const itemId = props.item.id;
+      console.log(itemId);
+
       axios.post(`/api/cart/items/${itemId}`).then(() => {
+        alert("장바구니에 추가되었습니다.");
+
         console.log("success");
       });
     };
@@ -22,42 +29,17 @@ export default {
 </script>
 
 <template>
-  <!-- <div class="card shadow-sm">
-    <span
-      class="img"
-      :style="{ backgroundImage: `url(/img/protein.png)` }"
-    ></span>
-    <div class="card-body">
-      <span class="card-text">{{ product.name }} &nbsp;</span>
-      <span class="discount badge bg-danger">{{ product.discountPer }} %</span>
-      <div class="d-flex justify-content-between align-items-center">
-        <div class="btn btn-primary" @click="addToCart(product.id)">
-          <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-        </div>
-        <small class="price text-muted"
-          >{{ addCommas(product.price) }} 원</small
-        >
-        <small class="real text-danger"
-          >{{
-            addCommas(
-              product.price - (product.price * product.discountPer) / 100
-            )
-          }}
-          원</small
-        >
-      </div>
-    </div>
-  </div> -->
-
   <router-link
     :to="{ name: 'productDetail', params: { itemId: `${item.id}` } }"
   >
     <div class="product">
-      <span class="img" :style="{ backgroundImage: `url(/img/protein.png)` }" />
+      <div class="img" :style="{ backgroundImage: `url(/img/protein.png)` }" />
       <!-- <img src="/img/product_test1.jpg" alt="Product 1" /> -->
-      <button class="btn-add-to-cart">
+      <div class="btn-cart" v-on:click="addToCart">
+        <!-- <button class="btn-add-to-cart"> -->
         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-      </button>
+        <!-- </button> -->
+      </div>
       <div class="product_tag">
         <div class="product_name">
           <h4>{{ item.name }}</h4>
@@ -66,7 +48,11 @@ export default {
           <p class="percentile badge bg-danger">{{ item.discountPer }}%</p>
           <p class="price">{{ addCommas(item.price) }} 원</p>
           <p class="discount_price text-danger font-weight-bold">
-            {{ addCommas(item.price - (item.price * item.discountPer) / 100) }}
+            {{
+              addCommas(
+                Math.round(item.price - (item.price * item.discountPer) / 100.0)
+              )
+            }}
             원
           </p>
         </div>
@@ -76,18 +62,24 @@ export default {
 </template>
 
 <style scoped>
-/* .card .img {
-  display: inline-block;
-  width: 100%;
-  height: 250px;
-  background-size: cover;
-  background-position: center;
+.btn-cart {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 40px;
+  height: 40px;
+
+  z-index: 1;
 }
-.card .card-body .price {
-  text-decoration: line-through;
-} */
+.btn-cart:hover {
+  cursor: pointer;
+  color: red;
+}
+
 .btn-add-to-cart i:hover {
   color: red;
+  cursor: pointer;
+  z-index: 1;
 }
 .product_price {
   display: flex;
@@ -117,10 +109,9 @@ export default {
   text-align: center;
   padding-bottom: 20px;
   border-radius: 6px;
-  cursor: pointer;
 }
 .product:hover {
-  box-shadow: 1px 2px 2px 1px gray;
+  box-shadow: 1px 1px 1px 1px gray;
 }
 
 .product img {
@@ -133,10 +124,7 @@ export default {
   margin-bottom: 0px;
 }
 
-.product .btn-add-to-cart {
-  position: absolute;
-  top: 5px;
-  right: 5px;
+.btn-add-to-cart {
   background-color: transparent;
   color: dodgerblue;
   border: none;

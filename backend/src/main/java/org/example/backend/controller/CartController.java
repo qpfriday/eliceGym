@@ -1,5 +1,6 @@
 package org.example.backend.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.backend.entity.Cart;
 import org.example.backend.entity.Item;
 import org.example.backend.repository.CartRepository;
@@ -13,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 public class CartController {
 
@@ -42,9 +44,12 @@ public class CartController {
 
     @PostMapping("/api/cart/items/{itemId}")
     public ResponseEntity pushCartItem(
-            @PathVariable("itemId") int itemId,
+            @PathVariable("itemId") int itemId, @RequestParam(name = "quantity", defaultValue = "1") int quantity,
             @CookieValue(value = "token", required = false) String token
     ) {
+
+
+        log.info("qunatity : {}", quantity);
 
         if (!jwtService.isValid(token)) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
@@ -57,6 +62,7 @@ public class CartController {
             Cart newCart = new Cart();
             newCart.setUserId(userId);
             newCart.setItemId(itemId);
+            newCart.setQuantity(quantity);
             cartRepository.save(newCart);
         }
 

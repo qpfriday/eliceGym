@@ -30,6 +30,19 @@ export default {
       state.item = data;
     });
 
+    const addToCart = (e) => {
+      e.preventDefault();
+
+      //state.quantity int로 변환
+
+      axios
+        .post(`/api/cart/items/${itemId}?quantity=${state.quantity}`)
+        .then(() => {
+          alert("장바구니에 담겼습니다.");
+          console.log("success");
+        });
+    };
+
     watch(
       () => route.params.itemId,
       (itemId) => {
@@ -37,20 +50,12 @@ export default {
       }
     );
 
-    return { state, increaseStock, decreaseQuantity };
+    return { state, increaseStock, decreaseQuantity, addToCart };
   },
 };
 </script>
 <template>
   <div class="container">
-    <header class="header-container w3-xlarge">
-      <p class="w3-left">EliceGym</p>
-      <p class="w3-right">
-        <i class="fa fa-shopping-cart w3-margin-right"></i>
-        <i class="fa fa-search"></i>
-      </p>
-    </header>
-
     <div class="container" id="container">
       <div class="detail_main">
         <div class="section_view">
@@ -70,8 +75,7 @@ export default {
             <div class="detail_price">
               <span class="price">
                 <span class="per">[{{ state.item.discountPer }}%]</span>
-                <span id="gd_price" data-price="259000">
-                  {{ state.item.price }}</span
+                <span id="gd_price"> {{ state.item.price }}</span
                 ><span class="money_kor">원</span>
               </span>
             </div>
@@ -192,8 +196,8 @@ export default {
                 </button>
               </div>
               <div class="third_btn">
-                <button type="button" class="btn btn_cart">
-                  <a href="OrderPage.html">장바구니 담기</a>
+                <button type="button" @click="addToCart" class="btn btn_cart">
+                  <a href="#">장바구니 담기</a>
                 </button>
               </div>
             </div>

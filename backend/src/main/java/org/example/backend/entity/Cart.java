@@ -16,4 +16,5 @@ public class Cart {
     private int userId;
     @Column
     private int itemId;
+    private int quantity;
 }
