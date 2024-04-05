@@ -8,7 +8,7 @@ export default {
   setup() {
     const state = reactive({
       form: {
-        email: "",
+        loginId: "",
         password: ""
       }
     })
@@ -32,10 +32,10 @@ export default {
     <main class="form-signin">
       <h1 class="h3 mb-3 fw-normal text-center">로그인</h1>
       <div class="form-floating">
-        <input type="email" class="form-control" id="floatingInput" placeholder="Email"
+        <input type="text" class="form-control" id="floatingInput" placeholder="ID"
                @keyup.enter="login()"
-               v-model="state.form.email">
-        <label for="floatingInput">Email</label>
+               v-model="state.form.loginId">
+        <label for="floatingInput">ID</label>
       </div>
       <div class="form-floating">
         <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
