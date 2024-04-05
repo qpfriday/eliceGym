@@ -3,9 +3,11 @@ import axios from "axios";
 import { watch } from "vue";
 import { useRoute } from "vue-router";
 import { reactive } from "vue";
+import {addCommas} from "../scripts/lib";
 
 export default {
   name: "ProductDetail",
+  methods: {addCommas},
   setup() {
     const route = useRoute();
     const itemId = route.params.itemId;
@@ -74,9 +76,11 @@ export default {
             </div>
             <div class="detail_price">
               <span class="price">
-                <span class="per">[{{ state.item.discountPer }}%]</span>
-                <span id="gd_price"> {{ state.item.price }}</span
-                ><span class="money_kor">원</span>
+                <span class="per">[{{ state.item.discountPer }}%] &nbsp;</span>
+                <del>{{ state.item.price }} 원</del>
+                <span> &nbsp;{{
+                    addCommas(Math.round(state.item.price - (state.item.price * state.item.discountPer) / 100.0))
+                  }} 원</span>
               </span>
             </div>
 
@@ -153,7 +157,7 @@ export default {
                 <span
                   >총 상품금액:
                   <span class="won" id="won">{{
-                    state.item.price * state.quantity
+                      addCommas(Math.round(state.item.price - (state.item.price * state.item.discountPer) / 100.0) * state.quantity + state.item.deliveryPrice)
                   }}</span>
                   <span>원</span>
                 </span>
