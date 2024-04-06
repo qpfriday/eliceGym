@@ -1,4 +1,3 @@
--- auto-generated definition
 create table users
 (
     id               int auto_increment
@@ -14,7 +13,7 @@ create table users
     constraint members_email_uindex
         unique (email)
 );
--- auto-generated definition
+
 create table carts
 (
     id      int auto_increment
@@ -23,7 +22,6 @@ create table carts
     item_id int not null
 );
 
--- auto-generated definition
 create table items
 (
     id              int auto_increment
@@ -42,7 +40,6 @@ create table items
     updated_at      varchar(50)  null
 );
 
--- auto-generated definition
 create table orders
 (
     id           int auto_increment
