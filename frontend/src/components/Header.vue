@@ -1,19 +1,22 @@
 <script>
-
-import store from "@/scripts/store";
-import router from "@/scripts/router";
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 import axios from "axios";
 
 export default {
   name: 'Header',
   setup() {
+    const store = useStore();
+    const router = useRouter();
+
     const logout = () => {
       axios.post("/api/account/logout").then(() => {
-        store.commit('setAccount', 0);
-        router.push({path: "/"})
+        store.commit('setAccount', { id: 0, name: '' }); // Reset account state
+        router.push({path: "/"});
       });
     }
-    return {logout}
+
+    return { logout, account: store.state.account };
   },
 }
 </script>
@@ -28,10 +31,10 @@ export default {
           </li>
         </ul>
         <ul class="nav d-flex flex-wrap">
-          <li v-if="$store.state.account.id">
+          <li v-if="account.id">
             <ul class="d-flex flex-wrap">
               <li class="nav-link link-body-emphasis px-2 active">
-                {{ $store.state.account.name }} 님
+                {{ account.name }} 님
               </li>
               <li>
                 <router-link class="nav-link link-body-emphasis px-2 active" to="/my">마이페이지</router-link>
@@ -39,7 +42,7 @@ export default {
               <li>
                 <router-link class="nav-link link-body-emphasis px-2 active" to="/cart">장바구니</router-link>
               </li>
-              <li><a class="nav-link link-body-emphasis px-2 active" @click="logout()">로그아웃</a></li>
+              <li><a class="nav-link link-body-emphasis px-2 active" @click="logout">로그아웃</a></li>
             </ul>
           </li>
           <li v-else>
@@ -53,6 +56,7 @@ export default {
     </nav>
   </header>
 </template>
+
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
