@@ -1,3 +1,23 @@
+<script>
+
+import store from "@/scripts/store";
+import router from "@/scripts/router";
+import axios from "axios";
+
+export default {
+  name: 'Header',
+  setup() {
+    const logout = () => {
+      axios.post("/api/account/logout").then(() => {
+        store.commit('setAccount', 0);
+        router.push({path: "/"})
+      });
+    }
+    return {logout}
+  },
+}
+</script>
+
 <template>
   <header>
     <nav class="py-2 bg-body-tertiary border-bottom">
@@ -33,26 +53,6 @@
     </nav>
   </header>
 </template>
-
-<script>
-
-import store from "@/scripts/store";
-import router from "@/scripts/router";
-import axios from "axios";
-
-export default {
-  name: 'Header',
-  setup() {
-    const logout = () => {
-      axios.post("/api/account/logout").then(() => {
-        store.commit('setAccount', 0);
-        router.push({path: "/"})
-      });
-    }
-    return {logout}
-  },
-}
-</script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>

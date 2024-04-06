@@ -8,7 +8,7 @@ create table users
     password         varchar(100) not null,
     login_id         varchar(50)  not null,
     delivery_address varchar(500) null,
-    roll             varchar(10)  null,
+    role             varchar(10)  null,
     created_at       varchar(50)  null,
     updated_at       varchar(50)  null,
     constraint members_email_uindex

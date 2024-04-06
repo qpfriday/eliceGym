@@ -63,7 +63,6 @@ export default {
         <div class="section_view">
           <div class="section_left">
             <div class="thumb">
-              <img src="${item.imgPath}" alt="상품 대표 이미지" class="bg" />
             </div>
           </div>
           <div class="section_right">
@@ -162,38 +161,9 @@ export default {
                   <span>원</span>
                 </span>
               </div>
-              <!--                        <div class="detail_total_price_bottom">-->
-              <!--                            <span class="ico">적립</span>-->
-              <!--                            <span class="point">-->
-              <!--                  구매 시-->
-              <!--                  <strong class="emph">0원 적립</strong>-->
-              <!--                </span>-->
-              <!--                        </div>-->
             </div>
 
             <div class="purchase_button">
-              <!--                        <div class="first_btn">-->
-              <!--                            <button type="button" class="btn btn_heart">-->
-              <!--                  <span>-->
-              <!--                    <img-->
-              <!--                            src=""-->
-              <!--                            alt="상품 찜하기"-->
-              <!--                            class="logo_img"-->
-              <!--                    />-->
-              <!--                  </span>-->
-              <!--                            </button>-->
-              <!--                        </div>-->
-              <!--                        <div class="sec_btn">-->
-              <!--                            <button type="button" class="btn btn_notice">-->
-              <!--                  <span>-->
-              <!--                    <img-->
-              <!--                            src="/img/product_notice.svg"-->
-              <!--                            alt="상품 알림 설정"-->
-              <!--                            class="logo_img"-->
-              <!--                    />-->
-              <!--                  </span>-->
-              <!--                            </button>-->
-              <!--                        </div>-->
               <div class="sec_btn">
                 <button type="button" class="btn btn_purchase">
                   <a href="OrderPage.html">구매하기</a>
@@ -208,103 +178,7 @@ export default {
           </div>
         </div>
 
-        <!--            -->
-
         <div class="good-infomations">
-          <!-- <nav class="infomations-tabs">
-            <ul class="goods-view-infomation-tab-group">
-              <li class="goods-view-infomation-tab">
-                <a
-                  href="#goods-description"
-                  class="goods-view-infomation-tab-anchor active"
-                  >상품설명</a
-                >
-              </li>
-              <li class="goods-view-infomation-tab">
-                <a
-                  href="#goods-infomation"
-                  class="goods-view-infomation-tab-anchor"
-                  >상세정보</a
-                >
-              </li>
-              <li class="goods-view-infomation-tab">
-                <a href="#goods-review" class="goods-view-infomation-tab-anchor"
-                  >후기</a
-                >
-              </li>
-              <li class="goods-view-infomation-tab">
-                <a
-                  href="#goods-inquiry"
-                  class="goods-view-infomation-tab-anchor"
-                >
-                  문의
-                </a>
-              </li>
-            </ul>
-            <span class="et-infomations-tab-slider"></span>
-          </nav> -->
-
-          <!-- <main class="good-infomation-main">
-            <section class="et-slide tab-description" id="goods-description">
-              <div class="good-description-main-picture">
-                <img src="/img/protein.png" alt="상품 대표 이미지" class="bg" />
-              </div>
-              <div class="good-description-main-context">
-                <h3 class="gd-title">[제품 설명]</h3>
-                <p class="gd-desc">1.제품 설명 1.제품 설명 1.제품 설명</p>
-                <div class="good-tip">
-                  <h3>
-                    <span>Tip</span>
-                  </h3>
-                  <div class="tip-box">
-                    <div class="tb-context">
-                      <p class="words">
-                        <strong>제품 꿀팁</strong>
-                        <b>・</b>
-                        0℃ 이하에서 냉장 보관하세요.
-                        <br />
-                        <b>・</b>
-                        ~~~~하세요
-                        <br />
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-            <section class="et-slide" id="goods-infomation">
-              <div class="good-description-main-picture">
-                <img
-                  src="/img/product_test1.jpg"
-                  alt="상품 대표 이미지"
-                  class="bg"
-                />
-              </div>
-              <div class="good-infomation-main-context">
-                <h3 class="gd-title">About Brand</h3>
-                <p class="words">
-                  <strong class="sub_tit">
-                    <span class="option_tit">상세 정보</span>
-                  </strong>
-                  <br />
-                  <b>・중량</b>
-                  : 중량 입력
-                  <br />
-                  <b>・특징</b>
-                  : 특징 입력
-                  <br />
-                  <b>・보관법</b>
-                  : 보관법 입력
-                  <br />
-                  <b>・조리법</b>
-                  : 조리법 입력
-                </p>
-              </div>
-            </section>
-
-            <section class="et-slide" id="goods-inquery"></section>
-          </main> -->
-
           <div class="good_reviews" id="goods-review">
             <div class="gr_title">
               <h2>상품 후기</h2>
@@ -361,43 +235,6 @@ export default {
               </div>
             </div>
 
-            <!-- <div class="good_review_account">
-              <div class="gr_a_name">
-                <span class="gr_a_n_grade">회원</span>
-                <span class="gr_a_n_username">엘**</span>
-              </div>
-
-              <div class="gr_a_content">
-                <div class="gr_a_product_name">[리뷰 상품 이름] 상품 이름</div>
-                <div class="gr_a_content_detail">
-                  <p>
-                    리뷰 내용 입니다. 리뷰 내용 입니다. 리뷰 내용 입니다. 리뷰
-                    내용 입니다. 리뷰 내용 입니다.
-                  </p>
-                </div>
-                <div class="gr_a_content_imgs">
-                  <button class="gr_a_content_img gr_thumb">
-                    <img src="/img/product_test1.jpg" />
-                  </button>
-                  <button class="gr_a_content_img gr_thumb">
-                    <img src="/img/product_test1.jpg" />
-                  </button>
-                </div>
-                <div class="gr_a_content_date">
-                  <div>
-                    <span>2021.01.01</span>
-                  </div>
-                  <div>
-                    <button class="gr_a_content_thumb">
-                      <span class="gr_a_c_thumb_icon">
-                        <img src="/img/review_thumbsup.svg" />
-                      </span>
-                      <span>도움돼요</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div> -->
           </div>
         </div>
       </div>
@@ -421,8 +258,6 @@ html body {
   max-width: 1440px;
   margin: 0 auto;
 }
-
-/* ====================================main==================================== */
 
 .detail_main {
   width: 100%;
@@ -456,10 +291,6 @@ html body {
   background-size: cover;
 }
 
-.section_left .thumb .bg {
-  width: 430px;
-  height: 552px;
-}
 
 .section_right {
   width: 560px;
@@ -467,15 +298,6 @@ html body {
 
 .section_right > div {
   width: 100%;
-}
-.detail_header {
-  width: 100%;
-  font-weight: 600;
-  line-height: 1.36;
-  letter-spacing: -0.5px;
-  color: rgb(153, 153, 153);
-  margin-bottom: 6px;
-  font-size: 14px;
 }
 .detail_title {
   display: flex;
@@ -506,17 +328,6 @@ html body {
   text-align: center;
 }
 
-#btnShare {
-  right: 0;
-  top: 0;
-  width: 40px;
-  height: 40px;
-  border: 0;
-  background: url(https://res.kurly.com/mobile/service/goodsview/1910/ico_view_sns.png)
-    no-repeat 50% 50%;
-  font-size: 0;
-  text-indent: -9999px;
-}
 
 .short_desc {
   padding: 4px 60px 0 0;
@@ -542,33 +353,6 @@ html body {
   color: rgb(250, 98, 47);
 }
 
-.money_kor {
-  font-size: 20px;
-}
-
-.detail_origin {
-  color: rgb(51, 51, 51);
-  font-size: 24px;
-  letter-spacing: -0.5px;
-  margin-top: 8px;
-}
-
-.detail_delivery {
-  width: 100%;
-  display: flex;
-  height: 57px;
-  padding-top: 17px;
-  padding-top: 17px;
-  margin-top: 1em;
-  flex-direction: row;
-  border-top: 1px solid #e5e5e5;
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.detail_delivery .detail_delivery_title {
-  align-items: flex-start;
-  width: 128px;
-}
 
 .detail_delivery_title span {
   font-size: 14px;
@@ -586,14 +370,6 @@ html body {
   white-space: pre-line;
   word-break: break-all;
   overflow: hidden;
-}
-.detail_delivery_desc .second {
-  display: block;
-  font-size: 12px;
-  color: rgb(102, 102, 102);
-  padding-top: 4px;
-  line-height: 16px;
-  white-space: pre-line;
 }
 
 .detail_seller {
@@ -629,21 +405,6 @@ html body {
   overflow: hidden;
 }
 
-.detail_pack_type {
-  width: 100%;
-  display: flex;
-  /* height: 57px; */
-  padding-top: 17px;
-  padding-bottom: 17px;
-  flex-direction: row;
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.detail_pack_type .detail_pack_type_title {
-  align-items: flex-start;
-  width: 128px;
-}
-
 .detail_pack_type_title span {
   font-size: 14px;
 }
@@ -661,15 +422,6 @@ html body {
   word-break: break-all;
   overflow: hidden;
 }
-.detail_pack_type_desc .second {
-  display: block;
-  font-size: 12px;
-  color: rgb(102, 102, 102);
-  padding-top: 4px;
-  line-height: 16px;
-  white-space: pre-line;
-}
-
 .detail_unit {
   width: 100%;
   display: flex;
@@ -882,28 +634,6 @@ html body {
   line-height: 32px;
 }
 
-.detail_total_price_bottom {
-  padding-top: 14px;
-}
-.detail_total_price_bottom .ico {
-  display: inline-block;
-  width: 38px;
-  height: 20px;
-  margin-right: 2px;
-  border: 1px solid #e8a828;
-  border-radius: 10px;
-  background-color: #ffbf00;
-  font-weight: 700;
-  font-size: 11px;
-  color: #fff;
-  line-height: 18px;
-  text-align: center;
-  vertical-align: 1px;
-}
-
-.detail_total_price_bottom .point {
-  font-size: 14px;
-}
 
 .purchase_button {
   display: flex;
@@ -941,12 +671,6 @@ html body {
   background-color: dodgerblue;
   margin-right: 0px;
 }
-.purchase_button .btn_cart:hover {
-  box-shadow: 2px 2px 2px 2px gray;
-}
-.purchase_button .btn_purchase:hover {
-  box-shadow: 2px 2px 2px 2px gray;
-}
 
 .btn_cart a {
   color: #000000;
@@ -960,9 +684,6 @@ html body {
   color: #000000;
 }
 
-.sec_btn .btn_notice {
-}
-
 .btn_heart img {
   margin-top: 7px;
 }
@@ -970,36 +691,9 @@ html body {
   margin-top: 7px;
 }
 
-/* ====================================infomations------------- */
-
 .good-infomations {
   margin: 0 auto;
 }
-.infomations-tabs {
-  z-index: 10;
-  position: sticky;
-  margin: 0px auto;
-  top: 0px;
-  width: 1010px;
-  box-shadow: rgb(221, 221, 221) 0px -0.5px 0px 0px inset;
-  background-color: rgb(255, 255, 255);
-  margin-top: 50px;
-}
-
-.goods-view-infomation-tab-group {
-  display: flex;
-  width: 100%;
-  height: 60px;
-  padding: 0px;
-}
-
-.goods-view-infomation-tab {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  item-align: center;
-}
-
 .goods-view-infomation-tab-group li {
   display: flex;
   flex: 1 1 0%;
@@ -1018,75 +712,6 @@ html body {
   -webkit-box-align: center;
   align-items: center;
   height: 100%;
-}
-
-.goods-view-infomation-tab-anchor {
-  background-color: rgb(250, 250, 250);
-  text-decoration: none;
-  font-weight: bold;
-  color: inherit;
-}
-.goods-view-infomation-tab-anchor.active {
-  background-color: white;
-}
-
-.infomations-tabs--top {
-  position: fixed;
-  top: 100;
-}
-
-.good-infomation-main .et-slide {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.good-description-main-picture {
-}
-
-.good-description-main-picture img {
-  width: 1010px;
-  height: 670px;
-}
-
-.good-description-main-context {
-  width: 1010px;
-}
-
-.good-description-main-context .gd-title {
-  display: block;
-  margin: 75px 0px 0px;
-  padding-bottom: 35px;
-  font-size: 38px;
-  line-height: 46px;
-  text-align: center;
-  border-bottom: 1px solid rgb(193, 193, 193);
-  color: rgb(102, 102, 102);
-}
-
-.good-infomation-main-context .gd-title {
-  display: block;
-  margin: 75px 0px 0px;
-  padding-bottom: 35px;
-  font-size: 38px;
-  line-height: 46px;
-  text-align: center;
-  border-bottom: 1px solid rgb(193, 193, 193);
-  color: rgb(102, 102, 102);
-}
-
-.good-description-main-context .gd-desc {
-  font-size: 18px;
-  line-height: 32px;
-  color: rgb(55, 55, 55);
-  margin-top: 28px;
-}
-
-.good-tip {
-  margin: 0;
-  margin-bottom: 170px;
-  display: block;
 }
 
 .good-tip h3 {
@@ -1111,20 +736,6 @@ html body {
   text-shadow: 2px 0px;
 }
 
-.tip-box {
-  margin-top: -15px;
-  border: 1px solid rgb(185, 185, 185);
-}
-
-.tip-box .tb-context {
-  margin: 60px 62px;
-}
-
-.words {
-  margin: 0px;
-  font-size: 18px;
-  line-height: 32px;
-}
 .words strong {
   display: block;
   font-size: 25px;
@@ -1132,7 +743,6 @@ html body {
   margin-bottom: 10px;
 }
 
-/* ====================================상품 후기==================================== */
 .good_reviews {
   display: flex;
   flex-direction: column;
@@ -1143,18 +753,6 @@ html body {
   width: 1010px;
 }
 
-.gr_thumbs {
-  display: flex;
-  /*//position: relative;*/
-  width: 100%;
-  gap: 3px;
-  align-items: center;
-  flex-wrap: nowrap;
-  justify-content: start;
-  padding: 20px 0px 30px;
-  overflow: hidden;
-  scrollbar-width: none;
-}
 .gr_thumb {
   position: relative;
   width: 124px;
@@ -1165,42 +763,14 @@ html body {
   cursor: pointer;
   border-style: none;
 }
-.gr_thumb:first-child {
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-}
-.gr_thumb:last-child {
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-}
-
 .gr_thumb_title span {
   display: block;
-}
-.gr_thumb .gr_thumb_title {
-  display: block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.gr_thumb_title .gr_thumb_title_font {
-  color: #fff;
-  font-size: 14px;
-  font-weight: bold;
 }
 .gr_thumb_img img {
   width: 124px;
   height: 124px;
 }
 
-.gr_thumb .gr_thumb_img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  vertical-align: middle;
-}
 
 .good_review_count {
   display: flex;
@@ -1230,53 +800,6 @@ html body {
 .gr_order_btn.active {
   font-weight: bold;
   font-size: 14px;
-}
-
-.good_review_grade {
-  padding-bottom: 20px;
-  border-bottom: 1px solid #333;
-}
-.gr_grade_btn {
-  font-size: 14px;
-  color: #333;
-  border: 1px solid rgb(238, 238, 238);
-  background-color: rgb(255, 255, 255);
-  align-items: center;
-  padding: 9px 10px 9px 10px;
-  border-radius: 18px;
-}
-
-.good_review_announce {
-  display: flex;
-}
-
-.gr_announce {
-  width: 100%;
-  display: flex;
-  padding: 21px 20px 20px;
-  border-bottom: 1px solid rgb(238, 238, 238);
-}
-.gr_a_type {
-  display: inline-block;
-  height: 22px;
-  width: 42px;
-  border-radius: 4px;
-  background-color: rgb(244, 244, 244);
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 22px;
-  text-align: center;
-  color: rgb(102, 102, 102);
-  vertical-align: 2px;
-}
-
-.gr_a_title {
-  margin-left: 9px;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 22px;
-  text-align: center;
-  color: rgb(51, 51, 51);
 }
 
 .good_review_account {
@@ -1369,15 +892,6 @@ html body {
   border-style: none;
 }
 
-.gr_a_content_img:first-child {
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-}
-.gr_a_content_img:last-child {
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-}
-
 .gr_a_content_img img {
   width: 100%;
   height: 100%;
@@ -1422,107 +936,6 @@ section {
   height: 15px;
   margin-right: 4px;
 }
-
-/* ====================================모달==================================== */
-
-.background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
-  backdrop-filter: blur(5px); /* Adjust the blur amount as needed */
-  z-index: 999;
-  display: none;
-  overflow: hidden;
-}
-
-.modal-container {
-  display: none;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1000;
-}
-
-.modal {
-  background-color: white;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  position: absolute;
-  width: 800px;
-
-  margin: 0px auto;
-  background-color: rgb(255, 255, 255);
-  border-radius: 12px;
-}
-
-.modal_btn {
-  position: relative;
-  top: 300px;
-  left: -100px;
-  width: 40px;
-  height: 50px;
-  border: 0;
-  cursor: pointer;
-  overflow: hidden;
-}
-.modal_btn_r {
-  position: relative;
-  top: 0;
-  left: 480px;
-  width: 40px;
-  height: 50px;
-  border: 0;
-  cursor: pointer;
-  overflow: hidden;
-}
-
-.modal_next_btn {
-  width: 40px;
-  height: 50px;
-  border: 0;
-  cursor: pointer;
-  text-transform: none;
-  background-color: transparent;
-}
-.modal_next_btn span > svg {
-  width: 100%;
-  height: 100%;
-  font-size: 50px;
-  color: rgb(153, 153, 153);
-  font-weight: 100;
-}
-
-.modal .modal_header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 8px;
-  margin: 29px 30px 20px;
-  border-bottom: 1px solid rgb(244, 244, 244);
-}
-
-.mh_title {
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 30px;
-  letter-spacing: -0.5px;
-  color: rgb(51, 51, 51);
-}
-.mh_btn {
-  width: 40px;
-  height: 32px;
-  border: 0;
-  cursor: pointer;
-  background-color: transparent;
-}
 .mh_btn span {
   width: 100%;
   height: 100%;
@@ -1536,27 +949,11 @@ section {
   height: auto;
 }
 
-.modal_main {
-  display: flex;
-  padding: 0px 30px 30px 30px;
-  justify-content: space-between;
-}
-
-.mm_img {
-  width: 375px;
-  height: 488px;
-}
-
 .mm_img img {
   width: 100%;
   height: 100%;
 }
 
-.mm_review {
-  display: flex;
-  flex-direction: column;
-  width: 343px;
-}
 .mm_review .gr_a_product_name {
   font-size: 12px;
 }
