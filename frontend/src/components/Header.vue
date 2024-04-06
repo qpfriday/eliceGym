@@ -23,11 +23,11 @@ export default {
 
 <template>
   <header>
-    <nav class="py-2 bg-body-tertiary border-bottom">
+    <nav class="py-2 bg-body-tertiary">
       <div class="container d-flex flex-wrap justify-content-between align-items-center">
         <ul class="nav d-flex flex-wrap">
           <li>
-            <router-link class="nav-link link-body-emphasis px-2 active" to="/"><b>eliceGym</b></router-link>
+            <router-link class="nav-link link-body-emphasis px-2 active" to="/" style="font-family: Georgia"><h2>eliceGym</h2></router-link>
           </li>
         </ul>
         <ul class="nav d-flex flex-wrap">
@@ -60,17 +60,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-header nav {
-  background-color: antiquewhite;
-}
 
 nav ul li .nav-link {
-  color: #003b05;
-}
-
-header .navbar .cart {
-  margin-left: auto;
-  color: #fff
+  color: #3b1b00;
 }
 
 header ul li a {

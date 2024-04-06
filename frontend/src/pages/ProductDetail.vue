@@ -77,7 +77,7 @@ export default {
           </tr>
           <tr>
             <th>배송비</th>
-            <td>{{ state.item.deliveryPrice }}</td>
+            <td>{{ state.item.deliveryPrice }} 원</td>
           </tr>
           <tr>
             <th>옵션</th>
