@@ -3,6 +3,7 @@ package org.example.backend.controller;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import org.example.backend.dto.UserDto;
 import org.example.backend.entity.User;
 import org.example.backend.repository.UserRepository;
 import org.example.backend.service.JwtService;
@@ -12,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -59,6 +59,20 @@ public class AccountController {
         cookie.setMaxAge(0);
 
         res.addCookie(cookie);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/api/account/info")
+    public User getAccountInfo(@CookieValue(value = "token", required = false) String token) {
+        return userRepository.findById(jwtService.getId(token));
+    }
+
+    @PutMapping("/api/account/update")
+    public ResponseEntity updateAccountInfo(@RequestBody UserDto updatedUser) {
+        User user = userRepository.findByEmail(updatedUser.getEmail());
+        user.setName(updatedUser.getName());
+        user.setDeliveryAddress(updatedUser.getDeliveryAddress());
+        userRepository.save(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
