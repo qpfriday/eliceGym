@@ -11,6 +11,7 @@ export default {
         loginId: "",
         password: "",
         email: "",
+        phoneNumber: ""
       }
     })
     const join = () => {
@@ -47,6 +48,12 @@ export default {
                @keyup.enter="join()"
                v-model="state.form.password">
         <label for="floatingPassword">Password</label>
+      </div>
+      <div class="form-floating">
+        <input type="text" class="form-control" id="floatingInput" placeholder="XXX-XXXX-XXXX"
+               @keyup.enter="join()"
+               v-model="state.form.phoneNumber">
+        <label for="floatingInput">Phone Number</label>
       </div>
       <div class="form-floating">
         <input type="email" class="form-control" id="floatingInput" placeholder="Email"

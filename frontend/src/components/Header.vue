@@ -12,6 +12,7 @@ export default {
     const logout = () => {
       axios.post("/api/account/logout").then(() => {
         store.commit('resetAccount');
+        window.alert("로그아웃 되었습니다")
         router.push({path: "/"});
       });
     }

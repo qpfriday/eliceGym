@@ -18,7 +18,6 @@ export default {
 
       axios.post(`/api/cart/items/${itemId}`).then(() => {
         alert("장바구니에 추가되었습니다.");
-
         console.log("success");
       });
     };

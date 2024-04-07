@@ -20,6 +20,8 @@ public class User {
     private String password;
     @Column(length = 50, nullable = false)
     private String loginId;
+    @Column(length = 50, nullable = false)
+    private String phoneNumber;
     @Column(length = 500)
     private String deliveryAddress;
     @Column(length = 10)
