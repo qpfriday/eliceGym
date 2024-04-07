@@ -11,7 +11,7 @@ export default {
 
     const logout = () => {
       axios.post("/api/account/logout").then(() => {
-        store.commit('setAccount', { id: 0, name: '' }); // Reset account state
+        store.commit('resetAccount');
         router.push({path: "/"});
       });
     }

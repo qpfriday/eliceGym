@@ -10,12 +10,10 @@ export default {
 
     axios.get("/api/orders").then(({data}) => {
       state.orders = [];
-
       for (let d of data) {
         if (d.items) {
           d.items = JSON.parse(d.items);
         }
-
         state.orders.push(d);
       }
     })

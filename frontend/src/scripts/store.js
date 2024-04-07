@@ -15,6 +15,10 @@ const store = createStore({
             state.account.id = payload.id;
             state.account.name = payload.name; // Set name along with ID
         },
+        resetAccount(state) {
+            state.account.id = 0;
+            state.account.name = '';
+        }
     }
 })
 

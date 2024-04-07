@@ -26,9 +26,10 @@ export default {
       })
     }
     const purchase = () => {
-      const args = JSON.parse(JSON.stringify(state.form));
-      args.items = JSON.stringify(state.items);
-      axios.post("api/orders", args).then(() => {
+      // object 클론
+      // const args = JSON.parse(JSON.stringify(state.form));
+      state.form.items = JSON.stringify(state.items);
+      axios.post("api/orders", state.form).then(() => {
         alert('주문을 완료하였습니다.');
         router.push({path: "/orders"})
       });
