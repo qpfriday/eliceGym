@@ -32,16 +32,16 @@ export default {
     <main class="form-signin">
       <h1 class="h3 mb-3 fw-normal text-center">로그인</h1>
       <div class="form-floating">
-        <input type="text" class="form-control" id="floatingInput" placeholder="ID"
+        <label for="floatingInput" class="form-label">아이디</label>
+        <input type="text" class="form-control" id="floatingInput" placeholder="ID" style="margin-bottom: 20px"
                @keyup.enter="login()"
                v-model="state.form.loginId">
-        <label for="floatingInput">ID</label>
       </div>
       <div class="form-floating">
-        <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
+        <label for="floatingPassword" class="form-label">비밀번호</label>
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" style="margin-bottom: 20px"
                @keyup.enter="login()"
                v-model="state.form.password">
-        <label for="floatingPassword">Password</label>
       </div>
       <button class="w-100 btn btn-lg btn-success" @click="login">로그인</button>
       <a href="join">회원가입 하러가기</a>
@@ -56,8 +56,5 @@ export default {
   padding: 100px 50px 100px 50px;
   border: solid lightgray 0.5px;
   border-radius: 10px
-}
-div .form-control {
-  margin: 15px auto 15px auto;
 }
 </style>

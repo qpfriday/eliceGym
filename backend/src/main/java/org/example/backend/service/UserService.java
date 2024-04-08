@@ -6,6 +6,8 @@ import org.example.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -20,8 +22,9 @@ public class UserService {
         if (user != null) {
             return user.getName();
         } else {
-            return null; // or throw ion if user not foundan except
+            return null;
         }
+
     }
     public void join(UserDto userDto) {
         User newUser = new User();
@@ -29,6 +32,7 @@ public class UserService {
         newUser.setLoginId(userDto.getLoginId());
         newUser.setPassword(userDto.getPassword());
         newUser.setEmail(userDto.getEmail());
+        newUser.setPhoneNumber(userDto.getPhoneNumber());
         newUser.setRole("ROLE_USER");
 
         userRepository.save(newUser);

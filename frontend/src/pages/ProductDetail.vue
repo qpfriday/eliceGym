@@ -103,18 +103,22 @@ export default {
         </div>
         <div class="container text-center">
           <div class="row">
-            <div class="col">
+            <div class="col"></div> <!-- 추가된 빈 열 -->
+
+            <div class="col text-end"> <!-- 수정된 열 -->
               <div class="d-grid gap-2">
-                <a href="#link" class="btn btn-secondary" role="button">구매하기</a>
+                <a href="#link" class="btn btn-secondary btn-lg" role="button" style="width: 200px">구매하기</a>
               </div>
             </div>
-            <div class="col">
+
+            <div class="col text-end"> <!-- 수정된 열 -->
               <div class="d-grid gap-2">
-                <a href="#link" class="btn btn-primary" @click="addToCart" role="button">장바구니 담기</a>
+                <a class="btn btn-primary btn-lg" @click="addToCart" role="button" style="width: 200px">장바구니 담기</a>
               </div>
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>

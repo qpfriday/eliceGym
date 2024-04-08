@@ -102,20 +102,20 @@ export default {
   <div class="container">
     <div>
       <div class="dropdown my-2 d-flex justify-content-end">
-        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
           정렬 기준
         </button>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">높은 할인률순</a></li>
-          <li><a class="dropdown-item" href="#">낮은 할인률순</a></li>
-          <li><a class="dropdown-item" href="#">높은 가격순</a></li>
-          <li><a class="dropdown-item" href="#">낮은 가격순</a></li>
+          <a class="dropdown-item" href="#">높은 할인률순</a>
+          <a class="dropdown-item" href="#">낮은 할인률순</a>
+          <a class="dropdown-item" href="#">높은 가격순</a>
+          <a class="dropdown-item" href="#">낮은 가격순</a>
         </ul>
       </div>
     </div>
 
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-      <div class="col" v-for="(item, idx) in state.items" :key="idx">
+      <div class="col my-4" v-for="(item, idx) in state.items" :key="idx">
         <Card :item="item"/>
       </div>
     </div>

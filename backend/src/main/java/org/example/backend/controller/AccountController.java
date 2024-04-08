@@ -5,6 +5,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.backend.dto.UserDto;
 import org.example.backend.entity.User;
+import org.example.backend.repository.ItemRepository;
 import org.example.backend.repository.UserRepository;
 import org.example.backend.service.JwtService;
 import org.example.backend.service.UserService;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -26,6 +26,10 @@ public class AccountController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    ItemRepository itemRepository;
+
 
     @Autowired
     JwtService jwtService;
@@ -78,5 +82,32 @@ public class AccountController {
         userService.join(userDto);
 
         return new ResponseEntity<>("회원가입이 성공적으로 완료되었습니다.", HttpStatus.OK);
+    }
+
+    @GetMapping("/api/account/user")
+    public ResponseEntity getUser(@CookieValue(value = "token", required = false) String token) {
+
+        if (!jwtService.isValid(token)) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
+
+        int userId = jwtService.getId(token);
+        User user = userRepository.findById(userId);
+
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @GetMapping("/api/account/info")
+    public User getAccountInfo(@CookieValue(value = "token", required = false) String token) {
+        return userRepository.findById(jwtService.getId(token));
+    }
+
+    @PutMapping("/api/account/update")
+    public ResponseEntity updateAccountInfo(@RequestBody UserDto updatedUser) {
+        User user = userRepository.findByEmail(updatedUser.getEmail());
+        user.setName(updatedUser.getName());
+        user.setDeliveryAddress(updatedUser.getDeliveryAddress());
+        userRepository.save(user);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

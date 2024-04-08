@@ -26,7 +26,7 @@ public class Order {
     private String payment;
     @Column(length = 16)
     private String cardNumber;
-    @Column(length = 500, nullable = false)
+    @Column(length = 5000, nullable = false)
     private String items;
     @Column(length = 50)
     private String createdAt;
