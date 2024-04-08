@@ -32,34 +32,39 @@ export default {
     <main class="form-signin">
       <h1 class="h3 mb-3 fw-normal text-center">회원가입</h1>
       <div class="form-floating">
+        <label for="floatingInput" class="form-label">이름</label>
         <input type="text" class="form-control" id="floatingInput" placeholder="Name"  required
+               style="margin-bottom: 20px"
                @keyup.enter="join()"
                v-model="state.form.name">
-        <label for="floatingInput"></label>
       </div>
       <div class="form-floating">
+        <label for="floatingInput" class="form-label">아이디</label>
         <input type="text" class="form-control" id="floatingInput" placeholder="ID" required
+               style="margin-bottom: 20px"
                @keyup.enter="join()"
                v-model="state.form.loginId">
-        <label for="floatingInput"></label>
       </div>
       <div class="form-floating">
+        <label for="floatingPassword" class="form-label">비밀번호</label>
         <input type="password" class="form-control" id="floatingPassword" placeholder="Password" required
+               style="margin-bottom: 20px"
                @keyup.enter="join()"
                v-model="state.form.password">
-        <label for="floatingPassword"></label>
       </div>
       <div class="form-floating">
+        <label for="floatingInput" class="form-label">전화번호</label>
         <input type="text" class="form-control" id="floatingInput" placeholder="XXX-XXXX-XXXX" required
+               style="margin-bottom: 20px"
                @keyup.enter="join()"
                v-model="state.form.phoneNumber">
-        <label for="floatingInput"></label>
       </div>
       <div class="form-floating">
+        <label for="floatingInput" class="form-label">이메일</label>
         <input type="email" class="form-control" id="floatingInput" placeholder="Email" required
+               style="margin-bottom: 20px"
                @keyup.enter="join()"
                v-model="state.form.email">
-        <label for="floatingInput"></label>
       </div>
       <button class="w-100 btn btn-lg btn-success" type="submit" @click="join">회원가입</button>
       <a href="login">로그인 하러가기</a>
@@ -74,7 +79,5 @@ export default {
   padding: 100px 50px 100px 50px;
   border: solid lightgray 0.5px;
   border-radius: 10px
-}
-div .form-control {
 }
 </style>

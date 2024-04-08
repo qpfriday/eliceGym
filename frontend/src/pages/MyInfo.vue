@@ -39,59 +39,82 @@ export default {
 </script>
 
 <template>
-  <div class="wrap">
-    <h2>회원 정보</h2>
-    <div class="box">
-      <table>
-        <tbody>
-        <tr>
-          <td>이름</td>
-          <td>:</td>
-          <td>
-            <label v-if="!state.editable" for="name">{{state.form.name}}</label>
-            <input v-else v-model="state.form.name" id="name" type="text">
-          </td>
-        </tr>
-        <tr>
-          <td>아이디</td>
-          <td>:</td>
-          <td>
-            <label v-if="!state.editable" for="id">{{state.form.loginId}}</label>
-            <input v-else v-model="state.form.loginId" id="id" type="text" disabled>
-          </td>
-        </tr>
-        <tr>
-          <td>이메일</td>
-          <td>:</td>
-          <td>
-            <label v-if="!state.editable" for="email">{{state.form.email}}</label>
-            <input v-else v-model="state.form.email" id="email" type="email" disabled>
-          </td>
-        </tr>
-        <tr>
-          <td>주소</td>
-          <td>:</td>
-          <td>
-            <label v-if="!state.editable" for="deliveryAddress">{{state.form.deliveryAddress}}</label>
-            <input v-else v-model="state.form.deliveryAddress" id="deliveryAddress" type="text">
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-    <button @click="edit" v-if="!state.editable">수정</button>
-    <button @click="save" v-if="state.editable">저장</button>
+  <div class="container">
+    <main class="form-signin">
+      <h1 class="h3 mb-3 fw-normal text-center">회원 정보</h1>
+      <div class="form-floating">
+        <label for="floatingInput" class="form-label">이름</label>
+        <input type="text" class="form-control" id="floatingInput" placeholder="Name" aria-label="Disabled input example" disabled
+               style="margin-bottom: 20px"
+               v-if="!state.editable"
+               v-model="state.form.name">
+        <input type="text" class="form-control" id="floatingInput" placeholder="Name"  required
+               style="margin-bottom: 20px"
+               v-else
+               v-model="state.form.name">
+      </div>
+      <div class="form-floating">
+        <label for="floatingInput" class="form-label">아이디</label>
+        <input type="text" class="form-control" id="floatingInput" placeholder="Disabled" aria-label="Disabled input example" disabled
+               style="margin-bottom: 20px"
+               v-if="!state.editable"
+               v-model="state.form.loginId">
+        <input type="text" class="form-control" id="floatingInput" placeholder="ID" required
+               style="margin-bottom: 20px"
+               v-else
+               v-model="state.form.loginId">
+      </div>
+      <div class="form-floating">
+        <label for="floatingPassword" class="form-label">비밀번호</label>
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" aria-label="Disabled input example" disabled
+               style="margin-bottom: 20px"
+               v-if="!state.editable"
+               v-model="state.form.password">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" required
+               style="margin-bottom: 20px"
+               v-else
+               v-model="state.form.password">
+      </div>
+      <div class="form-floating">
+        <label for="floatingInput" class="form-label">전화번호</label>
+        <input type="text" class="form-control" id="floatingInput" placeholder="XXX-XXXX-XXXX" aria-label="Disabled input example" disabled
+               style="margin-bottom: 20px"
+               v-if="!state.editable"
+               v-model="state.form.phoneNumber">
+        <input type="text" class="form-control" id="floatingInput" placeholder="XXX-XXXX-XXXX" required
+               style="margin-bottom: 20px"
+               v-else
+               v-model="state.form.phoneNumber">
+      </div>
+      <div class="form-floating">
+        <label for="floatingInput" class="form-label">이메일</label>
+        <input type="text" class="form-control" id="floatingInput" placeholder="Email" aria-label="Disabled input example" disabled
+               style="margin-bottom: 20px"
+               v-if="!state.editable"
+               v-model="state.form.email">
+        <input type="email" class="form-control" id="floatingInput" placeholder="Email" required
+               style="margin-bottom: 20px"
+               v-else
+               v-model="state.form.email">
+      </div>
+      <div class="form-floating">
+        <label for="floatingInput" class="form-label">배송지</label>
+        <textarea class="form-control" id="floatingInput" placeholder="Address" rows="3" disabled
+               style="margin-bottom: 50px"
+               v-if="!state.editable"
+               v-model="state.form.deliveryAddress"></textarea>
+        <textarea class="form-control" id="floatingInput" placeholder="Address" rows="3" required
+               style="margin-bottom: 50px"
+               v-else
+               v-model="state.form.deliveryAddress"></textarea>
+      </div>
+      <button class="w-100 btn btn-lg btn-success" @click="edit" v-if="!state.editable">수정</button>
+      <button class="w-100 btn btn-lg btn-success" @click="save" v-if="state.editable">저장</button>
+    </main>
   </div>
 </template>
 
 <style scoped>
-  .wrap {
-    margin: 50px auto;
-    text-align:center;
-    font-size: 16px;
-    padding: 0 10px;
-    width: 80%;
-  }
 
   table {
     border-collapse: collapse;
@@ -104,5 +127,12 @@ export default {
     padding: 8px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+  }
+  .container {
+    margin: 50px auto 100px auto;
+    width: 700px;
+    padding: 100px 50px 100px 50px;
+    border: solid lightgray 0.5px;
+    border-radius: 10px
   }
 </style>
