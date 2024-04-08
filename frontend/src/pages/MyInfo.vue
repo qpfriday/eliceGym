@@ -115,19 +115,6 @@ export default {
 </template>
 
 <style scoped>
-
-  table {
-    border-collapse: collapse;
-    width: 500px;
-    margin: 50px auto;
-    box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.1);
-    background-color: white;
-  }
-  th, td {
-    padding: 8px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
   .container {
     margin: 50px auto 100px auto;
     width: 700px;
