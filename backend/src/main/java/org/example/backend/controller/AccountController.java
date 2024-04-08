@@ -3,9 +3,12 @@ package org.example.backend.controller;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import org.example.backend.entity.Item;
 import org.example.backend.entity.User;
+import org.example.backend.repository.ItemRepository;
 import org.example.backend.repository.UserRepository;
 import org.example.backend.service.JwtService;
+import org.hibernate.cache.spi.support.AbstractReadWriteAccess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +23,9 @@ public class AccountController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    ItemRepository itemRepository;
 
     @Autowired
     JwtService jwtService;
@@ -51,7 +57,6 @@ public class AccountController {
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
-
     @PostMapping("/api/account/logout")
     public ResponseEntity logout(HttpServletResponse res) {
         Cookie cookie = new Cookie("token", null);
@@ -61,4 +66,5 @@ public class AccountController {
         res.addCookie(cookie);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }

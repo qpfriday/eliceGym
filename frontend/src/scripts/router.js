@@ -6,6 +6,7 @@ import Cart from "@/pages/Cart.vue";
 import Order from "@/pages/Order.vue";
 import Orders from "@/pages/Orders.vue";
 import {createRouter, createWebHistory} from "vue-router";
+import AddItem from "@/pages/AddItem.vue";
 
 const routes = [
     {path:'/', component: Home},
@@ -14,7 +15,8 @@ const routes = [
     {path:'/my', component: MyPage},
     {path:'/cart', component: Cart},
     {path:'/order', component: Order},
-    {path:'/orders', component: Orders}
+    {path:'/orders', component: Orders},
+    {path:'/additem', component: AddItem}
 ]
 const router = createRouter({
     history: createWebHistory(),
