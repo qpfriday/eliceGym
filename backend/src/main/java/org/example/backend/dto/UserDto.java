@@ -10,5 +10,6 @@ public class UserDto {
     private String loginId;
     private String password;
     private String email;
+    private String deliveryAddress;
     private String phoneNumber;
 }

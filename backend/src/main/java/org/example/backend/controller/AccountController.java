@@ -4,8 +4,6 @@ import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.backend.dto.UserDto;
-import org.example.backend.entity.Cart;
-import org.example.backend.entity.Item;
 import org.example.backend.entity.User;
 import org.example.backend.repository.UserRepository;
 import org.example.backend.service.JwtService;
@@ -93,5 +91,19 @@ public class AccountController {
         List<User> user = userRepository.findById(userId);
 
         return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @GetMapping("/api/account/info")
+    public User getAccountInfo(@CookieValue(value = "token", required = false) String token) {
+        return userRepository.findById(jwtService.getId(token)).get(0);
+    }
+
+    @PutMapping("/api/account/update")
+    public ResponseEntity updateAccountInfo(@RequestBody UserDto updatedUser) {
+        User user = userRepository.findByEmail(updatedUser.getEmail());
+        user.setName(updatedUser.getName());
+        user.setDeliveryAddress(updatedUser.getDeliveryAddress());
+        userRepository.save(user);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
