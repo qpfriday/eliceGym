@@ -63,9 +63,4 @@ export default {
   height: auto;
 }
 
-.product h4 {
-  margin-top: 10px;
-  margin-bottom: 0px;
-}
-
 </style>

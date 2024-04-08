@@ -8,22 +8,25 @@ export default {
   setup() {
     const state = reactive({
       items: [],
+      user: [],
       form: {
-        name:"",
+        name: "",
         phoneNumber:"",
         address:"",
         request:"",
         payment:"",
         cardNumber:"",
         items:"",
-
       }
     })
     const load = () => {
       axios.get("/api/cart/items").then(({data}) => {
-        console.log(data);
         state.items = data;
-      })
+      });
+
+      axios.get("/api/account/user").then(({data}) => {
+        state.user = data;
+      });
     }
     const purchase = () => {
       // object 클론
@@ -42,10 +45,25 @@ export default {
       }
       return result;
     });
+    const fillUserInfo = (event) => {
+      if (event.target.checked && state.user.length > 0) {
+        const user = state.user[0];
+        state.form.name = user.name;
+        state.form.phoneNumber = user.phoneNumber;
+        state.form.address = user.address;
+        state.form.request = user.request;
+      } else {
+        // Clear form fields if unchecked or if user data is not available
+        state.form.name = "";
+        state.form.phoneNumber = "";
+        state.form.address = "";
+        state.form.request = "";
+      }
+    };
 
     load();
 
-    return {state, addCommas, computedPrice, purchase}
+    return {state, addCommas, computedPrice, purchase, fillUserInfo}
   },
 }
 </script>
@@ -74,6 +92,12 @@ export default {
           </div>
           <div class="col-md-5 col-lg-8"><h4 class="mb-3">주문 정보</h4>
             <div class="needs-validation" novalidate="">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" @change="fillUserInfo">
+                <label class="form-check-label" for="flexCheckDefault">
+                  주문 고객 정보와 동일
+                </label>
+              </div>
               <div class="row g-3">
                 <div class="col-12"><label for="username" class="form-label">이름</label>
                   <input type="text"
@@ -82,10 +106,10 @@ export default {
                          placeholder="Username"
                          v-model="state.form.name">
                 </div>
-                <div class="col-12"><label for="address" class="form-label">전화번호</label>
+                <div class="col-12"><label for="phoneNumber" class="form-label">전화번호</label>
                   <input type="text"
                          class="form-control"
-                         id="address"
+                         id="phoneNumber"
                          placeholder="XXX-XXXX-XXXX"
                          v-model="state.form.phoneNumber">
                 </div>
@@ -96,10 +120,10 @@ export default {
                          placeholder="Address"
                          v-model="state.form.address">
                 </div>
-                <div class="col-12"><label for="address" class="form-label">배송 요청사항 (100자 이내)</label>
+                <div class="col-12"><label for="request" class="form-label">배송 요청사항 (100자 이내)</label>
                   <input type="text"
                          class="form-control"
-                         id="address"
+                         id="request"
                          placeholder="문앞에 두고 가주세요"
                          v-model="state.form.request">
                 </div>
@@ -130,4 +154,7 @@ export default {
 </template>
 
 <style scoped>
+.col-12 input {
+  margin-bottom: 10px;
+}
 </style>

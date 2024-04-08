@@ -4,6 +4,8 @@ import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.backend.dto.UserDto;
+import org.example.backend.entity.Cart;
+import org.example.backend.entity.Item;
 import org.example.backend.entity.User;
 import org.example.backend.repository.UserRepository;
 import org.example.backend.service.JwtService;
@@ -78,5 +80,18 @@ public class AccountController {
         userService.join(userDto);
 
         return new ResponseEntity<>("회원가입이 성공적으로 완료되었습니다.", HttpStatus.OK);
+    }
+
+    @GetMapping("/api/account/user")
+    public ResponseEntity getUser(@CookieValue(value = "token", required = false) String token) {
+
+        if (!jwtService.isValid(token)) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
+
+        int userId = jwtService.getId(token);
+        List<User> user = userRepository.findById(userId);
+
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }

@@ -115,7 +115,7 @@ export default {
     </div>
 
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-      <div class="col" v-for="(item, idx) in state.items" :key="idx">
+      <div class="col my-4" v-for="(item, idx) in state.items" :key="idx">
         <Card :item="item"/>
       </div>
     </div>

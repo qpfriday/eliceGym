@@ -6,6 +6,8 @@ import org.example.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -16,8 +18,9 @@ public class UserService {
     public String getNameById(int userId) {
         // Assuming your UserRepository has a method to fetch user by ID
         // Replace 'User' with your actual user entity class name
-        User user = userRepository.findById(userId);
-        if (user != null) {
+        List<User> users = userRepository.findById(userId);
+        if (!users.isEmpty()) {
+            User user = users.get(0);
             return user.getName();
         } else {
             return null; // or throw ion if user not foundan except

@@ -35,13 +35,13 @@ export default {
         <input type="text" class="form-control" id="floatingInput" placeholder="ID"
                @keyup.enter="login()"
                v-model="state.form.loginId">
-        <label for="floatingInput">ID</label>
+        <label for="floatingInput"></label>
       </div>
       <div class="form-floating">
         <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
                @keyup.enter="login()"
                v-model="state.form.password">
-        <label for="floatingPassword">Password</label>
+        <label for="floatingPassword"></label>
       </div>
       <button class="w-100 btn btn-lg btn-success" @click="login">로그인</button>
       <a href="join">회원가입 하러가기</a>
@@ -56,8 +56,5 @@ export default {
   padding: 100px 50px 100px 50px;
   border: solid lightgray 0.5px;
   border-radius: 10px
-}
-div .form-control {
-  margin: 15px auto 15px auto;
 }
 </style>
