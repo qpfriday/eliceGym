@@ -3,38 +3,6 @@ import Card from "@/components/Card.vue";
 import axios from "axios";
 import {reactive} from "vue";
 
-const parentCategories = [
-  {name: "보충제", id: 1},
-  {name: "용품", id: 2},
-  {name: "헬스", id: 3},
-];
-
-const childCategories = [
-  {name: "보충제", id: 1, parentId: 1},
-  {name: "보충제", id: 2, parentId: 1},
-  {name: "보충제", id: 3, parentId: 1},
-  {name: "보충제", id: 4, parentId: 1},
-  {name: "보충제", id: 5, parentId: 1},
-  {name: "보충제", id: 6, parentId: 2},
-  {name: "보충제", id: 7, parentId: 2},
-  {name: "보충제", id: 8, parentId: 2},
-  {name: "보충제", id: 9, parentId: 2},
-  {name: "보충제", id: 10, parentId: 3},
-  {name: "보충제", id: 11, parentId: 3},
-  {name: "보충제", id: 12, parentId: 3},
-  {name: "보충제", id: 13, parentId: 3},
-  {name: "보충제", id: 14, parentId: 3},
-  {name: "보충제", id: 15, parentId: 3},
-];
-
-let selectedParentId = 1;
-
-const filterProducts = (category) => {
-  console.log(category);
-  // axios.get(`/api/product/list/${category}`).then(({ data }) => {
-  //   state.products = data;
-  // });
-};
 export default {
   name: "Home",
   components: {Card},
@@ -47,48 +15,8 @@ export default {
       state.items = data;
     });
 
-    const showChildren = (parentId) => {
-      selectedParentId = parentId;
-      const child_list = document.getElementById("child_list");
-      child_list.innerHTML = "";
-
-      childCategories
-          .filter((child) => child.parentId === parentId)
-          .forEach((child) => {
-            child_list.innerHTML += `<div
-                v-bind:key=${child.id}
-                v-on:click="filterProducts(${child.id})"
-                data-id=${child.id}
-                id="childCategory"
-                class="category childCategory btn btn-secondary"
-              >
-               ${child.name}
-              </div>`;
-          });
-    };
-
-    // const filterProducts = (category) => {
-    //   console.log(category);
-    //   // axios.get(`/api/product/list/${category}`).then(({ data }) => {
-    //   //   state.products = data;
-    //   // });
-    // };
-
-    // const getChildCategories = (parentId) => {
-    //   console.log(parentId);
-    //   return childCategories.filter((child) => child.parentId === parentId);
-    // };
-
-    return {
-      state,
-      parentCategories,
-      childCategories,
-      showChildren,
-      selectedParentId,
-      filterProducts,
-      //   getChildCategories,
-    };
-  },
+    return { state, };
+  }
 };
 </script>
 
@@ -114,7 +42,7 @@ export default {
       </div>
     </div>
 
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
       <div class="col my-4" v-for="(item, idx) in state.items" :key="idx">
         <Card :item="item"/>
       </div>
