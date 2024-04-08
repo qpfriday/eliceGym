@@ -7,6 +7,7 @@ import Cart from "@/pages/Cart.vue";
 import Order from "@/pages/Order.vue";
 import Orders from "@/pages/Orders.vue";
 import ProductDetail from "@/pages/ProductDetail.vue";
+import AddItem from "@/pages/AddItem.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
@@ -19,6 +20,7 @@ const routes = [
   { path: "/order", component: Order },
   { path: "/orders", component: Orders },
   { path: "/:itemId", component: ProductDetail, name: "productDetail" },
+  { path: "/additem", component: AddItem}
 ];
 const router = createRouter({
   history: createWebHistory(),

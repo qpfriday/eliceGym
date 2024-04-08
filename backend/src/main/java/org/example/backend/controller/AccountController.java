@@ -5,9 +5,11 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.backend.dto.UserDto;
 import org.example.backend.entity.User;
+import org.example.backend.repository.ItemRepository;
 import org.example.backend.repository.UserRepository;
 import org.example.backend.service.JwtService;
 import org.example.backend.service.UserService;
+import org.hibernate.cache.spi.support.AbstractReadWriteAccess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -26,6 +27,10 @@ public class AccountController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    ItemRepository itemRepository;
+
 
     @Autowired
     JwtService jwtService;
