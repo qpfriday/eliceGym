@@ -8,7 +8,12 @@ export default {
   setup() {
     const state = reactive({
       items: [],
-      user: [],
+      user: {
+        name: "",
+        phoneNumber: "",
+        address: "",
+        request: "",
+      },
       form: {
         name: "",
         phoneNumber:"",
@@ -46,8 +51,8 @@ export default {
       return result;
     });
     const fillUserInfo = (event) => {
-      if (event.target.checked && state.user.length > 0) {
-        const user = state.user[0];
+      if (event.target.checked && Object.keys(state.user).length !== 0) {
+        const user = state.user;
         state.form.name = user.name;
         state.form.phoneNumber = user.phoneNumber;
         state.form.address = user.address;

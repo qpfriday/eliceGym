@@ -18,13 +18,13 @@ public class UserService {
     public String getNameById(int userId) {
         // Assuming your UserRepository has a method to fetch user by ID
         // Replace 'User' with your actual user entity class name
-        List<User> users = userRepository.findById(userId);
-        if (!users.isEmpty()) {
-            User user = users.get(0);
+        User user = userRepository.findById(userId);
+        if (user != null) {
             return user.getName();
         } else {
-            return null; // or throw ion if user not foundan except
+            return null;
         }
+
     }
     public void join(UserDto userDto) {
         User newUser = new User();

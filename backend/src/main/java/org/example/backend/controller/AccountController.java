@@ -88,14 +88,14 @@ public class AccountController {
         }
 
         int userId = jwtService.getId(token);
-        List<User> user = userRepository.findById(userId);
+        User user = userRepository.findById(userId);
 
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @GetMapping("/api/account/info")
     public User getAccountInfo(@CookieValue(value = "token", required = false) String token) {
-        return userRepository.findById(jwtService.getId(token)).get(0);
+        return userRepository.findById(jwtService.getId(token));
     }
 
     @PutMapping("/api/account/update")
