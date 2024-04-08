@@ -32,36 +32,36 @@ export default {
     <main class="form-signin">
       <h1 class="h3 mb-3 fw-normal text-center">회원가입</h1>
       <div class="form-floating">
-        <input type="text" class="form-control" id="floatingInput" placeholder="Name"
+        <input type="text" class="form-control" id="floatingInput" placeholder="Name"  required
                @keyup.enter="join()"
                v-model="state.form.name">
         <label for="floatingInput"></label>
       </div>
       <div class="form-floating">
-        <input type="text" class="form-control" id="floatingInput" placeholder="ID"
+        <input type="text" class="form-control" id="floatingInput" placeholder="ID" required
                @keyup.enter="join()"
                v-model="state.form.loginId">
         <label for="floatingInput"></label>
       </div>
       <div class="form-floating">
-        <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" required
                @keyup.enter="join()"
                v-model="state.form.password">
         <label for="floatingPassword"></label>
       </div>
       <div class="form-floating">
-        <input type="text" class="form-control" id="floatingInput" placeholder="XXX-XXXX-XXXX"
+        <input type="text" class="form-control" id="floatingInput" placeholder="XXX-XXXX-XXXX" required
                @keyup.enter="join()"
                v-model="state.form.phoneNumber">
         <label for="floatingInput"></label>
       </div>
       <div class="form-floating">
-        <input type="email" class="form-control" id="floatingInput" placeholder="Email"
+        <input type="email" class="form-control" id="floatingInput" placeholder="Email" required
                @keyup.enter="join()"
                v-model="state.form.email">
         <label for="floatingInput"></label>
       </div>
-      <button class="w-100 btn btn-lg btn-success" @click="join">회원가입</button>
+      <button class="w-100 btn btn-lg btn-success" type="submit" @click="join">회원가입</button>
       <a href="login">로그인 하러가기</a>
     </main>
   </div>

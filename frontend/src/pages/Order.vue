@@ -120,12 +120,20 @@ export default {
                          placeholder="Address"
                          v-model="state.form.address">
                 </div>
-                <div class="col-12"><label for="request" class="form-label">배송 요청사항 (100자 이내)</label>
+                <div class="col-12">
+                  <label for="request" class="form-label">배송 요청사항 (100자 이내)</label>
                   <input type="text"
                          class="form-control"
                          id="request"
                          placeholder="문앞에 두고 가주세요"
                          v-model="state.form.request">
+                  <datalist id="datalistOptions">
+                    <option value="San Francisco"></option>
+                    <option value="New York"></option>
+                    <option value="Seattle"></option>
+                    <option value="Los Angeles"></option>
+                    <option value="Chicago"></option>>
+                  </datalist>
                 </div>
               </div>
               <hr class="my-4">
