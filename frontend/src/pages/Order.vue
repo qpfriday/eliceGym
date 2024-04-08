@@ -1,5 +1,5 @@
 <script>
-import {computed, reactive} from "vue";
+import {computed, reactive, ref} from "vue";
 import axios from "axios";
 import {addCommas} from "@/scripts/lib";
 import router from "@/scripts/router";
@@ -65,10 +65,11 @@ export default {
         state.form.request = "";
       }
     };
+    const showCustomRequest = ref(false);
 
     load();
 
-    return {state, addCommas, computedPrice, purchase, fillUserInfo}
+    return {state, addCommas, computedPrice, purchase, fillUserInfo, showCustomRequest}
   },
 }
 </script>
@@ -98,8 +99,8 @@ export default {
           <div class="col-md-5 col-lg-8"><h4 class="mb-3">주문 정보</h4>
             <div class="needs-validation" novalidate="">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" @change="fillUserInfo">
-                <label class="form-check-label" for="flexCheckDefault">
+                <input class="form-check-input" type="checkbox" value="" id="fillUserInfo" @change="fillUserInfo">
+                <label class="form-check-label" for="fillUserInfo">
                   주문 고객 정보와 동일
                 </label>
               </div>
@@ -126,19 +127,22 @@ export default {
                          v-model="state.form.address">
                 </div>
                 <div class="col-12">
-                  <label for="request" class="form-label">배송 요청사항 (100자 이내)</label>
-                  <input type="text"
-                         class="form-control"
-                         id="request"
-                         placeholder="문앞에 두고 가주세요"
-                         v-model="state.form.request">
-                  <datalist id="datalistOptions">
-                    <option value="San Francisco"></option>
-                    <option value="New York"></option>
-                    <option value="Seattle"></option>
-                    <option value="Los Angeles"></option>
-                    <option value="Chicago"></option>>
-                  </datalist>
+                  <label for="request" class="form-label">배송 요청사항</label>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="showCustomRequest" @click="showCustomRequest = !showCustomRequest">
+                    <label class="form-check-label" for="showCustomRequest">직접 입력하기</label>
+                  </div>
+                  <!-- 선택 사항을 나타내는 div -->
+                  <div v-if="showCustomRequest">
+                    <input type="text" class="form-control" id="customRequest" placeholder="배송 요청사항을 입력하세요 (100자 이내)" v-model="state.form.request">
+                  </div>
+                  <div v-else>
+                    <select class="form-select" v-model="state.form.request">
+                      <option selected>문앞에 두고 가주세요</option>
+                      <option value="경비실에 맡겨주세요">경비실에 맡겨주세요</option>
+                      <option value="직접 전달해주세요">직접 전달해주세요</option>
+                    </select>
+                  </div>
                 </div>
               </div>
               <hr class="my-4">
