@@ -137,7 +137,7 @@ export default {
                     <input type="text" class="form-control" id="customRequest" placeholder="배송 요청사항을 입력하세요 (100자 이내)" v-model="state.form.request">
                   </div>
                   <div v-else>
-                    <select class="form-select" v-model="state.form.request">
+                    <select class="custom-select" v-model="state.form.request">
                       <option selected>문앞에 두고 가주세요</option>
                       <option value="경비실에 맡겨주세요">경비실에 맡겨주세요</option>
                       <option value="직접 전달해주세요">직접 전달해주세요</option>

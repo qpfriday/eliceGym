@@ -113,7 +113,7 @@ export default {
 
             <div class="col text-end"> <!-- 수정된 열 -->
               <div class="d-grid gap-2">
-                <a href="#link" class="btn btn-primary btn-lg" @click="addToCart" role="button" style="width: 200px">장바구니 담기</a>
+                <a class="btn btn-primary btn-lg" @click="addToCart" role="button" style="width: 200px">장바구니 담기</a>
               </div>
             </div>
           </div>

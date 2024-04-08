@@ -11,7 +11,7 @@
     - vuex
     - axios
     - router
-    - Bootstrap
+    - Bootstrap 4.6.2
 - Database
   - mariaDB
 
