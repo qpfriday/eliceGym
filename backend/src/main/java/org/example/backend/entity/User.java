@@ -3,6 +3,10 @@ package org.example.backend.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.sql.Timestamp;
 
 @Getter
 @Setter
@@ -26,8 +30,8 @@ public class User {
     private String deliveryAddress;
     @Column(length = 10)
     private String role;
-    @Column(length = 50)
-    private String createdAt;
-    @Column(length = 50)
-    private String updatedAt;
+    @CreationTimestamp
+    private Timestamp createdAt;
+    @UpdateTimestamp
+    private Timestamp updatedAt;
 }
