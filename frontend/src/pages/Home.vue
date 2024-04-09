@@ -1,29 +1,51 @@
 <script>
 import Card from "@/components/Card.vue";
 import axios from "axios";
-import {reactive} from "vue";
+import {computed, reactive} from "vue";
 import {usePagination} from "@/scripts/pagination";
+import Category from "@/pages/Category.vue";
 
 export default {
   name: "Home",
-  components: {Card},
+  components: {Category, Card},
 
   setup() {
+
+    const categoryList = [
+      { id: 1, name: "의류" },
+      { id: 2, name: "보충제" },
+      { id: 3, name: "용품" }
+    ];
 
     const state = reactive({
       items: [],
       currentPage: 1,
       itemsPerPage: 16,
       maxVisiblePages: 5,
+      selectedCategory: null
     });
 
     axios.get("/api/item/list").then(({data}) => {
       state.items = data;
     });
 
+    const handleCategorySelected = (categoryName) => {
+      state.selectedCategory = categoryName;
+    };
+
+    const filteredItems = computed(() => {
+      if (!state.selectedCategory) {
+        return state.items;
+      } else {
+        console.log(typeof state.items[0].parentCategory);
+        console.log(typeof state.selectedCategory);
+        return state.items.filter(item => item.parentCategory === state.selectedCategory);
+      }
+    });
+
     const { displayedItems, totalPages, visiblePages, changePage, nextPage, prevPage } = usePagination(state);
 
-    return { state, displayedItems, totalPages, visiblePages, changePage, nextPage, prevPage };
+    return { state, displayedItems, totalPages, visiblePages, changePage, nextPage, prevPage, categoryList, filteredItems, handleCategorySelected };
   }
 };
 </script>
@@ -35,6 +57,7 @@ export default {
       <h5 class="lead fw-normal text-white-50">불가능 한 것을 이루는 유일한 방법은 가능하다고 믿는 것 입니다!</h5>
     </div>
   </div>
+  <Category :categoryList="categoryList" @category-selected="handleCategorySelected" />
   <div class="container">
     <div class="form-inline justify-content-between my-3">
       <div class="dropdown my-2 d-flex">
@@ -56,7 +79,7 @@ export default {
       </div>
     </div>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
-      <div class="col my-4" v-for="(item, index) in displayedItems" :key="index">
+      <div class="col my-4" v-for="(item, index) in filteredItems" :key="index">
         <Card :item="item"/>
       </div>
     </div>
