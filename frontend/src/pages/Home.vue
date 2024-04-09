@@ -1,8 +1,7 @@
 <script>
 import Card from "@/components/Card.vue";
 import axios from "axios";
-import {reactive} from "vue";
-import {usePagination} from "@/scripts/pagination";
+import { reactive} from "vue";
 
 export default {
   name: "Home",
@@ -12,18 +11,20 @@ export default {
 
     const state = reactive({
       items: [],
-      currentPage: 1,
-      itemsPerPage: 16,
-      maxVisiblePages: 5,
+      searchText: "", // 검색어 저장
+      filteredItems: []
     });
 
     axios.get("/api/item/list").then(({data}) => {
       state.items = data;
+      state.filteredItems = data;
     });
 
-    const { displayedItems, totalPages, visiblePages, changePage, nextPage, prevPage } = usePagination(state);
+    const search = () => {
+      state.filteredItems = state.searchText ? state.items.filter(item => item.name.includes(state.searchText)) : state.items;
+    };
 
-    return { state, displayedItems, totalPages, visiblePages, changePage, nextPage, prevPage };
+    return { state, search };
   }
 };
 </script>
@@ -49,14 +50,17 @@ export default {
         </ul>
       </div>
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search...">
+        <input type="text" class="form-control" placeholder="Search..." @keyup.enter="search()" v-model="state.searchText">
         <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button" id="button-addon2">검색</button>
+          <button class="btn btn-outline-secondary" type="button" id="button-addon2" @click="search">검색</button>
         </div>
       </div>
     </div>
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
-      <div class="col my-4" v-for="(item, index) in displayedItems" :key="index">
+    <div v-if="state.filteredItems.length === 0" class="m-5 text-center">
+      <h1>검색한 상품이 없습니다.</h1>
+    </div>
+    <div v-else class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
+      <div class="col my-4" v-for="(item, index) in state.filteredItems" :key="index">
         <Card :item="item"/>
       </div>
     </div>

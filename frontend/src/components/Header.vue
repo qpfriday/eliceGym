@@ -28,7 +28,7 @@ export default {
       <div class="container d-flex flex-wrap justify-content-between align-items-center">
         <ul class="nav d-flex flex-wrap">
           <li>
-            <router-link class="nav-link link-body-emphasis px-2 active" to="/" style="font-family: Georgia"><h2>eliceGym</h2></router-link>
+            <a class="nav-link link-body-emphasis px-2 active" href="/" style="font-family: Georgia"><h2>eliceGym</h2></a>
           </li>
         </ul>
         <ul class="nav d-flex flex-wrap">
