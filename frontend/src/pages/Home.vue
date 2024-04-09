@@ -32,12 +32,33 @@ export default {
 </script>
 
 <template>
-  <div class="align-middle bg-danger text-white d-flex justify-content-center align-items-center" style="height: 300px">
-    <div class="text-center">
-      <h1 class="display-4 fw-bolder">엘리스짐</h1>
-      <h5 class="lead fw-normal text-white-50">불가능 한 것을 이루는 유일한 방법은 가능하다고 믿는 것 입니다!</h5>
+  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="../assets/workout.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="../assets/strap.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="../assets/protein.jpg" class="d-block w-100" alt="...">
+      </div>
     </div>
+    <button class="carousel-control-prev" type="button" data-target="#carouselExampleControls" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-target="#carouselExampleControls" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </button>
   </div>
+
   <div v-if="!state.loading" class="container">
     <div class="form-inline justify-content-between my-3">
       <div class="dropdown my-2 d-flex">
@@ -95,5 +116,13 @@ export default {
 a {
   text-decoration: none;
   color: black;
+}
+.carousel-inner{
+  max-height: 700px;
+  overflow: hidden;
+}
+.carousel-inner img {
+  max-height: initial;
+  margin-top: -10%;
 }
 </style>
