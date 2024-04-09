@@ -13,7 +13,7 @@ export default {
       items: [],
       currentPage: 1,
       itemsPerPage: 16,
-      maxVisiblePages: 5
+      maxVisiblePages: 5,
     });
     axios.get("/api/item/list").then(({data}) => {
       state.items = data;
@@ -25,9 +25,7 @@ export default {
       return state.items.slice(startIndex, endIndex);
     });
 
-    const totalPages = computed(() => {
-      return Math.ceil(state.items.length / state.itemsPerPage);
-    });
+    const totalPages = computed(() => Math.ceil(state.items.length / state.itemsPerPage));
 
     const visiblePages = computed(() => {
       let startPage = Math.max(1, state.currentPage - Math.floor(state.maxVisiblePages / 2));
@@ -54,9 +52,8 @@ export default {
       }
     };
 
-    return { state, displayedItems, totalPages, visiblePages, changePage, nextPage, prevPage };
+    return { state, displayedItems, totalPages, visiblePages, changePage, nextPage, prevPage,  };
   }
-
 };
 </script>
 
@@ -68,17 +65,23 @@ export default {
     </div>
   </div>
   <div class="container">
-    <div>
-      <div class="dropdown my-2 d-flex justify-content-end">
+    <div class="form-inline justify-content-between my-3">
+      <div class="dropdown my-2 d-flex">
         <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
           정렬 기준
         </button>
         <ul class="dropdown-menu">
-          <a class="dropdown-item" href="#">높은 할인률순</a>
-          <a class="dropdown-item" href="#">낮은 할인률순</a>
-          <a class="dropdown-item" href="#">높은 가격순</a>
-          <a class="dropdown-item" href="#">낮은 가격순</a>
+          <a class="dropdown-item">높은 할인률순</a>
+          <a class="dropdown-item">낮은 할인률순</a>
+          <a class="dropdown-item">높은 가격순</a>
+          <a class="dropdown-item">낮은 가격순</a>
         </ul>
+      </div>
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search...">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button" id="button-addon2">검색</button>
+        </div>
       </div>
     </div>
 
