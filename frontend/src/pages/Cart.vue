@@ -6,12 +6,14 @@ import {addCommas} from "@/scripts/lib";
 export default {
   setup() {
     const state = reactive({
-      items: []
+      items: [],
+      loading: true,
     })
     const load = () => {
       axios.get("/api/cart/items").then(({data}) => {
         console.log(data);
         state.items = data;
+        state.loading = false;
       })
     }
     const remove = (itemId) => (
@@ -28,7 +30,7 @@ export default {
 </script>
 
 <template>
-  <div class="cart">
+  <div v-if="!state.loading" class="cart">
     <div class="container">
       <div class="py-5 text-center"><h2>[내 장바구니]</h2></div>
       <ul>
@@ -47,6 +49,11 @@ export default {
         <h1 class="text-center">장바구니가 비었습니다</h1>
         <router-link to="/" class="btn btn-primary">쇼핑하러 가기</router-link>
       </div>
+    </div>
+  </div>
+  <div v-else class="d-flex justify-content-center align-items-center" style="height: 30vh;">
+    <div class="spinner-grow text-danger" style="width: 50px; height: 50px;" role="status">
+      <span class="sr-only">Loading...</span>
     </div>
   </div>
 </template>

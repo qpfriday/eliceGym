@@ -6,6 +6,7 @@ export default {
   setup() {
     const state = reactive({
       orders: [],
+      loading: true,
     })
 
     axios.get("/api/orders").then(({data}) => {
@@ -16,6 +17,7 @@ export default {
         }
         state.orders.push(d);
       }
+      state.loading = false;
     })
 
     return {state}
@@ -24,7 +26,7 @@ export default {
 </script>
 
 <template>
-  <div class="orders">
+  <div v-if="!state.loading" class="orders">
     <div class="container">
       <table class="table table-bordered">
         <thead>
@@ -52,6 +54,11 @@ export default {
         </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+  <div v-else class="d-flex justify-content-center align-items-center" style="height: 30vh;">
+    <div class="spinner-grow text-danger" style="width: 50px; height: 50px;" role="status">
+      <span class="sr-only">Loading...</span>
     </div>
   </div>
 </template>

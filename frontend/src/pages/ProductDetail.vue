@@ -25,11 +25,13 @@ export default {
     const state = reactive({
       item: {},
       quantity: 1,
+      loading: true,
     });
 
     axios.get(`/api/item/${itemId}`).then(({ data }) => {
       console.log(data);
       state.item = data;
+      state.loading = false;
     });
 
     const addToCart = (e) => {
@@ -57,7 +59,7 @@ export default {
 };
 </script>
 <template>
-  <div class="container" style="margin-top: 100px; width: 1300px">
+  <div v-if="!state.loading" class="container" style="margin-top: 100px; width: 1300px">
     <div class="row">
       <div class="col-6">
         <img :src="state.item.imgPath" class="img-fluid" alt="{{state.item.name}}">
@@ -99,18 +101,15 @@ export default {
           <span style="font-size: 40px">{{
               addCommas(Math.round(state.item.price - (state.item.price * state.item.discountPer) / 100.0) * state.quantity + state.item.deliveryPrice)
             }}</span>
-
         </div>
         <div class="container text-center">
           <div class="row">
             <div class="col"></div> <!-- 추가된 빈 열 -->
-
             <div class="col text-end"> <!-- 수정된 열 -->
               <div class="d-grid gap-2">
                 <a href="#link" class="btn btn-secondary btn-lg" role="button" style="width: 200px">구매하기</a>
               </div>
             </div>
-
             <div class="col text-end"> <!-- 수정된 열 -->
               <div class="d-grid gap-2">
                 <a class="btn btn-primary btn-lg" @click="addToCart" role="button" style="width: 200px">장바구니 담기</a>
@@ -118,8 +117,12 @@ export default {
             </div>
           </div>
         </div>
-
       </div>
+    </div>
+  </div>
+  <div v-else class="d-flex justify-content-center align-items-center" style="height: 30vh;">
+    <div class="spinner-grow text-danger" style="width: 50px; height: 50px;" role="status">
+      <span class="sr-only">Loading...</span>
     </div>
   </div>
 </template>

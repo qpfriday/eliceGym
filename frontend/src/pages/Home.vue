@@ -12,12 +12,14 @@ export default {
     const state = reactive({
       items: [],
       searchText: "", // 검색어 저장
-      filteredItems: []
+      filteredItems: [],
+      loading: true,
     });
 
     axios.get("/api/item/list").then(({data}) => {
       state.items = data;
       state.filteredItems = data;
+      state.loading = false;
     });
 
     const search = () => {
@@ -36,7 +38,7 @@ export default {
       <h5 class="lead fw-normal text-white-50">불가능 한 것을 이루는 유일한 방법은 가능하다고 믿는 것 입니다!</h5>
     </div>
   </div>
-  <div class="container">
+  <div v-if="!state.loading" class="container">
     <div class="form-inline justify-content-between my-3">
       <div class="dropdown my-2 d-flex">
         <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
@@ -80,7 +82,11 @@ export default {
         </li>
       </ul>
     </nav>
-
+  </div>
+  <div v-else class="d-flex justify-content-center align-items-center" style="height: 30vh;">
+    <div class="spinner-grow text-danger" style="width: 50px; height: 50px;" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
   </div>
 </template>
 
