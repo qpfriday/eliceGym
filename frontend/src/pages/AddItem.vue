@@ -56,8 +56,8 @@ export default {
       </div>
       <div class="input-group mb-3">
         <div class="custom-file">
-          <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-          <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+          <input type="file" class="custom-file-input" id="customFile" aria-describedby="inputGroupFileAddon01">
+          <label class="custom-file-label" for="inputGroupFile01"></label>
         </div>
       </div>
       <div class="form-floating">
