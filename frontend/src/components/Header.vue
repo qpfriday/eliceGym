@@ -28,7 +28,7 @@ export default {
       <div class="container d-flex flex-wrap justify-content-between align-items-center">
         <ul class="nav d-flex flex-wrap">
           <li>
-            <a class="nav-link link-body-emphasis px-2 active" href="/" style="font-family: Georgia"><h2>eliceGym</h2></a>
+            <a class="nav-link link-body-emphasis px-2 active" id="eliceGym-logo" href="/" style="font-family: fantasy"><h2>eliceGym</h2></a>
           </li>
         </ul>
         <ul class="nav d-flex flex-wrap">
@@ -66,11 +66,18 @@ export default {
 <style scoped>
 
 nav ul li .nav-link {
-  color: #3b1b00;
+  color: #000000;
 }
 
 header ul li a {
   cursor: pointer;
+}
+#eliceGym-logo {
+  transition: color 0.2s ease; /* Smooth transition effect */
+}
+#eliceGym-logo:hover {
+  color: #dc3746; /* Change the color to a brighter shade when hovered */
+
 }
 
 ul {
