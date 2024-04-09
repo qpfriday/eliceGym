@@ -54,6 +54,12 @@ export default {
                style="margin-bottom: 20px"
                v-model="state.form.imgPath">
       </div>
+      <div class="input-group mb-3">
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="customFile" aria-describedby="inputGroupFileAddon01">
+          <label class="custom-file-label" for="inputGroupFile01"></label>
+        </div>
+      </div>
       <div class="form-floating">
         <label for="floatingInput" class="form-label">가격</label>
         <input type="text" class="form-control" id="price" placeholder="숫자만 입력해주세요"  required
