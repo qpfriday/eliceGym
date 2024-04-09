@@ -1,14 +1,19 @@
 package org.example.backend.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "category")
+@Table(name = "ParentCategory")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Category{
+public class ParentCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,18 +31,6 @@ public class Category{
     @Column
     private String updatedAt;
 
-    @ManyToOne
-    @JoinColumn(name = "parent_category_id")
-    private ParentCategory parentCategory;
-
-    @Builder
-    public Category(String name, String desc){
-        this.name = name;
-        this.desc = desc;
-    }
-
-    public void update(String name, String desc){
-        this.name = name;
-        this.desc = desc;
-    }
+    @OneToMany(mappedBy = "parentCategory", cascade = CascadeType.ALL)
+    private List<Category> categories;
 }
