@@ -55,7 +55,6 @@ export default {
         </div>
       </div>
     </div>
-
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
       <div class="col my-4" v-for="(item, index) in displayedItems" :key="index">
         <Card :item="item"/>
