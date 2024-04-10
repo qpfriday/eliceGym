@@ -1,35 +1,30 @@
 <script>
-
+import {reactive} from "vue";
 import axios from "axios";
+import router from "@/scripts/router";
 
 export default {
   setup() {
-    const registerCategory = () => {
-      const categoryName = document.getElementById("categoryName").value;
-      const categoryDesc = document.getElementById("categoryDesc").value;
-
-      // 카테고리 이름과 설명이 모두 입력되었는지 확인
-      if (!categoryName || !categoryDesc) {
-        alert("카테고리 이름과 설명을 모두 입력해주세요.");
-        return;
+    const state = reactive({
+      form: {
+        name: "",
+        desc: ""
       }
+    });
 
-      // 카테고리 정보를 서버로 전송
-      axios.post("/api/categories", {
-        name: categoryName,
-        desc: categoryDesc
-      })
-          .then(() => {
-            alert("카테고리가 성공적으로 등록되었습니다.");
-            // 등록 후 필요한 작업 수행 (예: 화면 갱신)
+    const add = () => {
+      axios.post("/api/categories", state.form)
+          .then((res) => {
+            console.log(res.data); // 성공적으로 등록되었을 때 메시지
+            router.push("/"); // 카테고리 목록 페이지로 이동
           })
-          .catch(error => {
+          .catch((error) => {
             console.error("카테고리 등록 실패:", error);
             alert("카테고리 등록에 실패했습니다.");
           });
     };
 
-    return { registerCategory };
+    return { state, add };
   }
 }
 </script>
@@ -39,16 +34,14 @@ export default {
     <main class="form-signin">
       <h1 class="h3 mb-3 fw-normal text-center">카테고리 등록</h1>
       <div class="form-floating">
-        <label for="floatingInput" class="form-label">카테고리 이름</label>
-        <input type="text" class="form-control" id="stock" placeholder="이름을 적어주세요"  required
-               style="margin-bottom: 20px">
+        <label for="categoryName" class="form-label">카테고리 이름</label>
+        <input type="text" class="form-control" id="categoryName" v-model="state.form.name" placeholder="이름을 적어주세요" required style="margin-bottom: 20px">
       </div>
       <div class="form-floating">
-        <label for="floatingInput" class="form-label">카테고리 설명</label>
-        <textarea name="description" class="form-control" rows="4" cols="50"
-                  style="margin-bottom: 20px"></textarea>
+        <label for="categoryDesc" class="form-label">카테고리 설명</label>
+        <textarea id="categoryDesc" name="categoryDesc" v-model="state.form.desc" class="form-control" rows="4" cols="50" style="margin-bottom: 20px"></textarea>
       </div>
-      <button @click="registerCategory" class="w-100 btn btn-lg btn-success">등록하기</button>
+      <button @click="add" class="w-100 btn btn-lg btn-success">등록하기</button>
     </main>
   </div>
 </template>
