@@ -82,7 +82,7 @@ export default {
         </div>
         <div class="form-floating">
           <label for="validationEmail" class="form-label" style="margin-top: 20px">이메일</label>
-          <input type="email" class="form-control" id="validationEmail" placeholder="Email" required
+          <input type="text" class="form-control" id="validationEmail" placeholder="Email" required
                  @keyup.enter="join()"
                  v-model="state.form.email">
           <div class="invalid-feedback">이메일을 입력해 주세요</div>
