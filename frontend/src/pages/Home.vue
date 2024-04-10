@@ -10,13 +10,6 @@ export default {
   components: {Category, Card},
 
   setup() {
-
-    const categoryList = [
-      { id: 1, name: "의류" },
-      { id: 2, name: "보충제" },
-      { id: 3, name: "용품" }
-    ];
-
     const state = reactive({
       items: [],
       currentPage: 1,
@@ -45,7 +38,7 @@ export default {
 
     const { displayedItems, totalPages, visiblePages, changePage, nextPage, prevPage } = usePagination(state);
 
-    return { state, displayedItems, totalPages, visiblePages, changePage, nextPage, prevPage, categoryList, filteredItems, handleCategorySelected };
+    return { state, displayedItems, totalPages, visiblePages, changePage, nextPage, prevPage, filteredItems, handleCategorySelected };
   }
 };
 </script>

@@ -1,10 +1,23 @@
 <script>
+import axios from "axios";
+
 export default {
   name: "Category",
-  props: {
-    categoryList: Array
+  data(){
+    return{
+      categoryList:[]
+    };
   },
   methods: {
+    fetCategories(){
+      axios.get("/api/categories")
+          .then(response => {
+            this.categoryList = response.data;
+          })
+          .catch(error => {
+            console.error("Failed to fetch categories:", error);
+          });
+    },
     selectAllCategories() {
       this.$emit("category-selected", null);
     },
@@ -12,6 +25,9 @@ export default {
       console.log(categoryName);
       this.$emit("category-selected", categoryName);
     }
+  },
+  mounted() {
+    this.fetCategories();
   }
 };
 </script>

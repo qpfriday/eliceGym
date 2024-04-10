@@ -8,6 +8,9 @@ import Order from "@/pages/Order.vue";
 import Orders from "@/pages/Orders.vue";
 import ProductDetail from "@/pages/ProductDetail.vue";
 import AddItem from "@/pages/AddItem.vue";
+import CategoryManagement from "@/pages/CategoryManagement.vue";
+import AddCategory from "@/pages/AddCategory.vue";
+import ModifyCategory from "@/pages/ModifyCategory.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
@@ -20,7 +23,10 @@ const routes = [
   { path: "/order", component: Order },
   { path: "/orders", component: Orders },
   { path: "/:itemId", component: ProductDetail, name: "productDetail" },
-  { path: "/additem", component: AddItem}
+  { path: "/additem", component: AddItem},
+  { path: "/categoryManagement", component: CategoryManagement},
+  { path: "/add-category", component: AddCategory},
+  { path: "/modify-category", component: ModifyCategory}
 ];
 const router = createRouter({
   history: createWebHistory(),
