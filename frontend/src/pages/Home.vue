@@ -9,13 +9,6 @@ export default {
   components: {Category, Card},
 
   setup() {
-
-    const categoryList = [
-      { id: 1, name: "의류" },
-      { id: 2, name: "보충제" },
-      { id: 3, name: "용품" }
-    ];
-
     const state = reactive({
       items: [],
       searchText: "", // 검색어 저장
@@ -48,7 +41,7 @@ export default {
       state.filteredItems = state.searchText ? state.items.filter(item => item.name.includes(state.searchText)) : state.items;
     };
 
-    return { state, search, categoryList, filteredItemsByCategory, handleCategorySelected };
+    return { state, search, filteredItemsByCategory, handleCategorySelected };
   }
 };
 </script>
