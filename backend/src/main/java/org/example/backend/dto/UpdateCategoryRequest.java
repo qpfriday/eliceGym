@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @Getter
 public class UpdateCategoryRequest {
     private String name;
-    private String desc;
+    private String description;
 }

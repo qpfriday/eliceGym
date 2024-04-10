@@ -10,12 +10,12 @@ import org.example.backend.entity.Category;
 public class AddCategoryRequest {
 
     private String name;
-    private String desc;
+    private String description;
 
     public Category toEntity(){
         return Category.builder()
                 .name(name)
-                .desc(desc)
+                .desc(description)
                 .build();
     }
 }

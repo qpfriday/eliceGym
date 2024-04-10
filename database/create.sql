@@ -8,6 +8,7 @@ create table users
     login_id         varchar(50)  not null,
     delivery_address varchar(500) null,
     role             varchar(10)  null,
+    phone_number     varchar(50)  not null,
     created_at       varchar(50)  null,
     updated_at       varchar(50)  null,
     constraint members_email_uindex
@@ -31,7 +32,7 @@ create table items
     price           int          not null,
     discount_per    int          null,
     parent_category varchar(25)  not null,
-    chile_category  varchar(25)  not null,
+    child_category  varchar(25)  not null,
     selection       varchar(25)  null,
     description     varchar(200) not null,
     stock           int          not null,
@@ -56,4 +57,14 @@ create table orders
     updated_at   varchar(50)  null
 );
 
-
+create table category
+(
+    id              int auto_increment
+        primary key,
+    name            varchar(50)  not null,
+    description     varchar(200) not null,
+    created_at      varchar(255) null,
+    updated_at      varchar(255) null,
+    constraint category_pk
+        unique (name)
+);

@@ -6,10 +6,10 @@ import org.example.backend.entity.Category;
 public class CategoryResponse {
 
     private final String name;
-    private final String desc;
+    private final String description;
 
     public CategoryResponse(Category category){
         this.name = category.getName();
-        this.desc = category.getDesc();
+        this.description = category.getDescription();
     }
 }

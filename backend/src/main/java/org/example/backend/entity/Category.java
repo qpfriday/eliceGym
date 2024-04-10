@@ -17,7 +17,7 @@ public class Category {
     private String name;
 
     @Column(length = 200, nullable = false)
-    private String desc;
+    private String description;
 
     @Column
     private String createdAt;
@@ -28,11 +28,11 @@ public class Category {
     @Builder
     public Category(String name, String desc){
         this.name = name;
-        this.desc = desc;
+        this.description = desc;
     }
 
     public void update(String name, String desc){
         this.name = name;
-        this.desc = desc;
+        this.description = desc;
     }
 }

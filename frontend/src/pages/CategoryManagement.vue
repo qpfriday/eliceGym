@@ -41,7 +41,7 @@ export default {
         <div class="d-flex gap-2 w-100 justify-content-between">
           <div>
             <h6 class="mb-0">{{ category.name }}</h6>
-            <p class="mb-0 opacity-75">{{ category.desc }}</p>
+            <p class="mb-0 opacity-75">{{ category.description }}</p>
           </div>
           <router-link to="/modify-category" class="btn btn-primary modifyCategory">수정</router-link>
           <button type="button" class="btn btn-danger">삭제</button>
