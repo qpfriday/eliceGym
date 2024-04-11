@@ -43,7 +43,7 @@ export default {
       </ul>
       <div v-if="state.items.length > 0">
         <router-link to="/" class="btn btn-light" style="border: solid 0.5px #ccc; margin-top: 20px">쇼핑 더 하러가기</router-link>
-        <a href="/order" class="btn btn-primary" style="margin-top: 20px">구입하기</a>
+        <router-link to="/order" class="btn btn-primary" style="margin-top: 20px">구입하기</router-link>
       </div>
       <div v-else>
         <h1 class="text-center">장바구니가 비었습니다</h1>
