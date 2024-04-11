@@ -16,15 +16,20 @@ public class UserService {
 
     // Method to fetch user's name by ID
     public String getNameById(int userId) {
-        // Assuming your UserRepository has a method to fetch user by ID
-        // Replace 'User' with your actual user entity class name
         User user = userRepository.findById(userId);
         if (user != null) {
             return user.getName();
         } else {
             return null;
         }
-
+    }
+    public String getRoleById(int userId) {
+        User user = userRepository.findById(userId);
+        if (user != null) {
+            return user.getRole();
+        } else {
+            return null;
+        }
     }
     public void join(UserDto userDto) {
         User newUser = new User();

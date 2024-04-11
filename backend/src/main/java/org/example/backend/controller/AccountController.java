@@ -61,6 +61,7 @@ public class AccountController {
             Map<String, Object> responseData = new HashMap<>();
             responseData.put("id", id);
             responseData.put("name", userService.getNameById(id));
+            responseData.put("role", userService.getRoleById(id));
             return new ResponseEntity<>(responseData, HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.OK);

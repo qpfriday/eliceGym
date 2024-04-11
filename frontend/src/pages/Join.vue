@@ -50,7 +50,7 @@ export default {
 <template>
   <div class="container">
     <main class="form-signin">
-      <form class="needs-validation" novalidate @submit.prevent="join">
+      <form class="needs-validation" novalidate>
         <h1 class="h3 mb-3 fw-normal text-center">회원가입</h1>
         <div class="form-floating">
           <label for="validationName" class="form-label" style="margin-top: 20px">이름</label>
@@ -87,7 +87,7 @@ export default {
                  v-model="state.form.email">
           <div class="invalid-feedback">이메일을 입력해 주세요</div>
         </div>
-        <button class="w-100 btn btn-lg btn-success" type="submit" style="margin-top: 20px">회원가입</button>
+        <button class="w-100 btn btn-lg btn-success" type="submit" style="margin-top: 20px" @click.prevent="join">회원가입</button>
         <a href="login">로그인 하러가기</a>
       </form>
     </main>
