@@ -7,18 +7,21 @@ import org.example.backend.entity.Item;
 import org.example.backend.repository.ItemRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
-@Service
 @Slf4j
+@Service
+@Transactional
 @RequiredArgsConstructor
 public class ItemService {
 
     private final ItemRepository itemRepository;
 
 
-    @Transactional
+
     public int createItem(ItemCreateDto itemCreateDto) {
         log.info("itemCreateDto : {}", itemCreateDto);
         Item newItem = Item.createItem(itemCreateDto);
@@ -26,6 +29,12 @@ public class ItemService {
         return newItem.getId();
     }
 
+    public int createItem(ItemCreateDto itemCreateDto, MultipartFile file) throws IOException {
+        Item newItem = Item.createItem(itemCreateDto);
+        newItem.setImg(file.getBytes());
+        itemRepository.save(newItem);
+        return newItem.getId();
+    }
     public Item getItem(int item_id){
         return itemRepository.findById(item_id).orElseThrow();
     }

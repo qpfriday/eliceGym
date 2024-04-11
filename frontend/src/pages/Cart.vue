@@ -1,32 +1,35 @@
 <script>
-import {reactive} from "vue";
+import { reactive } from "vue";
 import axios from "axios";
-import {addCommas} from "@/scripts/lib";
+import { addCommas } from "@/scripts/lib";
 
 export default {
   setup() {
     const state = reactive({
       items: [],
+      img: null,
       loading: true,
-    })
+    });
     const load = () => {
-      axios.get("/api/cart/items").then(({data}) => {
+      axios.get("/api/cart/items").then(({ data }) => {
         console.log(data);
         state.items = data;
+        state.items.forEach((i) => {
+          i.img = `data:image/jpeg;base64,` + i.img;
+        });
         state.loading = false;
-      })
-    }
-    const remove = (itemId) => (
-        axios.delete(`/api/cart/items/${itemId}`).then(() => {
-          load();
-        })
-    );
+      });
+    };
+    const remove = (itemId) =>
+      axios.delete(`/api/cart/items/${itemId}`).then(() => {
+        load();
+      });
 
     load();
 
-    return {state, addCommas, remove}
+    return { state, addCommas, remove };
   },
-}
+};
 </script>
 
 <template>
@@ -35,15 +38,24 @@ export default {
       <div class="py-5 text-center"><h2>[내 장바구니]</h2></div>
       <ul>
         <li v-for="(i, idx) in state.items" :key="idx">
-          <img :src="i.imgPath"/>
+          <img :src="i.imgPath == null ? i.img : i.imgPath" />
           <span class="name">{{ i.name }}</span>
-          <span class="price">{{ addCommas(i.price - i.price * i.discountPer / 100) }} 원</span>
+          <span class="price"
+            >{{ addCommas(i.price - (i.price * i.discountPer) / 100) }} 원</span
+          >
           <i class="fa fa-trash" @click="remove(i.id)"></i>
         </li>
       </ul>
       <div v-if="state.items.length > 0">
-        <router-link to="/" class="btn btn-light" style="border: solid 0.5px #ccc; margin-top: 20px">쇼핑 더 하러가기</router-link>
-        <a href="/order" class="btn btn-primary" style="margin-top: 20px">구입하기</a>
+        <router-link
+          to="/"
+          class="btn btn-light"
+          style="border: solid 0.5px #ccc; margin-top: 20px"
+          >쇼핑 더 하러가기</router-link
+        >
+        <a href="/order" class="btn btn-primary" style="margin-top: 20px"
+          >구입하기</a
+        >
       </div>
       <div v-else>
         <h1 class="text-center">장바구니가 비었습니다</h1>
@@ -51,8 +63,16 @@ export default {
       </div>
     </div>
   </div>
-  <div v-else class="d-flex justify-content-center align-items-center" style="height: 30vh;">
-    <div class="spinner-grow text-danger" style="width: 50px; height: 50px;" role="status">
+  <div
+    v-else
+    class="d-flex justify-content-center align-items-center"
+    style="height: 30vh"
+  >
+    <div
+      class="spinner-grow text-danger"
+      style="width: 50px; height: 50px"
+      role="status"
+    >
       <span class="sr-only">Loading...</span>
     </div>
   </div>

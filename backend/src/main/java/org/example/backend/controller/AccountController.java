@@ -53,7 +53,7 @@ public class AccountController {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("api/account/check")
+    @GetMapping("/api/account/check")
     public ResponseEntity check(@CookieValue(value = "token", required = false) String token) {
         Claims claims = jwtService.getClaims(token);
         if (claims != null) {

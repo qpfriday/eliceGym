@@ -18,15 +18,15 @@ const routes = [
   { path: "/login", component: Login },
   { path: "/join", component: Join },
   { path: "/my", component: MyPage },
-  { path:'/info', component: MyInfo },
+  { path: "/info", component: MyInfo },
   { path: "/cart", component: Cart },
   { path: "/order", component: Order },
   { path: "/orders", component: Orders },
-  { path: "/:itemId", component: ProductDetail, name: "productDetail" },
-  { path: "/additem", component: AddItem},
-  { path: "/categoryManagement", component: CategoryManagement},
-  { path: "/add-category", component: AddCategory},
-  { path: "/modify-category", component: ModifyCategory}
+  { path: "/item/:itemId", component: ProductDetail, name: "productDetail" },
+  { path: "/additem", component: AddItem },
+  { path: "/categoryManagement", component: CategoryManagement },
+  { path: "/add-category", component: AddCategory },
+  { path: "/modify-category", component: ModifyCategory },
 ];
 const router = createRouter({
   history: createWebHistory(),

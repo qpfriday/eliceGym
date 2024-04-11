@@ -17,6 +17,7 @@ public class ItemDto {
     private int id;
     private String name;
     private String imgPath;
+    private byte[] img;
     private int price;
     private int discountPer;
     private String parentCategory;
@@ -35,6 +36,7 @@ public class ItemDto {
     public ItemDto(Item item){
         this.id = item.getId();
         this.name = item.getName();
+        this.img = item.getImg();
         this.imgPath = item.getImgPath();
         this.price = item.getPrice();
         this.discountPer = item.getDiscountPer();

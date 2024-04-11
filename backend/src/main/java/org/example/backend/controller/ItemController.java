@@ -1,6 +1,7 @@
 package org.example.backend.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.backend.dto.ItemCreateDto;
 import org.example.backend.dto.ItemDto;
 import org.example.backend.entity.Item;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.http.HttpStatus;
@@ -17,9 +19,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class ItemController {
@@ -47,6 +51,13 @@ public class ItemController {
     @PostMapping("/api/item/create")
     public ResponseEntity<String> createItem(@RequestBody ItemCreateDto itemCreateDto){
         itemService.createItem(itemCreateDto);
+        return ResponseEntity.ok("success");
+    }
+
+    @PostMapping(value = "/api/item/create" ,consumes = "multipart/form-data")
+    public ResponseEntity<String> createItem(ItemCreateDto dto,@RequestParam MultipartFile file) throws IOException {
+        log.info("file : {}", dto);
+        itemService.createItem(dto, file);
         return ResponseEntity.ok("success");
     }
     @GetMapping("/api/items")
