@@ -3,9 +3,11 @@ import {computed, reactive} from "vue";
 import axios from "axios";
 import {addCommas} from "@/scripts/lib";
 import router from "@/scripts/router";
+import {useRoute} from "vue-router";
 
 export default {
   setup() {
+    const route = useRoute();
     const state = reactive({
       items: [],
       user: [],
@@ -20,13 +22,12 @@ export default {
       }
     })
     const load = () => {
-      axios.get("/api/cart/items").then(({data}) => {
-        state.items = data;
-      });
+      state.items = JSON.parse(route.query.items)
+      console.log(state.items)
 
       axios.get("/api/account/user").then(({data}) => {
         state.user = data;
-      });
+      })
     }
     const purchase = () => {
       // object 클론
@@ -84,7 +85,9 @@ export default {
                 <div><h6 class="my-0">{{ i.name }}</h6></div>
                 <span class="text-body-secondary">
                   {{ addCommas(i.price - i.price * i.discountPer / 100) }} 원
-                </span></li>
+                </span>
+                <span class="text-body-last">{{i.quantity}} 개</span>
+              </li>
             </ul>
             <h2 class="text-center total-price">
               {{ addCommas(computedPrice) }} 원
