@@ -36,10 +36,8 @@ public class CartController {
 
         int userId = jwtService.getId(token);
         List<Cart> carts = cartRepository.findByUserId(userId);
-        List<Integer> itemIds = carts.stream().map(Cart::getItemId).toList();
-        List<Item> items = itemRepository.findByIdIn(itemIds);
 
-        return new ResponseEntity<>(items, HttpStatus.OK);
+        return new ResponseEntity<>(carts, HttpStatus.OK);
     }
 
     @PostMapping("/api/cart/items/{itemId}")

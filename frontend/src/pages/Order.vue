@@ -3,9 +3,11 @@ import {computed, reactive, ref} from "vue";
 import axios from "axios";
 import {addCommas} from "@/scripts/lib";
 import router from "@/scripts/router";
+import {useRoute} from "vue-router";
 
 export default {
   setup() {
+    const route = useRoute();
     const state = reactive({
       items: [],
       user: {
@@ -24,13 +26,12 @@ export default {
       }
     })
     const load = () => {
-      axios.get("/api/cart/items").then(({data}) => {
-        state.items = data;
-      });
+      state.items = JSON.parse(route.query.items)
+      console.log(state.items)
 
       axios.get("/api/account/user").then(({data}) => {
         state.user = data;
-      });
+      })
     }
 
     const validateForm = () => {
@@ -102,6 +103,7 @@ export default {
                   <div><h6 class="my-0">{{ i.name }}</h6></div>
                   <span class="text-body-secondary">
                   {{ addCommas(i.price - i.price * i.discountPer / 100) }} 원
+<<<<<<< HEAD
                 </span></li>
               </ul>
               <h2 class="text-center total-price">
@@ -109,6 +111,65 @@ export default {
               </h2>
             </div>
             <div class="col-md-5 col-lg-8"><h4 class="mb-3">주문 정보</h4>
+=======
+                </span>
+                <span class="text-body-last">{{i.quantity}} 개</span>
+              </li>
+            </ul>
+            <h2 class="text-center total-price">
+              {{ addCommas(computedPrice) }} 원
+            </h2>
+          </div>
+          <div class="col-md-5 col-lg-8"><h4 class="mb-3">주문 정보</h4>
+            <div class="needs-validation" novalidate="">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" @change="fillUserInfo">
+                <label class="form-check-label" for="flexCheckDefault">
+                  주문 고객 정보와 동일
+                </label>
+              </div>
+              <div class="row g-3">
+                <div class="col-12"><label for="username" class="form-label">이름</label>
+                  <input type="text"
+                         class="form-control"
+                         id="username"
+                         placeholder="Username"
+                         v-model="state.form.name">
+                </div>
+                <div class="col-12"><label for="phoneNumber" class="form-label">전화번호</label>
+                  <input type="text"
+                         class="form-control"
+                         id="phoneNumber"
+                         placeholder="XXX-XXXX-XXXX"
+                         v-model="state.form.phoneNumber">
+                </div>
+                <div class="col-12"><label for="address" class="form-label">주소</label>
+                  <input type="text"
+                         class="form-control"
+                         id="address"
+                         placeholder="Address"
+                         v-model="state.form.address">
+                </div>
+                <div class="col-12">
+                  <label for="request" class="form-label">배송 요청사항 (100자 이내)</label>
+                  <input type="text"
+                         class="form-control"
+                         id="request"
+                         placeholder="문앞에 두고 가주세요"
+                         v-model="state.form.request">
+                  <datalist id="datalistOptions">
+                    <option value="San Francisco"></option>
+                    <option value="New York"></option>
+                    <option value="Seattle"></option>
+                    <option value="Los Angeles"></option>
+                    <option value="Chicago"></option>>
+                  </datalist>
+                </div>
+              </div>
+              <hr class="my-4">
+              <h4 class="mb-3">결제 수단</h4>
+              <div class="my-3">
+>>>>>>> origin/dev
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="" id="fillUserInfo" @change="fillUserInfo">
                   <label class="form-check-label" for="fillUserInfo">
