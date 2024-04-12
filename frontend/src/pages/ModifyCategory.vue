@@ -42,7 +42,8 @@ export default {
         <label for="categoryDesc" class="form-label">카테고리 설명</label>
         <textarea id="categoryDesc" name="categoryDesc" v-model="state.form.description" class="form-control" rows="4" cols="50" style="margin-bottom: 20px"></textarea>
       </div>
-      <button @click="update" class="w-100 btn btn-lg btn-success">등록하기</button>
+      <button @click="update" class="w-100 btn btn-lg btn-success">저장하기</button>
+      <button class="w-100 btn btn-lg btn-success">삭제하기</button>
     </main>
   </div>
 </template>
