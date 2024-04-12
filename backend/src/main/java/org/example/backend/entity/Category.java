@@ -1,9 +1,11 @@
 package org.example.backend.entity;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
-@Setter
 @Entity
 @Table(name = "category")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -26,13 +28,16 @@ public class Category {
     private String updatedAt;
 
     @Builder
-    public Category(String name, String desc){
+    public Category(String name, String description, String createdAt, String updatedAt){
         this.name = name;
-        this.description = desc;
+        this.description = description;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
-    public void update(String name, String desc){
+    public void update(String name, String description, String updatedAt){
         this.name = name;
-        this.description = desc;
+        this.description = description;
+        this.updatedAt = updatedAt;
     }
 }

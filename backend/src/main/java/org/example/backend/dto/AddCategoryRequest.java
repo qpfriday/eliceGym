@@ -11,11 +11,15 @@ public class AddCategoryRequest {
 
     private String name;
     private String description;
+    private String createdAt;
+    private String updatedAt;
 
     public Category toEntity(){
         return Category.builder()
                 .name(name)
-                .desc(description)
+                .description(description)
+                .createdAt(createdAt)
+                .updatedAt(updatedAt)
                 .build();
     }
 }

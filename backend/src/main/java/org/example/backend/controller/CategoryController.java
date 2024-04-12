@@ -27,13 +27,13 @@ public class CategoryController {
 
     @GetMapping("/api/categories")
     public ResponseEntity<List<CategoryResponse>> findAllCategories(){
-        List<CategoryResponse> catrgories = categoryService.findAll()
+        List<CategoryResponse> categories = categoryService.findAll()
                 .stream()
                 .map(CategoryResponse::new)
                 .toList();
 
         return ResponseEntity.ok()
-                .body(catrgories);
+                .body(categories);
     }
 
     @GetMapping("/api/categories/{id}")
@@ -43,15 +43,15 @@ public class CategoryController {
         return ResponseEntity.ok()
                 .body(new CategoryResponse(category));
     }
-    @DeleteMapping("/api/articles/{id}")
-    public ResponseEntity<Void> deleteCategory(@PathVariable int id){
+    @DeleteMapping("/api/categories/{id}")
+    public ResponseEntity<Void> deleteCategory(@PathVariable("id") int id){
         categoryService.delete(id);
 
         return ResponseEntity.ok()
                 .build();
     }
 
-    @PutMapping("/api/articles/{id}")
+    @PutMapping("/api/categories/{id}")
     public ResponseEntity<Category> updateCategory(@PathVariable int id, @RequestBody UpdateCategoryRequest request){
         Category updateCategory = categoryService.update(id, request);
 

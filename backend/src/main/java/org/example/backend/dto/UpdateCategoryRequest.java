@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class UpdateCategoryRequest {
     private String name;
     private String description;
+    private String updatedAt;
 }

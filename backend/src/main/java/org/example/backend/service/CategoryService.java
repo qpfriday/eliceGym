@@ -36,7 +36,7 @@ public class CategoryService {
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not fount: " + id));
 
-        category.update(request.getName(), request.getDescription());
+        category.update(request.getName(), request.getDescription(), request.getUpdatedAt());
 
         return category;
     }

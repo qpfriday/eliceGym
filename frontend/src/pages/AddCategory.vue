@@ -8,7 +8,7 @@ export default {
     const state = reactive({
       form: {
         name: "",
-        desc: ""
+        description: ""
       }
     });
 
@@ -39,7 +39,7 @@ export default {
       </div>
       <div class="form-floating">
         <label for="categoryDesc" class="form-label">카테고리 설명</label>
-        <textarea id="categoryDesc" name="categoryDesc" v-model="state.form.desc" class="form-control" rows="4" cols="50" style="margin-bottom: 20px"></textarea>
+        <textarea id="categoryDesc" name="categoryDesc" v-model="state.form.description" class="form-control" rows="4" cols="50" style="margin-bottom: 20px"></textarea>
       </div>
       <button @click="add" class="w-100 btn btn-lg btn-success">등록하기</button>
     </main>
