@@ -43,7 +43,7 @@ export default {
               <li>
                 <router-link class="nav-link link-body-emphasis px-2 active" to="/cart">장바구니</router-link>
               </li>
-              <li>
+              <li v-if="account.role === 'ROLE_ADMIN'">
                 <router-link class="nav-link link-body-emphasis px-2 active" to="/additem">상품추가</router-link>
               </li>
               <li>

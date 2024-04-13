@@ -158,10 +158,8 @@ a {
 }
 .carousel-inner{
   max-height: 700px;
-  overflow: hidden;
 }
 .carousel-inner img {
-  max-height: initial;
   margin-top: -10%;
 }
 </style>

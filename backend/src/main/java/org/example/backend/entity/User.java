@@ -28,7 +28,7 @@ public class User {
     private String phoneNumber;
     @Column(length = 500)
     private String deliveryAddress;
-    @Column(length = 10)
+    @Column(length = 20)
     private String role;
     @CreationTimestamp
     private Timestamp createdAt;
