@@ -28,7 +28,7 @@ public class Item extends BaseTime{
     @Column(length = 100)
     private String imgPath;
 
-    @Column(nullable = false, columnDefinition = "LONGBLOB")
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] img;
     @Column(nullable = false)
     private int price;
@@ -55,17 +55,13 @@ public class Item extends BaseTime{
         item.name = dto.getName();
         item.imgPath = dto.getImgPath();
         item.price = dto.getPrice();
-        item.discountPer = dto.getDiscountPer();
+        item.discountPer = dto.getDiscount_per();
         item.parentCategory = dto.getParent_category();
         item.childCategory = dto.getChild_category();
         item.selection = dto.getSelection();
         item.description = dto.getDescription();
         item.stock = dto.getStock();
-        item.deliveryPrice = dto.getDeliveryPrice();
+        item.deliveryPrice = dto.getDelivery_price();
         return item;
-    }
-
-    public void setImg(byte[] img){
-        this.img = img;
     }
 }

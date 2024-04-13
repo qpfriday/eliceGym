@@ -15,11 +15,11 @@ public class ItemCreateDto {
     private MultipartFile img;
     private String imgPath;
     private int price;
-    private int discountPer;
+    private int discount_per;
     private String parent_category;
     private String child_category;
     private String selection;
     private String description;
     private int stock;
-    private int deliveryPrice;
+    private int delivery_price;
 }

@@ -174,7 +174,7 @@ export default {
           placeholder="하위 카테고리를 입력해주세요"
           required
           style="margin-bottom: 20px"
-          v-model="state.form.chile_category"
+          v-model="state.form.child_category"
         />
       </div>
       <div class="form-floating">
