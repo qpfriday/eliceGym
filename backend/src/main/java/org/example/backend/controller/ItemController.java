@@ -48,11 +48,11 @@ public class ItemController {
     }
 
 
-    @PostMapping("/api/item/create")
-    public ResponseEntity<String> createItem(@RequestBody ItemCreateDto itemCreateDto){
-        itemService.createItem(itemCreateDto);
-        return ResponseEntity.ok("success");
-    }
+//    @PostMapping("/api/item/create")
+//    public ResponseEntity<String> createItem(@RequestBody ItemCreateDto itemCreateDto){
+//        itemService.createItem(itemCreateDto);
+//        return ResponseEntity.ok("success");
+//    }
 
     @PostMapping(value = "/api/item/create" ,consumes = "multipart/form-data")
     public ResponseEntity<String> createItem(ItemCreateDto dto,@RequestParam MultipartFile file) throws IOException {
