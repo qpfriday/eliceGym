@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface ItemRepository extends JpaRepository<Item, Integer> {
     List<Item> findByIdIn(List<Integer> ids);
+
     Item save(Item item);
 }

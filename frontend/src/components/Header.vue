@@ -46,8 +46,8 @@ export default {
               <li v-if="account.role === 'ROLE_ADMIN'">
                 <router-link class="nav-link link-body-emphasis px-2 active" to="/additem">상품추가</router-link>
               </li>
-              <li>
-                <router-link class="nav-link link-body-emphasis px-2 active" to="/categoryManagement">카테고리</router-link>
+              <li v-if="account.role === 'ROLE_ADMIN'">
+                <router-link class="nav-link link-body-emphasis px-2 active" to="/categoryManagement">카테고리 관리</router-link>
               </li>
               <li><a class="nav-link link-body-emphasis px-2 active" @click="logout">로그아웃</a></li>
             </ul>

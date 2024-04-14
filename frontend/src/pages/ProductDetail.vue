@@ -3,13 +3,15 @@ import axios from "axios";
 import { watch } from "vue";
 import { useRoute } from "vue-router";
 import { reactive } from "vue";
-import { addCommas } from "../scripts/lib";
+import { addCommas } from "@/scripts/lib";
+import {useStore} from "vuex";
 
 export default {
   name: "ProductDetail",
   methods: { addCommas },
   setup() {
     const route = useRoute();
+    const store = useStore();
     const itemId = route.params.itemId;
 
     const increaseStock = () => {
@@ -53,7 +55,7 @@ export default {
       }
     );
 
-    return { state, increaseStock, decreaseQuantity, addToCart };
+    return { state, increaseStock, decreaseQuantity, addToCart, account: store.state.account };
   },
 };
 </script>
@@ -152,32 +154,52 @@ export default {
             )
           }}</span>
         </div>
-        <div class="container text-center">
+        <div class="container text-center" v-if="account.role === 'ROLE_ADMIN'">
           <div class="row">
             <div class="col"></div>
-            <!-- 추가된 빈 열 -->
             <div class="col text-end">
-              <!-- 수정된 열 -->
+              <div class="d-grid gap-2">
+                <a
+                  href="#link"
+                  class="btn btn-danger btn-lg"
+                  role="button"
+                  style="width: 200px"
+                  >삭제하기</a>
+              </div>
+            </div>
+            <div class="col text-end">
+              <div class="d-grid gap-2">
+                <router-link
+                  class="btn btn-warning btn-lg"
+                  :to="{ name: 'modifyItem', params: { itemId: `${state.item.id}` } }"
+                  role="button"
+                  style="width: 200px"
+                  >수정하기</router-link>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container text-center" v-else>
+          <div class="row">
+            <div class="col"></div>
+            <div class="col text-end">
               <div class="d-grid gap-2">
                 <a
                   href="#link"
                   class="btn btn-secondary btn-lg"
                   role="button"
                   style="width: 200px"
-                  >구매하기</a
-                >
+                  >구매하기</a>
               </div>
             </div>
             <div class="col text-end">
-              <!-- 수정된 열 -->
               <div class="d-grid gap-2">
                 <a
                   class="btn btn-primary btn-lg"
                   @click="addToCart"
                   role="button"
                   style="width: 200px"
-                  >장바구니 담기</a
-                >
+                  >장바구니 담기</a>
               </div>
             </div>
           </div>

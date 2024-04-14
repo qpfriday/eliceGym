@@ -201,7 +201,7 @@ export default {
         ></textarea>
       </div>
       <div class="form-floating">
-        <label for="floatingInput" class="form-label">재고</label>
+        <label for="floatingInput" class="form-label">숫자만 입력해주세요</label>
         <input
           type="text"
           class="form-control"

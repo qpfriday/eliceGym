@@ -11,6 +11,7 @@ import AddItem from "@/pages/AddItem.vue";
 import CategoryManagement from "@/pages/CategoryManagement.vue";
 import AddCategory from "@/pages/AddCategory.vue";
 import ModifyCategory from "@/pages/ModifyCategory.vue";
+import ModifyItem from "@/pages/ModifyItem.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
@@ -27,6 +28,7 @@ const routes = [
   { path: "/categoryManagement", component: CategoryManagement },
   { path: "/add-category", component: AddCategory },
   { path: "/modify-category", component: ModifyCategory },
+  { path: "/item/:itemId/modify-item", component: ModifyItem , name: "modifyItem"},
 ];
 const router = createRouter({
   history: createWebHistory(),

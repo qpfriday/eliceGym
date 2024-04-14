@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.backend.dto.ItemCreateDto;
 import org.example.backend.dto.ItemDto;
 import org.example.backend.entity.Item;
+import org.example.backend.entity.User;
 import org.example.backend.repository.ItemRepository;
 import org.example.backend.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,5 +86,11 @@ public class ItemController {
         itemRepository.save(new_item);
 
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PutMapping("/api/item/update")
+    public ResponseEntity updateItem(@RequestBody ItemDto itemDto) {
+        itemService.updateItem(itemDto);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
