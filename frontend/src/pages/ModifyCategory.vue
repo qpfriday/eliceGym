@@ -1,60 +1,83 @@
 <script>
-
-import {reactive} from "vue";
+import { ref, onMounted } from "vue";
 import axios from "axios";
 import router from "@/scripts/router";
+import { useRoute } from "vue-router";
 
 export default {
   setup() {
-    const state = reactive({
-      form: {
-        name: "",
-        description: ""
+    const route = useRoute();
+    const categoryId = ref(route.params.id);
+    const state = ref({
+      name: "",
+      description: ""
+    });
+
+    onMounted(() => {
+      console.log("Category ID on mount:", categoryId.value);
+      if (!categoryId.value) {
+        console.error("Category ID is undefined!");
+        router.push('/');  // ID가 없을 경우 목록 페이지로 리다이렉션
+      } else {
+        loadCategory();
       }
     });
 
-    const update = () => {
-      axios.post("/api/articles/${id}", state.form)
-          .then((res) => {
-            console.log(res.data); // 성공적으로 등록되었을 때 메시지
-            router.push("/"); // 카테고리 목록 페이지로 이동
+    // 카테고리 데이터 로딩
+    const loadCategory = () => {
+      if (!categoryId.value) {
+        console.error("Category ID is undefined!");
+        router.push('/');  // ID가 없을 경우 목록 페이지로 리다이렉션
+        return;
+      }
+
+      axios.get(`/api/categories/${categoryId.value}`)
+          .then(response => {
+            state.value = {
+              name: response.data.name,
+              description: response.data.description
+            };
           })
-          .catch((error) => {
-            console.error("카테고리 수정 실패:", error);
-            alert("카테고리 수정에 실패했습니다.");
+          .catch(error => {
+            console.error("Failed to load category:", error);
           });
     };
 
-    return { state, update };
+    // 카테고리 업데이트
+    const updateCategory = () => {
+      axios.put(`/api/categories/${categoryId.value}`, state.value)
+          .then(() => {
+            console.log("Category updated successfully");
+            router.push('/');  // 수정 후 목록 페이지로 이동
+          })
+          .catch(error => {
+            console.error("Failed to update category:", error);
+            alert("Failed to update category.");
+          });
+    };
+
+    onMounted(loadCategory);
+
+    return { state, updateCategory };
   }
 }
 </script>
 
 <template>
   <div class="container">
-    <main class="form-signin">
-      <h1 class="h3 mb-3 fw-normal text-center">카테고리 수정</h1>
-      <div class="form-floating">
-        <label for="categoryName" class="form-label">카테고리 이름</label>
-        <input type="text" class="form-control" id="categoryName" v-model="state.form.name" placeholder="이름을 적어주세요" required style="margin-bottom: 20px">
-      </div>
-      <div class="form-floating">
-        <label for="categoryDesc" class="form-label">카테고리 설명</label>
-        <textarea id="categoryDesc" name="categoryDesc" v-model="state.form.description" class="form-control" rows="4" cols="50" style="margin-bottom: 20px"></textarea>
-      </div>
-      <button @click="update" class="w-100 btn btn-lg btn-success">저장하기</button>
-      <button class="w-100 btn btn-lg btn-success">삭제하기</button>
-    </main>
+    <h1 class="h3 mb-3 fw-normal text-center">카테고리 수정</h1>
+    <input type="text" class="form-control mb-3" v-model="state.name" placeholder="카테고리 이름">
+    <textarea class="form-control mb-3" v-model="state.description" placeholder="카테고리 설명"></textarea>
+    <button @click="updateCategory" class="btn btn-success">저장하기</button>
   </div>
 </template>
 
-
 <style scoped>
 .container {
-  margin: 50px auto 100px auto;
+  margin: 50px auto;
   width: 700px;
-  padding: 100px 50px 100px 50px;
-  border: solid lightgray 0.5px;
-  border-radius: 10px
+  padding: 50px;
+  border: 0.5px solid lightgray;
+  border-radius: 10px;
 }
 </style>

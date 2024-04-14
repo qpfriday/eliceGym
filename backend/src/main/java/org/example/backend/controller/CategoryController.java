@@ -37,7 +37,7 @@ public class CategoryController {
     }
 
     @GetMapping("/api/categories/{id}")
-    public ResponseEntity<CategoryResponse> findCategory(@PathVariable int id){
+    public ResponseEntity<CategoryResponse> findCategory(@PathVariable("id") int id){
         Category category = categoryService.findById(id);
 
         return ResponseEntity.ok()
@@ -52,7 +52,7 @@ public class CategoryController {
     }
 
     @PutMapping("/api/categories/{id}")
-    public ResponseEntity<Category> updateCategory(@PathVariable int id, @RequestBody UpdateCategoryRequest request){
+    public ResponseEntity<Category> updateCategory(@PathVariable("id") int id, @RequestBody UpdateCategoryRequest request){
         Category updateCategory = categoryService.update(id, request);
 
         return ResponseEntity.ok()

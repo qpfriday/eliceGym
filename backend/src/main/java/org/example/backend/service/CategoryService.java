@@ -34,7 +34,7 @@ public class CategoryService {
     @Transactional
     public Category update(int id, UpdateCategoryRequest request){
         Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("not fount: " + id));
+                .orElseThrow(() -> new IllegalArgumentException("not found: " + id));
 
         category.update(request.getName(), request.getDescription(), request.getUpdatedAt());
 

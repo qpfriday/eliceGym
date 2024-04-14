@@ -24,16 +24,18 @@ export default {
             console.error("Failed to fetch categories:", error);
           });
     },
-    deleteCategory(categoryId) {
-      axios.delete(`/api/categories/${categoryId}`)
-          .then(() => {
-            this.fetCategories(); // 삭제 후 목록을 다시 불러옵니다.
-            console.log("Category successfully deleted");
-          })
-          .catch(error => {
-            console.error("Error deleting category:", error);
-            alert("Failed to delete category");
-          });
+    deleteCategory(categoryId, categoryName) {
+      if (confirm(`'${categoryName}' 카테고리를 삭제하시겠습니까?`)) {
+        axios.delete(`/api/categories/${categoryId}`)
+            .then(() => {
+              this.fetCategories(); // 삭제 후 목록을 다시 불러옵니다.
+              console.log("Category successfully deleted");
+            })
+            .catch(error => {
+              console.error("Error deleting category:", error);
+              alert("Failed to delete category");
+            });
+      }
     },
     selectCategory(categoryName) {
       console.log(categoryName);
@@ -55,8 +57,8 @@ export default {
             <h6 class="mb-0">{{ category.name }}</h6>
             <p class="mb-0 opacity-75">{{ category.description }}</p>
           </div>
-          <router-link to="/modify-category" class="btn btn-primary modifyCategory">수정</router-link>
-          <button type="button" class="btn btn-danger" @click.stop="deleteCategory(category.id)">삭제</button>
+          <router-link :to="`/modify-category/${category.id}`" class="btn btn-primary modifyCategory">수정</router-link>
+          <button type="button" class="btn btn-danger" @click.stop="deleteCategory(category.id, category.name)">삭제</button>
         </div>
       </a>
     </div>
