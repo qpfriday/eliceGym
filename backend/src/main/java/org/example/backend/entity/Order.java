@@ -19,7 +19,11 @@ public class Order {
     @Column(length = 50, nullable = false)
     private String phoneNumber;
     @Column(length = 500, nullable = false)
-    private String address;
+    private String address1;
+    @Column(length = 500, nullable = false)
+    private String address2;
+    @Column(length = 500, nullable = false)
+    private String postCode;
     @Column(length = 100, nullable = false)
     private String request;
     @Column(length = 10, nullable = false)
