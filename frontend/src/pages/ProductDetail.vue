@@ -3,12 +3,15 @@ import axios from "axios";
 import { watch } from "vue";
 import { useRoute } from "vue-router";
 import { reactive } from "vue";
-import { addCommas } from "@/scripts/lib";
-import {useStore} from "vuex";
+import { addCommas, moveToCart, moveToLogin } from "@/scripts/lib";
+import { useStore } from "vuex";
+import ResultModal from "@/components/ResultModal.vue";
+//import router from "@/scripts/router";
 
 export default {
+  components: { ResultModal },
   name: "ProductDetail",
-  methods: { addCommas },
+  methods: { addCommas, moveToCart, moveToLogin },
   setup() {
     const route = useRoute();
     const store = useStore();
@@ -29,10 +32,11 @@ export default {
       img: null,
       quantity: 1,
       loading: true,
+      showModal: false,
+      accountModal: false,
     });
 
     axios.get(`/api/item/${itemId}`).then(({ data }) => {
-      console.log(data);
       state.item = data;
       state.img = `data:image/jpeg;base64,` + data.img;
       state.loading = false;
@@ -40,26 +44,77 @@ export default {
 
     const addToCart = (e) => {
       e.preventDefault();
+      if (
+        store.state.account.id === null ||
+        store.state.account.id === undefined
+      ) {
+        state.accountModal = true;
+        return;
+      }
       axios
         .post(`/api/cart/items/${itemId}?quantity=${state.quantity}`)
         .then(() => {
-          alert("장바구니에 담겼습니다.");
+          state.showModal = true;
+          // alert("장바구니에 담겼습니다.");
           console.log("success");
         });
     };
 
+    const closeModal = () => {
+      state.showModal = false;
+      state.accountModal = false;
+    };
+
+    // const moveToCart = () => {
+    //   router.push({ path: "/cart" });
+    // };
+    // const moveToLogin = () => {
+    //   router.push({ path: "/login" });
+    // };
+
     watch(
       () => route.params.itemId,
-      (itemId) => {
+      state.showModal,
+      (itemId, showModal) => {
         console.log(itemId);
+        console.log(showModal);
       }
     );
 
-    return { state, increaseStock, decreaseQuantity, addToCart, account: store.state.account };
+    return {
+      state,
+      increaseStock,
+      decreaseQuantity,
+      addToCart,
+      closeModal,
+
+      account: store.state.account,
+    };
   },
 };
 </script>
 <template>
+  <div v-if="state.accountModal">
+    <ResultModal
+      title="알림"
+      content="로그인이 필요합니다."
+      btn1="구경하기"
+      btn2="로그인하기"
+      :moveFunction="moveToLogin"
+      :closeFunction="closeModal"
+    />
+  </div>
+
+  <div v-if="state.showModal">
+    <ResultModal
+      title="알림"
+      content="장바구니에 담겼습니다."
+      btn1="계속 쇼핑하기"
+      btn2="장바구니 이동"
+      :moveFunction="moveToCart"
+      :closeFunction="closeModal"
+    />
+  </div>
   <div
     v-if="!state.loading"
     class="container"
@@ -164,17 +219,22 @@ export default {
                   class="btn btn-danger btn-lg"
                   role="button"
                   style="width: 200px"
-                  >삭제하기</a>
+                  >삭제하기</a
+                >
               </div>
             </div>
             <div class="col text-end">
               <div class="d-grid gap-2">
                 <router-link
                   class="btn btn-warning btn-lg"
-                  :to="{ name: 'modifyItem', params: { itemId: `${state.item.id}` } }"
+                  :to="{
+                    name: 'modifyItem',
+                    params: { itemId: `${state.item.id}` },
+                  }"
                   role="button"
                   style="width: 200px"
-                  >수정하기</router-link>
+                  >수정하기</router-link
+                >
               </div>
             </div>
           </div>
@@ -189,7 +249,8 @@ export default {
                   class="btn btn-secondary btn-lg"
                   role="button"
                   style="width: 200px"
-                  >구매하기</a>
+                  >구매하기</a
+                >
               </div>
             </div>
             <div class="col text-end">
@@ -199,7 +260,8 @@ export default {
                   @click="addToCart"
                   role="button"
                   style="width: 200px"
-                  >장바구니 담기</a>
+                  >장바구니 담기</a
+                >
               </div>
             </div>
           </div>
