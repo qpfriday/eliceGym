@@ -42,7 +42,7 @@ export default {
     const computedPrice = computed(() => {
       let result = 0;
       for (let i of state.items) {
-        result += (i.price - i.price * i.discountPer / 100) * i.quantity
+        result += (i.price - i.price * i.discountPer / 100) * i.quantity + i.deliveryPrice
       }
       return result;
     });
