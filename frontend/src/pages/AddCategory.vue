@@ -16,7 +16,7 @@ export default {
       axios.post("/api/categories", state.form)
           .then((res) => {
             console.log(res.data); // 성공적으로 등록되었을 때 메시지
-            router.push("/"); // 카테고리 목록 페이지로 이동
+            router.push("/categoryManagement"); // 카테고리 목록 페이지로 이동
           })
           .catch((error) => {
             console.error("카테고리 등록 실패:", error);

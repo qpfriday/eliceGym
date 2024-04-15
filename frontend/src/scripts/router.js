@@ -27,8 +27,8 @@ const routes = [
   { path: "/additem", component: AddItem },
   { path: "/categoryManagement", component: CategoryManagement },
   { path: "/add-category", component: AddCategory },
-  { path: "/modify-category", component: ModifyCategory },
   { path: "/item/:itemId/modify-item", component: ModifyItem , name: "modifyItem"},
+  { path: "/modify-category/:id", component: ModifyCategory, props: true }
 ];
 const router = createRouter({
   history: createWebHistory(),
