@@ -43,7 +43,7 @@ export default {
 
     const save = () => {
       console.log(state.form)
-      axios.put("/api/item/update", state.form)
+      axios.put(`/api/item/${itemId}/update`, state.form)
       state.editable = false
     }
 
@@ -62,7 +62,7 @@ export default {
 </script>
 
 <template>
-  <div class="container" v-if="!state.loading">
+  <div class="container justify-content-center align-items-center" v-if="!state.loading">
     <main class="form-signin">
       <h1 class="h3 mb-3 fw-normal text-center">상품 정보</h1>
       <div class="form-floating">
@@ -166,6 +166,7 @@ export default {
       </div>
       <button class="w-100 btn btn-lg btn-success" @click="edit" v-if="!state.editable">수정</button>
       <button class="w-100 btn btn-lg btn-success" @click="save" v-if="state.editable">저장</button>
+      <router-link :to="{ name: 'productDetail' }">상품 페이지로</router-link>
     </main>
   </div>
   <div v-else class="d-flex justify-content-center align-items-center" style="height: 30vh; margin-top: 200px">

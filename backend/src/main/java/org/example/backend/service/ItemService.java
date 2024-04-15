@@ -35,8 +35,8 @@ public class ItemService {
         return newItem.getId();
     }
 
-    public void updateItem(ItemDto itemDto) {
-        Item item = itemRepository.findById(itemDto.getId()).orElseThrow(() -> {
+    public void updateItem(int item_id, ItemDto itemDto) {
+        Item item = itemRepository.findById(item_id).orElseThrow(() -> {
             return new IllegalArgumentException("상품을 찾는데 실패하였습니다.");
         });
         item.setName(itemDto.getName());
@@ -50,6 +50,10 @@ public class ItemService {
         item.setStock(itemDto.getStock());
         item.setDeliveryPrice(itemDto.getDeliveryPrice());
         itemRepository.save(item);
+    }
+
+    public void deleteItem(int item_id) {
+        itemRepository.deleteById(item_id);
     }
     public Item getItem(int item_id){
         return itemRepository.findById(item_id).orElseThrow();
