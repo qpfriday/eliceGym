@@ -1,33 +1,47 @@
 <script>
 import { addCommas } from "@/scripts/lib";
-import axios from "axios";
+//import axios from "axios";
 import { reactive } from "vue";
 export default {
   name: "Card",
+
   props: {
     item: {
       type: Object,
       required: true,
     },
+    addToCart: {
+      type: Function,
+      required: true,
+    },
   },
+
+  methods: {
+    toCart() {
+      this.addToCart(this.item.id);
+    },
+  },
+
   setup(props) {
     const state = reactive({
       imageSrc: "",
     });
     state.imageSrc = `data:image/jpeg;base64,` + props.item.img;
 
-    const addToCart = (e) => {
-      e.preventDefault();
-      const itemId = props.item.id;
-      console.log(itemId);
+    // const addToCart = (e) => {
+    //   e.preventDefault();
 
-      axios.post(`/api/cart/items/${itemId}`).then(() => {
-        alert("장바구니에 추가되었습니다.");
-        console.log("success");
-      });
-    };
+    //   const itemId = props.item.id;
+    //   console.log(itemId);
 
-    return { addCommas, addToCart, state };
+    //   axios.post(`/api/cart/items/${itemId}`).then(() => {
+    //     state.showModal = true;
+    //     //alert("장바구니에 추가되었습니다.");
+    //     console.log("success");
+    //   });
+    // };
+
+    return { addCommas, state };
   },
 };
 </script>
@@ -70,7 +84,7 @@ export default {
       </div>
       <div class="card-footer pb-4 border-top-0 bg-transparent">
         <div class="text-center">
-          <a class="btn btn-outline-dark mt-auto" v-on:click="addToCart"
+          <a class="btn btn-outline-dark mt-auto" @click.prevent="toCart()"
             >장바구니 추가</a
           >
         </div>
