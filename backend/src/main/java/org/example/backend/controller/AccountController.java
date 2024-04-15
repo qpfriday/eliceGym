@@ -79,9 +79,12 @@ public class AccountController {
 
     @PostMapping("/api/account/join")
     public ResponseEntity join(@RequestBody UserDto userDto) {
+        // 아이디 중복 확인
+        if (userService.isIdAlreadyExists(userDto.getLoginId())) {
+            return new ResponseEntity<>("이미 존재하는 아이디입니다.", HttpStatus.BAD_REQUEST);
+        }
 
         userService.join(userDto);
-
         return new ResponseEntity<>("회원가입이 성공적으로 완료되었습니다.", HttpStatus.OK);
     }
 

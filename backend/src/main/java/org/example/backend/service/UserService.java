@@ -31,6 +31,9 @@ public class UserService {
             return null;
         }
     }
+    public boolean isIdAlreadyExists(String loginId) {
+        return userRepository.existsByLoginId(loginId);
+    }
     public void join(UserDto userDto) {
         User newUser = new User();
         newUser.setName(userDto.getName());

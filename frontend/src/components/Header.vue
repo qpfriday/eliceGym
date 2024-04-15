@@ -54,8 +54,8 @@ export default {
           </li>
           <li v-else>
             <ul class="d-flex flex-wrap">
-              <a class="nav-link link-body-emphasis px-2 active" href="join">회원가입</a>
-              <a class="nav-link link-body-emphasis px-2 active" href="login">로그인</a>
+              <router-link class="nav-link link-body-emphasis px-2 active" to="/join">회원가입</router-link>
+              <router-link class="nav-link link-body-emphasis px-2 active" to="/login">로그인</router-link>
             </ul>
           </li>
         </ul>

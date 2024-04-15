@@ -5,6 +5,7 @@ import { useRoute } from "vue-router";
 import { reactive } from "vue";
 import { addCommas } from "@/scripts/lib";
 import {useStore} from "vuex";
+import router from "@/scripts/router";
 
 export default {
   name: "ProductDetail",
@@ -45,6 +46,28 @@ export default {
         .then(() => {
           alert("장바구니에 담겼습니다.");
           console.log("success");
+        })
+        .catch(error => {
+          if (error.response && error.response.status === 401) {
+            alert("장바구니에 상품을 추가하려면 로그인이 필요합니다.");
+            // Redirect to the login page
+            router.push({ path: "/login" });
+          } else {
+            console.error("장바구니에 상품을 추가하는 중 오류 발생:", error);
+            alert("장바구니에 상품을 추가하는 중 오류가 발생했습니다.");
+          }
+        });
+    };
+
+    const deleteItem = () => {
+      axios.delete(`/api/item/${itemId}/delete`)
+        .then(() => {
+          alert("상품이 삭제되었습니다.");
+          router.push({path: "/"}); // 삭제 후 홈 페이지로 이동
+        })
+        .catch(error => {
+          console.error("상품 삭제 실패:", error);
+          alert("상품 삭제에 실패했습니다. 다시 시도해주세요.");
         });
     };
 
@@ -55,7 +78,7 @@ export default {
       }
     );
 
-    return { state, increaseStock, decreaseQuantity, addToCart, account: store.state.account };
+    return { state, increaseStock, decreaseQuantity, addToCart, deleteItem, account: store.state.account };
   },
 };
 </script>
@@ -164,6 +187,7 @@ export default {
                   class="btn btn-danger btn-lg"
                   role="button"
                   style="width: 200px"
+                  @click="deleteItem"
                   >삭제하기</a>
               </div>
             </div>
