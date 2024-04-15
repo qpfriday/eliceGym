@@ -30,12 +30,18 @@ export default {
       if (validateForm()) {
         axios
             .post("/api/account/join", state.form)
-            .then(() => {
-              router.push({ path: "/login" });
-              window.alert("회원가입이 완료되었습니다. 로그인 해주세요.");
+            .then((response) => {
+              if (response.status === 200) {
+                router.push({ path: "/login" });
+                window.alert("회원가입이 완료되었습니다. 로그인 해주세요.");
+              }
             })
-            .catch(() => {
-              window.alert("회원가입에 실패하였습니다. 다시 시도해주세요.");
+            .catch((error) => {
+              if (error.response && error.response.status === 400) {
+                window.alert("이미 존재하는 아이디입니다.");
+              } else {
+                window.alert("회원가입에 실패하였습니다. 다시 시도해주세요.");
+              }
             });
       } else {
         window.alert("모든 필드를 입력해 주세요.");
