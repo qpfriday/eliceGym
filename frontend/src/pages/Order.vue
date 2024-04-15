@@ -16,12 +16,13 @@ export default {
       form: {
         name: "",
         phoneNumber: "",
-        address: "",
+        postCode: "",
+        address1: "",
+        address2: "",
         request: "",
         payment: "",
         cardNumber: "",
         items: "",
-        // zipcode: "",
       },
     });
     const load = () => {
@@ -35,8 +36,24 @@ export default {
     };
 
     const validateForm = () => {
-      const { name, phoneNumber, address, payment, cardNumber } = state.form;
-      return name && phoneNumber && address && payment && cardNumber;
+      const {
+        name,
+        phoneNumber,
+        address1,
+        address2,
+        postCode,
+        payment,
+        cardNumber,
+      } = state.form;
+      return (
+        name &&
+        phoneNumber &&
+        address1 &&
+        payment &&
+        cardNumber &&
+        postCode &&
+        address2
+      );
     };
 
     const computedPrice = computed(() => {
@@ -62,6 +79,8 @@ export default {
     const showCustomRequest = ref(false);
 
     const purchase = () => {
+      console.log(state.form);
+
       if (validateForm()) {
         state.form.items = JSON.stringify(state.items);
         axios
@@ -83,8 +102,14 @@ export default {
     const openPostCode = () => {
       new window.daum.Postcode({
         oncomplete: function (data) {
-          state.form.address = data.address;
-          // state.form.zipcode = data.zonecode;
+          var roadAddr = data.roadAddress;
+
+          document.getElementById("postcode").value = data.zonecode;
+          document.getElementById("roadAddress").value = roadAddr;
+          document.getElementById("jibunAddress").value = data.jibunAddress;
+
+          state.form.address1 = roadAddr;
+          state.form.postCode = data.zonecode;
         },
         theme: {},
       }).open({
@@ -182,9 +207,50 @@ export default {
                     v-model="state.form.phoneNumber"
                   />
                 </div>
-                <div class="col-12">
+                <div class="col-12 address-fields">
                   <label for="address" class="form-label">주소</label>
+
                   <input
+                    type="text"
+                    id="postcode"
+                    placeholder="우편번호"
+                    class="form-control"
+                  />
+                  <!-- <input
+                    type="button"
+                    @click="openPostCode"
+                    value="우편번호 찾기"
+                  /><br /> -->
+                  <button
+                    class="btn btn-primary btn-sm"
+                    style="padding: 10px"
+                    type="button"
+                    @click="openPostCode"
+                  >
+                    우편번호 찾기
+                  </button>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="roadAddress"
+                    placeholder="도로명주소"
+                  />
+                  <input
+                    type="text"
+                    id="jibunAddress"
+                    placeholder="지번주소"
+                    class="form-control"
+                  />
+                  <span id="guide" style="color: #999; display: none"></span>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="detailAddress"
+                    placeholder="상세주소"
+                    v-model="state.form.address2"
+                  />
+
+                  <!-- <input
                     @click="openPostCode"
                     type="text"
                     required
@@ -192,7 +258,7 @@ export default {
                     id="address"
                     placeholder="Address"
                     v-model="state.form.address"
-                  />
+                  /> -->
                 </div>
                 <div class="col-12">
                   <label for="request" class="form-label">배송 요청사항</label>
@@ -290,5 +356,23 @@ export default {
 <style scoped>
 .col-12 input {
   margin-bottom: 10px;
+}
+.address-fields {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.address-fields label {
+  width: 100%;
+  display: block;
+}
+#postcode,
+#roadAddress,
+#jibunAddress,
+#detailAddress {
+  width: 48%;
+  padding: 10px 10px;
+  margin: 8px 0;
+  box-sizing: border-box;
 }
 </style>
