@@ -3,16 +3,11 @@ import axios from "axios";
 import { watch } from "vue";
 import { useRoute } from "vue-router";
 import { reactive } from "vue";
-<<<<<<< HEAD
-import { addCommas } from "@/scripts/lib";
-import {useStore} from "vuex";
-import router from "@/scripts/router";
-=======
 import { addCommas, moveToCart, moveToLogin } from "@/scripts/lib";
 import { useStore } from "vuex";
 import ResultModal from "@/components/ResultModal.vue";
+import router from "@/scripts/router";
 //import router from "@/scripts/router";
->>>>>>> juyoung
 
 export default {
   components: { ResultModal },
@@ -64,7 +59,7 @@ export default {
           // alert("장바구니에 담겼습니다.");
           console.log("success");
         })
-        .catch(error => {
+        .catch((error) => {
           if (error.response && error.response.status === 401) {
             alert("장바구니에 상품을 추가하려면 로그인이 필요합니다.");
             // Redirect to the login page
@@ -77,12 +72,13 @@ export default {
     };
 
     const deleteItem = () => {
-      axios.delete(`/api/item/${itemId}/delete`)
+      axios
+        .delete(`/api/item/${itemId}/delete`)
         .then(() => {
           alert("상품이 삭제되었습니다.");
-          router.push({path: "/"}); // 삭제 후 홈 페이지로 이동
+          router.push({ path: "/" }); // 삭제 후 홈 페이지로 이동
         })
-        .catch(error => {
+        .catch((error) => {
           console.error("상품 삭제 실패:", error);
           alert("상품 삭제에 실패했습니다. 다시 시도해주세요.");
         });
@@ -93,13 +89,6 @@ export default {
       state.accountModal = false;
     };
 
-    // const moveToCart = () => {
-    //   router.push({ path: "/cart" });
-    // };
-    // const moveToLogin = () => {
-    //   router.push({ path: "/login" });
-    // };
-
     watch(
       () => route.params.itemId,
       state.showModal,
@@ -109,19 +98,15 @@ export default {
       }
     );
 
-<<<<<<< HEAD
-    return { state, increaseStock, decreaseQuantity, addToCart, deleteItem, account: store.state.account };
-=======
     return {
       state,
       increaseStock,
       decreaseQuantity,
       addToCart,
+      deleteItem,
       closeModal,
-
       account: store.state.account,
     };
->>>>>>> juyoung
   },
 };
 </script>
@@ -250,14 +235,10 @@ export default {
                   href="#link"
                   class="btn btn-danger btn-lg"
                   role="button"
-                  style="width: 200px"
-<<<<<<< HEAD
                   @click="deleteItem"
-                  >삭제하기</a>
-=======
+                  style="width: 200px"
                   >삭제하기</a
                 >
->>>>>>> juyoung
               </div>
             </div>
             <div class="col text-end">
