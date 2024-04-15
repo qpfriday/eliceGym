@@ -48,7 +48,7 @@ export default {
       axios.put(`/api/categories/${categoryId.value}`, state.value)
           .then(() => {
             console.log("Category updated successfully");
-            router.push('/');  // 수정 후 목록 페이지로 이동
+            router.push('/categoryManagement');  // 수정 후 목록 페이지로 이동
           })
           .catch(error => {
             console.error("Failed to update category:", error);
