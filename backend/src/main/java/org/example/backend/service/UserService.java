@@ -16,15 +16,23 @@ public class UserService {
 
     // Method to fetch user's name by ID
     public String getNameById(int userId) {
-        // Assuming your UserRepository has a method to fetch user by ID
-        // Replace 'User' with your actual user entity class name
-        List<User> users = userRepository.findById(userId);
-        if (!users.isEmpty()) {
-            User user = users.get(0);
+        User user = userRepository.findById(userId);
+        if (user != null) {
             return user.getName();
         } else {
-            return null; // or throw ion if user not foundan except
+            return null;
         }
+    }
+    public String getRoleById(int userId) {
+        User user = userRepository.findById(userId);
+        if (user != null) {
+            return user.getRole();
+        } else {
+            return null;
+        }
+    }
+    public boolean isIdAlreadyExists(String loginId) {
+        return userRepository.existsByLoginId(loginId);
     }
     public void join(UserDto userDto) {
         User newUser = new User();
@@ -33,7 +41,7 @@ public class UserService {
         newUser.setPassword(userDto.getPassword());
         newUser.setEmail(userDto.getEmail());
         newUser.setPhoneNumber(userDto.getPhoneNumber());
-        newUser.setRole("ROLE_USER");
+        newUser.setRole(userDto.getRole());
 
         userRepository.save(newUser);
     }

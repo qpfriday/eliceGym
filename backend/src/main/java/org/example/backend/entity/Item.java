@@ -10,9 +10,13 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
+import lombok.Setter;
 
 @Getter
+@Setter
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "items")
 public class Item extends BaseTime{
 
@@ -23,6 +27,9 @@ public class Item extends BaseTime{
     private String name;
     @Column(length = 100)
     private String imgPath;
+
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] img;
     @Column(nullable = false)
     private int price;
     @Column
@@ -48,13 +55,13 @@ public class Item extends BaseTime{
         item.name = dto.getName();
         item.imgPath = dto.getImgPath();
         item.price = dto.getPrice();
-        item.discountPer = dto.getDiscountPer();
-        item.parentCategory = dto.getParentCategory();
-        item.childCategory = dto.getChildCategory();
+        item.discountPer = dto.getDiscount_per();
+        item.parentCategory = dto.getParent_category();
+        item.childCategory = dto.getChild_category();
         item.selection = dto.getSelection();
         item.description = dto.getDescription();
         item.stock = dto.getStock();
-        item.deliveryPrice = dto.getDeliveryPrice();
+        item.deliveryPrice = dto.getDelivery_price();
         return item;
     }
 }

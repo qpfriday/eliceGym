@@ -5,6 +5,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.backend.dto.UserDto;
 import org.example.backend.entity.User;
+import org.example.backend.repository.ItemRepository;
 import org.example.backend.repository.UserRepository;
 import org.example.backend.service.JwtService;
 import org.example.backend.service.UserService;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -26,6 +26,10 @@ public class AccountController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    ItemRepository itemRepository;
+
 
     @Autowired
     JwtService jwtService;
@@ -49,7 +53,7 @@ public class AccountController {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("api/account/check")
+    @GetMapping("/api/account/check")
     public ResponseEntity check(@CookieValue(value = "token", required = false) String token) {
         Claims claims = jwtService.getClaims(token);
         if (claims != null) {
@@ -57,6 +61,7 @@ public class AccountController {
             Map<String, Object> responseData = new HashMap<>();
             responseData.put("id", id);
             responseData.put("name", userService.getNameById(id));
+            responseData.put("role", userService.getRoleById(id));
             return new ResponseEntity<>(responseData, HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.OK);
@@ -74,9 +79,12 @@ public class AccountController {
 
     @PostMapping("/api/account/join")
     public ResponseEntity join(@RequestBody UserDto userDto) {
+        // 아이디 중복 확인
+        if (userService.isIdAlreadyExists(userDto.getLoginId())) {
+            return new ResponseEntity<>("이미 존재하는 아이디입니다.", HttpStatus.BAD_REQUEST);
+        }
 
         userService.join(userDto);
-
         return new ResponseEntity<>("회원가입이 성공적으로 완료되었습니다.", HttpStatus.OK);
     }
 
@@ -88,14 +96,14 @@ public class AccountController {
         }
 
         int userId = jwtService.getId(token);
-        List<User> user = userRepository.findById(userId);
+        User user = userRepository.findById(userId);
 
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @GetMapping("/api/account/info")
     public User getAccountInfo(@CookieValue(value = "token", required = false) String token) {
-        return userRepository.findById(jwtService.getId(token)).get(0);
+        return userRepository.findById(jwtService.getId(token));
     }
 
     @PutMapping("/api/account/update")

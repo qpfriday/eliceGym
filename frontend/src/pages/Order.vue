@@ -1,7 +1,7 @@
 <script>
-import {computed, reactive} from "vue";
+import { computed, reactive } from "vue";
 import axios from "axios";
-import {addCommas} from "@/scripts/lib";
+import { addCommas } from "@/scripts/lib";
 import router from "@/scripts/router";
 import {useRoute} from "vue-router";
 
@@ -15,7 +15,7 @@ export default {
         name: "",
         phoneNumber:"",
         address:"",
-        request:"",
+        request:"문앞에 두고 가주세요",
         payment:"",
         cardNumber:"",
         items:"",
@@ -40,9 +40,9 @@ export default {
     };
 
     const computedPrice = computed(() => {
-      let result =0;
+      let result = 0;
       for (let i of state.items) {
-        result += i.price - i.price * i.discountPer / 100
+        result += (i.price - i.price * i.discountPer / 100) * i.quantity
       }
       return result;
     });
@@ -144,7 +144,7 @@ export default {
               <div class="my-3">
                 <div class="form-check">
                   <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked v-model="state.form.payment" value="card">
-                    <label class="form-check-label" for="card">신용카드</label>
+                  <label class="form-check-label" for="card">신용카드</label>
                 </div>
                 <div class="form-check">
                   <input id="bank" name="paymentMethod" type="radio" class="form-check-input" v-model="state.form.payment" value="bank">

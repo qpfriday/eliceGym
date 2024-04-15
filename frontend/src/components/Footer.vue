@@ -1,5 +1,5 @@
 <template>
-  <footer class="text-body-secondary py-5">
+  <footer class="text-body-secondary" style="margin-top: 100px">
     <div class="jumbotron text-center" style="margin-bottom:0">
       <p><b>Created by eliceGym</b></p>
       <p>📞 010-1234-5678</p>

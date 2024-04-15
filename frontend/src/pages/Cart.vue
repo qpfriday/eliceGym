@@ -1,7 +1,7 @@
 <script>
-import {reactive} from "vue";
+import { reactive } from "vue";
 import axios from "axios";
-import {addCommas} from "@/scripts/lib";
+import { addCommas } from "@/scripts/lib";
 
 export default {
   setup() {

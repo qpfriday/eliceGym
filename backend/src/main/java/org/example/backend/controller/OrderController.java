@@ -58,7 +58,9 @@ public class OrderController {
         newOrder.setUserId(jwtService.getId(token));
         newOrder.setName(dto.getName());
         newOrder.setPhoneNumber(dto.getPhoneNumber());
-        newOrder.setAddress(dto.getAddress());
+        newOrder.setAddress1(dto.getAddress1());
+        newOrder.setAddress2(dto.getAddress2());
+        newOrder.setPostCode(dto.getPostCode());
         newOrder.setRequest(dto.getRequest());
         newOrder.setPayment(dto.getPayment());
         newOrder.setCardNumber(dto.getCardNumber());

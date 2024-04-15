@@ -7,6 +7,11 @@ import Cart from "@/pages/Cart.vue";
 import Order from "@/pages/Order.vue";
 import Orders from "@/pages/Orders.vue";
 import ProductDetail from "@/pages/ProductDetail.vue";
+import AddItem from "@/pages/AddItem.vue";
+import CategoryManagement from "@/pages/CategoryManagement.vue";
+import AddCategory from "@/pages/AddCategory.vue";
+import ModifyCategory from "@/pages/ModifyCategory.vue";
+import ModifyItem from "@/pages/ModifyItem.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
@@ -14,11 +19,16 @@ const routes = [
   { path: "/login", component: Login },
   { path: "/join", component: Join },
   { path: "/my", component: MyPage },
-  { path:'/info', component: MyInfo },
+  { path: "/info", component: MyInfo },
   { path: "/cart", component: Cart },
   { path: "/order", component: Order },
   { path: "/orders", component: Orders },
-  { path: "/:itemId", component: ProductDetail, name: "productDetail" },
+  { path: "/item/:itemId", component: ProductDetail, name: "productDetail" },
+  { path: "/additem", component: AddItem },
+  { path: "/categoryManagement", component: CategoryManagement },
+  { path: "/add-category", component: AddCategory },
+  { path: "/modify-category", component: ModifyCategory },
+  { path: "/item/:itemId/modify-item", component: ModifyItem , name: "modifyItem"},
 ];
 const router = createRouter({
   history: createWebHistory(),

@@ -35,24 +35,40 @@ export default {
     const addToCart = (e) => {
       e.preventDefault();
 
-      //state.quantity int로 변환
-
       axios
-        .post(`/api/cart/items/${itemId}?quantity=${state.quantity}`)
-        .then(() => {
-          alert("장바구니에 담겼습니다.");
-          console.log("success");
-        });
+          .post(`/api/cart/items/${itemId}?quantity=${state.quantity}`)
+          .then(() => {
+            alert("장바구니에 담겼습니다.");
+            console.log("success");
+          });
     };
 
-    watch(
-      () => route.params.itemId,
-      (itemId) => {
-        console.log(itemId);
+    const buy = () => {
+      const items = []
+
+      const detail = {
+        id: itemId,
+        quantity: state.quantity,
+        price: state.item.price,
+        discountPer: state.item.discountPer,
+        deliveryPrice: state.item.deliveryPrice,
+        name: state.item.name,
+        imgPath: state.item.imgPath
       }
+
+      items.push(detail)
+
+      return items;
+    }
+
+    watch(
+        () => route.params.itemId,
+        (itemId) => {
+          console.log(itemId);
+        }
     );
 
-    return { state, increaseStock, decreaseQuantity, addToCart };
+    return { state, increaseStock, decreaseQuantity, addToCart, buy };
   },
 };
 </script>
@@ -107,7 +123,8 @@ export default {
 
             <div class="col text-end"> <!-- 수정된 열 -->
               <div class="d-grid gap-2">
-                <a href="#link" class="btn btn-secondary btn-lg" role="button" style="width: 200px">구매하기</a>
+                <router-link :to="{ path: '/order', query: { items: JSON.stringify(buy()) }}"
+                             class="btn btn-secondary btn-lg" style="width: 200px">구입하기</router-link>
               </div>
             </div>
 
