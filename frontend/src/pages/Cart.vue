@@ -39,9 +39,11 @@ export default {
     }
 
     const remove = (itemId) =>
-      axios.delete(`/api/cart/items/${itemId}`).then(() => {
-        load();
-      });
+        axios.delete(`/api/cart/items/${itemId}`).then(() => {
+          state.items = state.items.filter(item => item.id !== itemId)
+        }).catch(error => {
+          console.log(error)
+        })
 
     load();
 
@@ -62,7 +64,7 @@ export default {
             >{{ addCommas(i.price - (i.price * i.discountPer) / 100) }} 원</span
           >
           <span class="quantity">{{i.quantity}}개</span>
-          <i class="fa fa-trash" @click="remove(i.id)"></i>
+          <i class="bi bi-trash" @click="remove(i.id)"></i>
         </li>
       </ul>
       <div v-if="state.items.length > 0">
