@@ -1,6 +1,5 @@
 package org.example.backend.dto;
 
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,10 +15,9 @@ public class ItemCreateDto {
     private String imgPath;
     private int price;
     private int discount_per;
-    private String parent_category;
-    private String child_category;
     private String selection;
     private String description;
     private int stock;
     private int delivery_price;
+    private int category_id;
 }

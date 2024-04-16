@@ -1,7 +1,7 @@
 <script>
 import Card from "@/components/Card.vue";
 import axios from "axios";
-import {computed, reactive} from "vue";
+import {computed, onMounted, reactive} from "vue";
 import Category from "@/pages/Category.vue";
 
 export default {
@@ -14,26 +14,42 @@ export default {
       searchText: "", // 검색어 저장
       filteredItems: [],
       selectedCategory: null,
+      categoryList: [],
       loading: true,
     });
 
-    axios.get("/api/item/list").then(({data}) => {
+    const fetchCategories = () => {
+      axios.get("/api/categories").then(response => {
+        state.categoryList = response.data;
+      }).catch(error => {
+        console.error("Failed to fetch categories:", error);
+      });
+    };
+
+    onMounted(() => {
+      fetchCategories();
+      axios.get("/api/items").then(({data}) => {
+        state.items = data;
+        state.filteredItems = data;
+        state.loading = false;
+      });
+    });
+
+    axios.get("/api/items").then(({data}) => {
       state.items = data;
       state.filteredItems = data;
       state.loading = false;
     });
 
-    const handleCategorySelected = (categoryName) => {
-      state.selectedCategory = categoryName;
+    const handleCategorySelected = (categoryId) => {
+      state.selectedCategory = categoryId;
     };
 
     const filteredItemsByCategory = computed(() => {
       if (!state.selectedCategory) {
         return state.items;
       } else {
-        console.log(typeof state.items[0].parentCategory);
-        console.log(typeof state.selectedCategory);
-        return state.items.filter(item => item.parentCategory === state.selectedCategory);
+        return state.items.filter(item => item.category_id === state.selectedCategory);
       }
     });
 
@@ -73,7 +89,7 @@ export default {
       <span class="sr-only">Next</span>
     </button>
   </div>
-  <Category :categoryList="categoryList" @category-selected="handleCategorySelected" />
+  <Category :categoryList="state.categoryList" @category-selected="handleCategorySelected" />
   <div class="container">
 
   <div v-if="!state.loading" class="container">

@@ -1,11 +1,9 @@
 package org.example.backend.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Column;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.backend.entity.Item;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 
@@ -20,12 +18,12 @@ public class ItemDto {
     private byte[] img;
     private int price;
     private int discountPer;
-    private String parentCategory;
-    private String childCategory;
     private String selection;
     private String description;
     private int stock;
     private int deliveryPrice;
+    private int categoryId;
+    private String categoryName;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;
@@ -40,13 +38,15 @@ public class ItemDto {
         this.imgPath = item.getImgPath();
         this.price = item.getPrice();
         this.discountPer = item.getDiscountPer();
-        this.parentCategory = item.getParentCategory();
-        this.childCategory = item.getChildCategory();
         this.selection = item.getSelection();
         this.description = item.getDescription();
         this.stock = item.getStock();
         this.deliveryPrice = item.getDeliveryPrice();
         this.createdAt = item.getCreatedAt();
         this.updatedAt = item.getUpdatedAt();
+        if (item.getCategory() != null) {
+            this.categoryId = item.getCategory().getId();
+            this.categoryName = item.getCategory().getName();
+        }
     }
 }

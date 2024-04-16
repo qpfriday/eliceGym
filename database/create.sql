@@ -1,3 +1,15 @@
+create table category
+(
+    id              int auto_increment
+        primary key,
+    name            varchar(50)  not null,
+    description     varchar(200) not null,
+    created_at      varchar(255) null,
+    updated_at      varchar(255) null,
+    constraint category_pk
+        unique (name)
+);
+
 create table users
 (
     id               int auto_increment
@@ -7,7 +19,7 @@ create table users
     password         varchar(100) not null,
     login_id         varchar(50)  not null,
     delivery_address varchar(500) null,
-    role             varchar(10)  null,
+    role             varchar(20)  null,
     phone_number     varchar(50)  not null,
     created_at       varchar(50)  null,
     updated_at       varchar(50)  null,
@@ -25,20 +37,22 @@ create table carts
 
 create table items
 (
-    id              int auto_increment
+    id             int auto_increment
         primary key,
-    name            varchar(50)  not null,
-    img_path        varchar(100) null,
-    price           int          not null,
-    discount_per    int          null,
-    parent_category varchar(25)  not null,
-    child_category  varchar(25)  not null,
-    selection       varchar(25)  null,
-    description     varchar(200) not null,
-    stock           int          not null,
-    delivery_price  int          null,
-    created_at      varchar(50)  null,
-    updated_at      varchar(50)  null
+    name           varchar(50)  not null,
+    img_path       varchar(100) null,
+    price          int          not null,
+    discount_per   int          null,
+    selection      varchar(25)  null,
+    description    varchar(200) not null,
+    stock          int          not null,
+    delivery_price int          null,
+    created_at     datetime(6)  null,
+    updated_at     datetime(6)  null,
+    img            longblob     null,
+    category_id    int          null,
+    constraint fk_category
+        foreign key (category_id) references category (id)
 );
 
 create table orders
@@ -55,16 +69,4 @@ create table orders
     items        varchar(500) not null,
     created_at   varchar(50)  null,
     updated_at   varchar(50)  null
-);
-
-create table category
-(
-    id              int auto_increment
-        primary key,
-    name            varchar(50)  not null,
-    description     varchar(200) not null,
-    created_at      varchar(255) null,
-    updated_at      varchar(255) null,
-    constraint category_pk
-        unique (name)
 );

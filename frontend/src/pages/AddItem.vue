@@ -27,7 +27,6 @@ export default {
         price: "",
         discount_per: "",
         parent_category: "",
-        child_category: "",
         selection: "",
         description: "",
         stock: "",
@@ -154,27 +153,15 @@ export default {
         />
       </div>
       <div class="form-floating">
-        <label for="floatingInput" class="form-label">상위 카테고리</label>
+        <label for="floatingInput" class="form-label">카테고리</label>
         <input
           type="text"
           class="form-control"
           id="parent_category"
-          placeholder="상위 카테고리를 입력해주세요"
+          placeholder="카테고리를 선택 해주세요"
           required
           style="margin-bottom: 20px"
           v-model="state.form.parent_category"
-        />
-      </div>
-      <div class="form-floating">
-        <label for="floatingInput" class="form-label">하위 카테고리</label>
-        <input
-          type="text"
-          class="form-control"
-          id="chile_category"
-          placeholder="하위 카테고리를 입력해주세요"
-          required
-          style="margin-bottom: 20px"
-          v-model="state.form.child_category"
         />
       </div>
       <div class="form-floating">

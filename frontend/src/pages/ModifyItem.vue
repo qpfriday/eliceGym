@@ -1,5 +1,5 @@
 <script>
-import {reactive, watch} from "vue";
+import {onMounted, reactive} from "vue";
 import axios from "axios";
 import {useRoute} from "vue-router";
 
@@ -10,12 +10,13 @@ export default {
     const itemId = route.params.itemId;
     const state = reactive({
       loading: true,
+      categories: [],
       form: {
         name: "",
         price: "",
         discountPer: "",
+        category_id: "",
         parentCategory: "",
-        childCategory: "",
         selection: "",
         description: "",
         stock: "",
@@ -28,33 +29,31 @@ export default {
       editable: false
     })
 
-    const load = () => {
+    const loadItemAndCategories = () => {
       axios.get(`/api/item/${itemId}`).then(({ data }) => {
-        console.log(data);
-        state.form = data;
+        state.form = {...state.form, ...data};
         state.img = `data:image/jpeg;base64,` + data.img;
         state.loading = false;
       });
-    }
+      axios.get("/api/categories").then(response => {
+        state.categories = response.data;
+      });
+    };
 
     const edit = () => {
-      state.editable = true
+      state.editable = true;
     }
 
     const save = () => {
-      console.log(state.form)
-      axios.put("/api/item/update", state.form)
-      state.editable = false
+      axios.put("/api/item/update", state.form).then(() => {
+        state.editable = false;
+      }).catch(error => {
+        console.error("Update failed:", error);
+        alert("Update failed!");
+      });
     }
 
-    load()
-
-    watch(
-        () => route.params.itemId,
-        (itemId) => {
-          console.log(itemId);
-        }
-    );
+    onMounted(loadItemAndCategories);
 
     return { state, edit, save }
   }
@@ -99,26 +98,13 @@ export default {
                v-model="state.form.discountPer">
       </div>
       <div class="form-floating">
-        <label for="floatingInput" class="form-label">상위 카테고리</label>
-        <input type="text" class="form-control" id="parent_category" placeholder="상위 카테고리를 입력해주세요" aria-label="Disabled input example" disabled
-               style="margin-bottom: 20px"
-               v-if="!state.editable"
-               v-model="state.form.parentCategory">
-        <input type="text" class="form-control" id="parent_category" placeholder="상위 카테고리를 입력해주세요" required
-               style="margin-bottom: 20px"
-               v-else
-               v-model="state.form.parentCategory">
-      </div>
-      <div class="form-floating">
-        <label for="floatingInput" class="form-label">하위 카테고리</label>
-        <input type="text" class="form-control" id="chile_category" placeholder="하위 카테고리를 입력해주세요" aria-label="Disabled input example" disabled
-               style="margin-bottom: 20px"
-               v-if="!state.editable"
-               v-model="state.form.childCategory">
-        <input type="text" class="form-control" id="chile_category" placeholder="하위 카테고리를 입력해주세요" required
-               style="margin-bottom: 20px"
-               v-else
-               v-model="state.form.childCategory">
+        <label for="category">카테고리</label>
+        <select id="category" class="form-select" v-model="state.form.category_id" :disabled="!state.editable" required>
+          <option disabled value="">카테고리를 선택해주세요</option>
+          <option v-for="category in state.categories" :key="category.id" :value="category.id">
+            {{ category.name }}
+          </option>
+        </select>
       </div>
       <div class="form-floating">
         <label for="floatingInput" class="form-label">옵션</label>

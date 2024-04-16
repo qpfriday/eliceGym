@@ -4,13 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.example.backend.dto.ItemCreateDto;
-import org.springframework.cglib.core.Local;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-
-import java.time.LocalDateTime;
 import lombok.Setter;
+import org.example.backend.dto.ItemDto;
 
 @Getter
 @Setter
@@ -35,10 +30,6 @@ public class Item extends BaseTime{
     @Column
     private int discountPer;
     @Column(length = 25, nullable = false)
-    private String parentCategory;
-    @Column(length = 25, nullable = false)
-    private String childCategory;
-    @Column(length = 25, nullable = false)
     private String selection;
     @Column(length = 200, nullable = false)
     private String description;
@@ -46,22 +37,18 @@ public class Item extends BaseTime{
     private int stock;
     @Column
     private int deliveryPrice;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    private Category category;
 
-
-
-
-    public static Item createItem(ItemCreateDto dto){
-        Item item = new Item();
-        item.name = dto.getName();
-        item.imgPath = dto.getImgPath();
-        item.price = dto.getPrice();
-        item.discountPer = dto.getDiscount_per();
-        item.parentCategory = dto.getParent_category();
-        item.childCategory = dto.getChild_category();
-        item.selection = dto.getSelection();
-        item.description = dto.getDescription();
-        item.stock = dto.getStock();
-        item.deliveryPrice = dto.getDelivery_price();
-        return item;
+    public void updateDetails(ItemDto itemDto) {
+        this.name = itemDto.getName();
+        this.imgPath = itemDto.getImgPath();
+        this.price = itemDto.getPrice();
+        this.discountPer = itemDto.getDiscountPer();
+        this.selection = itemDto.getSelection();
+        this.description = itemDto.getDescription();
+        this.stock = itemDto.getStock();
+        this.deliveryPrice = itemDto.getDeliveryPrice();
     }
 }
