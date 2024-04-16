@@ -59,6 +59,12 @@ public class ItemService {
                 new IllegalArgumentException("Product not found for the ID: " + itemDto.getId())
         );
         existingItem.updateDetails(itemDto);
+        if (itemDto.getCategoryId() != 0) {
+            Category category = categoryRepository.findById(itemDto.getCategoryId()).orElseThrow(() ->
+                    new RuntimeException("Category not found for ID: " + itemDto.getCategoryId())
+            );
+            existingItem.setCategory(category);
+        }
         itemRepository.save(existingItem);
     }
 

@@ -15,8 +15,7 @@ export default {
         name: "",
         price: "",
         discountPer: "",
-        category_id: "",
-        parentCategory: "",
+        categoryId: "",
         selection: "",
         description: "",
         stock: "",
@@ -29,22 +28,42 @@ export default {
       editable: false
     })
 
-    const loadItemAndCategories = () => {
-      axios.get(`/api/item/${itemId}`).then(({ data }) => {
-        state.form = {...state.form, ...data};
-        state.img = `data:image/jpeg;base64,` + data.img;
+    const loadItemAndCategories = async () => {
+      try {
+        // 카테고리 데이터를 먼저 로드합니다.
+        const categoryResponse = await axios.get("/api/categories");
+        console.log("Categories Loaded:", categoryResponse.data);
+        state.categories = categoryResponse.data;
+
+        // 상품 데이터를 로드합니다.
+        const itemResponse = await axios.get(`/api/item/${itemId}`);
+        console.log("Item Loaded:", itemResponse.data);
+        state.form = { ...state.form, ...itemResponse.data };
+        console.log("Form State after Item Load:", state.form);
+        state.img = `data:image/jpeg;base64,${itemResponse.data.img}`;
+
+        // 카테고리 ID를 설정합니다.
+        if (state.categories.length > 0) {
+          state.form.categoryId = itemResponse.data.categoryId;
+          console.log("Category ID Set:", state.form.categoryId);
+        }
+
         state.loading = false;
-      });
-      axios.get("/api/categories").then(response => {
-        state.categories = response.data;
-      });
+      } catch (error) {
+        console.error("Failed to load data:", error);
+        state.loading = false;
+      }
     };
+
+
+    onMounted(loadItemAndCategories);
 
     const edit = () => {
       state.editable = true;
     }
 
     const save = () => {
+      console.log("Saving data:", state.form);
       axios.put("/api/item/update", state.form).then(() => {
         state.editable = false;
       }).catch(error => {
@@ -52,8 +71,6 @@ export default {
         alert("Update failed!");
       });
     }
-
-    onMounted(loadItemAndCategories);
 
     return { state, edit, save }
   }
@@ -99,8 +116,8 @@ export default {
       </div>
       <div class="form-floating">
         <label for="category">카테고리</label>
-        <select id="category" class="form-select" v-model="state.form.category_id" :disabled="!state.editable" required>
-          <option disabled value="">카테고리를 선택해주세요</option>
+        <select id="category" class="form-select" v-model="state.form.categoryId" :disabled="!state.editable" required>
+          <option disabled value="">{{ state.loading ? '로딩 중...' : '카테고리를 선택해주세요' }}</option>
           <option v-for="category in state.categories" :key="category.id" :value="category.id">
             {{ category.name }}
           </option>
