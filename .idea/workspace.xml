@@ -6,20 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0c5b75ed-0438-4614-a166-7f2b5c731e47" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/org/example/backend/BackendApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/classes/java/main/org/example/backend/BackendApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/org/example/backend/controller/AccountController.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/classes/java/main/org/example/backend/controller/AccountController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/org/example/backend/controller/CartController.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/classes/java/main/org/example/backend/controller/CartController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/org/example/backend/controller/ItemController.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/classes/java/main/org/example/backend/controller/ItemController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/org/example/backend/controller/OrderController.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/classes/java/main/org/example/backend/controller/OrderController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/org/example/backend/dto/OrderDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/classes/java/main/org/example/backend/dto/OrderDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/org/example/backend/entity/Cart.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/classes/java/main/org/example/backend/entity/Cart.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/org/example/backend/entity/Item.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/classes/java/main/org/example/backend/entity/Item.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/org/example/backend/entity/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/classes/java/main/org/example/backend/entity/Order.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/org/example/backend/repository/CartRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/classes/java/main/org/example/backend/repository/CartRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/org/example/backend/repository/ItemRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/classes/java/main/org/example/backend/repository/ItemRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/org/example/backend/repository/OrderRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/classes/java/main/org/example/backend/repository/OrderRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/org/example/backend/service/JwtService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/classes/java/main/org/example/backend/service/JwtService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/org/example/backend/service/JwtServiceImp.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/classes/java/main/org/example/backend/service/JwtServiceImp.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
