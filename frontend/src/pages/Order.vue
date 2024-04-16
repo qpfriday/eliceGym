@@ -216,11 +216,7 @@ export default {
                     placeholder="우편번호"
                     class="form-control"
                   />
-                  <!-- <input
-                    type="button"
-                    @click="openPostCode"
-                    value="우편번호 찾기"
-                  /><br /> -->
+
                   <button
                     class="btn btn-primary btn-sm"
                     style="padding: 10px"
@@ -249,16 +245,6 @@ export default {
                     placeholder="상세주소"
                     v-model="state.form.address2"
                   />
-
-                  <!-- <input
-                    @click="openPostCode"
-                    type="text"
-                    required
-                    class="form-control"
-                    id="address"
-                    placeholder="Address"
-                    v-model="state.form.address"
-                  /> -->
                 </div>
                 <div class="col-12">
                   <label for="request" class="form-label">배송 요청사항</label>
