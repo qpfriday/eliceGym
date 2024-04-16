@@ -1,7 +1,7 @@
 <script>
 import { reactive } from "vue";
 import axios from "axios";
-import { addCommas } from "@/scripts/lib";
+import { addCommas, formatDate, formatTime } from "@/scripts/lib";
 
 export default {
   setup() {
@@ -18,7 +18,7 @@ export default {
       return JSON.parse(order.items)
     }
 
-    return { state, getItems, addCommas };
+    return { state, getItems, addCommas, formatDate, formatTime };
   },
 };
 </script>
@@ -39,7 +39,10 @@ export default {
         <tbody style="font-size: small; text-align: center">
           <template v-for="(o, idx1) in state.orders" :key="idx1">
             <tr v-for="(i, idx2) in getItems(o)" :key="idx2">
-              <td :rowspan="getItems(o).length" v-if="idx2===0">2024-03-03</td>
+              <td :rowspan="getItems(o).length" v-if="idx2 === 0">
+                <div>{{ formatDate(o.createdAt) }}</div>
+                <div>{{ formatTime(o.createdAt) }}</div>
+              </td>
               <td style="text-align: left">
                 <img
                     style="width: 50px; height: 50px; margin-right: 10px"
