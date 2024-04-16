@@ -6,17 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0c5b75ed-0438-4614-a166-7f2b5c731e47" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/org/example/backend/controller/ItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/org/example/backend/controller/ItemController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/org/example/backend/dto/ItemCreateDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/org/example/backend/dto/ItemCreateDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/org/example/backend/dto/ItemDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/org/example/backend/dto/ItemDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/org/example/backend/entity/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/org/example/backend/entity/Item.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/org/example/backend/service/ItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/org/example/backend/service/ItemService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/create.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/create.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/eliceGym_items.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/eliceGym_items.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/eliceGym_users.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/eliceGym_users.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/AddItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/AddItem.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Home.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/ModifyItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/ModifyItem.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -237,7 +226,7 @@
       <workItem from="1712973247837" duration="66000" />
       <workItem from="1712973392419" duration="111000" />
       <workItem from="1712973514944" duration="1297000" />
-      <workItem from="1713226196798" duration="14258000" />
+      <workItem from="1713226196798" duration="16764000" />
     </task>
     <servers />
   </component>
