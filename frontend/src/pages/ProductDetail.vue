@@ -71,6 +71,24 @@ export default {
         });
     };
 
+    const buy = () => {
+      const items = []
+
+      const detail = {
+        id: itemId,
+        quantity: state.quantity,
+        price: state.item.price,
+        discountPer: state.item.discountPer,
+        deliveryPrice: state.item.deliveryPrice,
+        name: state.item.name,
+        imgPath: state.item.imgPath
+      }
+
+      items.push(detail)
+
+      return items;
+    }
+
     const deleteItem = () => {
       axios
         .delete(`/api/item/${itemId}/delete`)
@@ -103,6 +121,7 @@ export default {
       increaseStock,
       decreaseQuantity,
       addToCart,
+      buy,
       deleteItem,
       closeModal,
       account: store.state.account,
@@ -262,12 +281,10 @@ export default {
             <div class="col"></div>
             <div class="col text-end">
               <div class="d-grid gap-2">
-                <a
-                  href="#link"
-                  class="btn btn-secondary btn-lg"
-                  role="button"
-                  style="width: 200px"
-                  >구매하기</a
+                <router-link
+                    :to="{ path: '/order', query: { items: JSON.stringify(buy()) }}"
+                             class="btn btn-secondary btn-lg" style="width: 200px"
+                >구입하기</router-link
                 >
               </div>
             </div>
