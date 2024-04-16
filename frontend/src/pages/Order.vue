@@ -24,10 +24,12 @@ export default {
         cardNumber: "",
         items: "",
       },
+      loading: true,
     });
     const load = () => {
       axios.get("/api/cart/items").then(({ data }) => {
         state.items = data;
+        state.loading = false;
       });
 
       axios.get("/api/account/user").then(({ data }) => {
@@ -57,12 +59,11 @@ export default {
     };
 
     const computedPrice = computed(() => {
-      let result = 0;
-      for (let i of state.items) {
-        result += i.price - (i.price * i.discountPer) / 100;
-      }
-      return result;
+      return state.items.reduce((acc, item) => {
+        return acc + (item.price - (item.price * item.discountPer) / 100);
+      }, 0);
     });
+
     const fillUserInfo = (event) => {
       if (event.target.checked && Object.keys(state.user).length !== 0) {
         const user = state.user;
@@ -146,23 +147,30 @@ export default {
                 state.items.length
               }}</span>
             </h4>
-            <ul class="list-group mb-3">
-              <li
-                class="list-group-item d-flex justify-content-between lh-sm"
-                v-for="(i, idx) in state.items"
-                :key="idx"
-              >
-                <div>
-                  <h6 class="my-0">{{ i.name }}</h6>
-                </div>
-                <span class="text-body-secondary">
+            <div v-if="!state.loading" class="container">
+              <ul class="list-group mb-3">
+                <li
+                    class="list-group-item d-flex justify-content-between lh-sm"
+                    v-for="(i, idx) in state.items"
+                    :key="idx"
+                >
+                  <div>
+                    <h6 class="my-0">{{ i.name }}</h6>
+                  </div>
+                  <span class="text-body-secondary">
                   {{ addCommas(i.price - (i.price * i.discountPer) / 100) }} 원
                 </span>
-              </li>
-            </ul>
-            <h2 class="text-center total-price">
-              {{ addCommas(computedPrice) }} 원
-            </h2>
+                </li>
+              </ul>
+              <h2 class="text-center total-price">
+                {{ addCommas(computedPrice) }} 원
+              </h2>
+            </div>
+            <div v-else class="d-flex justify-content-center align-items-center" style="height: 30vh;">
+              <div class="spinner-grow text-primary" style="width: 50px; height: 50px;" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
           </div>
 
           <div class="col-md-5 col-lg-8" id="layer">

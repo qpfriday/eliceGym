@@ -7,12 +7,9 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_17">
+  <component name="NewModuleRootManager">
     <output-test url="file://$MODULE_DIR$/../../backend/out/test/classes" />
     <exclude-output />
-    <content url="file://$MODULE_DIR$/../../backend/src/test">
-      <sourceFolder url="file://$MODULE_DIR$/../../backend/src/test/java" isTestSource="true" />
-    </content>
     <content url="file://$MODULE_DIR$/../../backend/src/test">
       <sourceFolder url="file://$MODULE_DIR$/../../backend/src/test/java" isTestSource="true" />
     </content>

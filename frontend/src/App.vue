@@ -19,15 +19,19 @@ export default {
     Header,
   },
   setup() {
-    const check = () => {
-      axios.get("/api/account/check").then(({ data }) => {
+    const check = async () => {
+      try {
+        const { data } = await axios.get("/api/account/check");
         console.log(data);
         store.commit("setAccount", data || 0);
-      });
+      } catch (error) {
+        console.error("에러 발생:", error);
+      }
     };
+
     const route = useRoute();
-    watch(route, () => {
-      check();
+    watch(route, async () => {
+      await check();
     });
   },
 };
