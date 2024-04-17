@@ -1,4 +1,4 @@
-import {useStore} from 'vuex';
+import { useStore } from "vuex";
 
 import Home from "@/pages/Home.vue";
 import Login from "@/pages/Login.vue";
@@ -14,7 +14,7 @@ import CategoryManagement from "@/pages/CategoryManagement.vue";
 import AddCategory from "@/pages/AddCategory.vue";
 import ModifyCategory from "@/pages/ModifyCategory.vue";
 import ModifyItem from "@/pages/ModifyItem.vue";
-import {createRouter, createWebHistory} from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 
 // 미들웨어 함수 정의
 const requireAuth = (to, from, next) => {
@@ -22,7 +22,7 @@ const requireAuth = (to, from, next) => {
 
   // 로그인하지 않은 경우 로그인 페이지로 리다이렉션
   if (!isLoggedIn) {
-    next('/login');
+    next("/login");
   } else {
     next();
   }
@@ -39,11 +39,24 @@ const routes = [
   { path: "/orders", component: Orders, beforeEnter: requireAuth },
   { path: "/item/:itemId", component: ProductDetail, name: "productDetail" },
   { path: "/addItem", component: AddItem, beforeEnter: requireAuth },
-  { path: "/categoryManagement", component: CategoryManagement, beforeEnter: requireAuth },
+  {
+    path: "/categoryManagement",
+    component: CategoryManagement,
+    beforeEnter: requireAuth,
+  },
   { path: "/add-category", component: AddCategory, beforeEnter: requireAuth },
-  { path: "/modify-category", component: ModifyCategory, beforeEnter: requireAuth },
-  { path: "/item/:itemId/modify-item", component: ModifyItem , name: "modifyItem", beforeEnter: requireAuth },
-  { path: "/:pathMatch(.*)", redirect: "/" } // 루트 경로로 리다이렉션
+  {
+    path: "/modify-category",
+    component: ModifyCategory,
+    beforeEnter: requireAuth,
+  },
+  {
+    path: "/item/:itemId/modify-item",
+    component: ModifyItem,
+    name: "modifyItem",
+    beforeEnter: requireAuth,
+  },
+  { path: "/:pathMatch(.*)", redirect: "/" }, // 루트 경로로 리다이렉션
 ];
 
 const router = createRouter({
@@ -57,10 +70,7 @@ function checkIfUserIsLoggedIn() {
   return store.getters.isLoggedIn;
 }
 
-
 export default router;
-
-
 
 // import Home from "@/pages/Home.vue";
 // import Login from "@/pages/Login.vue";

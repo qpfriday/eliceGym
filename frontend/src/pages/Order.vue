@@ -1,10 +1,11 @@
 <script>
 import { computed, reactive, ref } from "vue";
 import axios from "axios";
-import { addCommas } from "@/scripts/lib";
+import { addCommas, openPostCode } from "@/scripts/lib";
 import router from "@/scripts/router";
 
 export default {
+  methods: { openPostCode },
   setup() {
     const state = reactive({
       items: [],
@@ -99,26 +100,9 @@ export default {
     };
 
     load();
-    //주소 api
-    const openPostCode = () => {
-      new window.daum.Postcode({
-        oncomplete: function (data) {
-          var roadAddr = data.roadAddress;
 
-          document.getElementById("postcode").value = data.zonecode;
-          document.getElementById("roadAddress").value = roadAddr;
-          document.getElementById("jibunAddress").value = data.jibunAddress;
-
-          state.form.address1 = roadAddr;
-          state.form.postCode = data.zonecode;
-        },
-        theme: {},
-      }).open({
-        left: -1300,
-        top: 200,
-      });
-
-      //창 닫기
+    const ClickAddress = () => {
+      openPostCode(state);
     };
 
     return {
@@ -128,7 +112,8 @@ export default {
       purchase,
       fillUserInfo,
       showCustomRequest,
-      openPostCode,
+      ClickAddress,
+      // openPostCode,
     };
   },
 };
@@ -224,16 +209,12 @@ export default {
                     placeholder="우편번호"
                     class="form-control"
                   />
-                  <!-- <input
-                    type="button"
-                    @click="openPostCode"
-                    value="우편번호 찾기"
-                  /><br /> -->
+
                   <button
                     class="btn btn-primary btn-sm"
                     style="padding: 10px"
                     type="button"
-                    @click="openPostCode"
+                    @click="ClickAddress"
                   >
                     우편번호 찾기
                   </button>
@@ -257,16 +238,6 @@ export default {
                     placeholder="상세주소"
                     v-model="state.form.address2"
                   />
-
-                  <!-- <input
-                    @click="openPostCode"
-                    type="text"
-                    required
-                    class="form-control"
-                    id="address"
-                    placeholder="Address"
-                    v-model="state.form.address"
-                  /> -->
                 </div>
                 <div class="col-12">
                   <label for="request" class="form-label">배송 요청사항</label>

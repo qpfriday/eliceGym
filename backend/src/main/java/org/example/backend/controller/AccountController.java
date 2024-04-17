@@ -111,6 +111,12 @@ public class AccountController {
         User user = userRepository.findByEmail(updatedUser.getEmail());
         user.setName(updatedUser.getName());
         user.setDeliveryAddress(updatedUser.getDeliveryAddress());
+        user.setAddress1(updatedUser.getAddress1());
+        user.setAddress2(updatedUser.getAddress2());
+        user.setPostCode(updatedUser.getPostCode());
+        user.setPhoneNumber(updatedUser.getPhoneNumber());
+
+
         userRepository.save(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
