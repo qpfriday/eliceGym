@@ -25,12 +25,12 @@ public class UserService {
     }
     public String getRoleById(int userId) {
         User user = userRepository.findById(userId);
-        if (user != null) {
-            return user.getRole();
-        } else {
-            return null;
-        }
+
+        if (user == null) { return null; }
+
+        return user.getRole();
     }
+
     public boolean isIdAlreadyExists(String loginId) {
         return userRepository.existsByLoginId(loginId);
     }

@@ -10,21 +10,26 @@ export default {
         name: "",
         loginId: "",
         password: "",
+        confirmPassword: "",
         email: "",
         phoneNumber: "",
         role: "",
       }
-    })
+    });
+
     const validateForm = () => {
       return (
           state.form.name &&
           state.form.loginId &&
           state.form.password &&
+          state.form.confirmPassword &&
+          state.form.password === state.form.confirmPassword &&
           state.form.email &&
           state.form.phoneNumber &&
           state.form.role
       );
     };
+
 
     const join = () => {
       if (validateForm()) {
@@ -83,6 +88,13 @@ export default {
                  @keyup.enter="join"
                  v-model="state.form.password">
           <div class="invalid-feedback">비밀번호를 입력해 주세요</div>
+        </div>
+        <div class="form-floating">
+          <label for="validationConfirmPW" class="form-label" style="margin-top: 20px">비밀번호 확인</label>
+          <input type="password" class="form-control" id="validationConfirmPW" placeholder="Confirm Password" required
+                 @keyup.enter="join"
+                 v-model="state.form.confirmPassword">
+          <div class="invalid-feedback">비밀번호를 다시 입력해 주세요</div>
         </div>
         <div class="form-floating">
           <label for="validationPN" class="form-label" style="margin-top: 20px">전화번호</label>
