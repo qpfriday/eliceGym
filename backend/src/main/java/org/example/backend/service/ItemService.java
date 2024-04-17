@@ -88,4 +88,12 @@ public class ItemService {
                 .map(ItemDto::new)
                 .collect(Collectors.toList());
     }
+
+    public void deleteItemById(int itemId) {
+        if (!itemRepository.existsById(itemId)) {
+            throw new IllegalArgumentException("Item not found with ID: " + itemId);
+        }
+        itemRepository.deleteById(itemId);
+        log.info("Deleted item with ID: {}", itemId);
+    }
 }

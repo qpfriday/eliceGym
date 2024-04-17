@@ -48,6 +48,18 @@ export default {
         });
     };
 
+    const deleteItem = () => {
+      axios.delete(`/api/item/${itemId}`)
+          .then(() => {
+            alert("아이템이 삭제되었습니다.");
+            window.location.href = '/';
+          })
+          .catch(error => {
+            console.error("삭제 실패:", error);
+            alert("아이템 삭제에 실패하였습니다.");
+          });
+    };
+
     watch(
       () => route.params.itemId,
       (itemId) => {
@@ -55,7 +67,7 @@ export default {
       }
     );
 
-    return { state, increaseStock, decreaseQuantity, addToCart, account: store.state.account };
+    return { state, increaseStock, decreaseQuantity, addToCart, deleteItem, account: store.state.account };
   },
 };
 </script>
@@ -162,6 +174,7 @@ export default {
                 <a
                   href="#link"
                   class="btn btn-danger btn-lg"
+                  @click="deleteItem"
                   role="button"
                   style="width: 200px"
                   >삭제하기</a>

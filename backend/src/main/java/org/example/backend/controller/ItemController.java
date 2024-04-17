@@ -53,6 +53,17 @@ public class ItemController {
         return ResponseEntity.ok("Item updated successfully");
     }
 
+    @DeleteMapping("/api/item/{item_id}")
+    public ResponseEntity<String> deleteItem(@PathVariable("item_id") int item_id) {
+        try {
+            itemService.deleteItemById(item_id);
+            return ResponseEntity.ok("Item deleted successfully.");
+        } catch (Exception e) {
+            log.error("Error deleting item with ID {}: {}", item_id, e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting item: " + e.getMessage());
+        }
+    }
+
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
