@@ -1,5 +1,5 @@
 <script>
-import {onMounted, reactive} from "vue";
+import {onMounted, reactive, watch} from "vue";
 import axios from "axios";
 //import store from "@/scripts/store";
 import router from "@/scripts/router";
@@ -37,12 +37,18 @@ export default {
         imgName: "Choose file",
         img: null,
       },
+      categories: [],
     });
+
+    watch(() => state.form.categoryId, (newVal, oldVal) => {
+      console.log(`카테고리 ID 변경됨: ${oldVal} -> ${newVal}`);
+    }, { immediate: true });
 
     const loadCategories = async () => {
       try {
         const response = await axios.get("/api/categories");
         state.categories = response.data;
+        console.log("Loaded categories:", response.data);
       } catch (error) {
         console.error("Failed to load categories:", error);
       }
@@ -57,39 +63,44 @@ export default {
         alert("카테고리를 선택해주세요.");
         return; // 카테고리가 선택되지 않았다면 여기서 함수 실행을 중단
       }
+
       const itemData = {
         name: state.form.name,
         price: state.form.price,
-        discount_per: state.form.discountPer,
-        category: state.form.categoryId,
+        discountPer: state.form.discountPer,
+        categoryId: state.form.categoryId,
         selection: state.form.selection,
         description: state.form.description,
         stock: state.form.stock,
-        delivery_price: state.form.deliveryPrice,
+        deliveryPrice: state.form.deliveryPrice,
       };
 
+      // JSON 데이터를 문자열화하고 Blob으로 변환
       const itemDataBlob = new Blob([JSON.stringify(itemData)], { type: 'application/json' });
 
       const formData = new FormData();
       formData.append("file", state.form.img); // 파일 데이터 추가
-      formData.append("item", itemDataBlob); // JSON 데이터 추가
+      formData.append("item", itemDataBlob); // 변환된 JSON 데이터 추가
 
-      console.log("FormData to be sent:", Object.fromEntries(formData));
-      console.log("FormData keys and values:");
+      console.log("Submitting item data:", itemData);
+      console.log("Category ID being sent:", state.form.categoryId);
       for (let key of formData.keys()) {
         console.log(key, formData.getAll(key));
       }
       console.log("item data:", formData.get('item'));
 
-      await axios.post("/api/item/create", formData)
-          .then(response => {
-            console.log("Response:", response.data);
-            router.push({ path: "/" });
-          })
-          .catch(error => {
-            console.error("Error during item creation:", error);
-            alert("상품 등록 중 오류가 발생했습니다: " + error.message);
-          });
+      try {
+        const response = await axios.post("/api/item/create", formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+        console.log("Response:", response.data);
+        router.push({ path: "/" });
+      } catch (error) {
+        console.error("Error during item creation:", error);
+        alert("상품 등록 중 오류가 발생했습니다: " + error.message);
+      }
     };
     return { state, add };
   },
@@ -172,7 +183,7 @@ export default {
           placeholder="할인율을 입력해주세요"
           required
           style="margin-bottom: 20px"
-          v-model="state.form.discount_per"
+          v-model="state.form.discountPer"
         />
       </div>
       <div class="form-floating">
@@ -228,7 +239,7 @@ export default {
           placeholder="숫자만 입력해주세요"
           required
           style="margin-bottom: 20px"
-          v-model="state.form.delivery_price"
+          v-model="state.form.deliveryPrice"
         />
       </div>
       <button class="w-100 btn btn-lg btn-success" @click="add">

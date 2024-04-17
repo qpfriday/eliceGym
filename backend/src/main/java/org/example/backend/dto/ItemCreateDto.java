@@ -11,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 public class ItemCreateDto {
 
     private String name;
-    private MultipartFile img;
     private String imgPath;
     private int price;
     private int discountPer;
