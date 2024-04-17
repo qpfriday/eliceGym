@@ -16,10 +16,16 @@ export default {
     <div class="container" style="margin: 100px auto 100px auto">
       <div class="row text-center">
         <div class="col-sm-6">
-          <router-link to="/orders" class="btn btn-outline-dark" style="min-width: 500px; height: 400px"><h1>주문 조회</h1></router-link>
+          <router-link to="/orders" class="btn btn-outline-primary order-button" style="min-width: 500px; height: 400px">
+            <h1>주문 조회</h1>
+            <img src="@/assets/order.png" class="order-image">
+          </router-link>
         </div>
         <div class="col-sm-6">
-          <router-link to="/info" class="btn btn-outline-dark" style="min-width: 500px; height: 400px"><h1>회원 정보 수정</h1></router-link>
+          <router-link to="/info" class="btn btn-outline-primary pencil-button" style="min-width: 500px; height: 400px">
+            <h1>회원 정보 수정</h1>
+            <img src="@/assets/pencil.png" class="pencil-image">
+          </router-link>
         </div>
       </div>
     </div>
@@ -27,5 +33,19 @@ export default {
 </template>
 
 <style scoped>
+.order-image,
+.pencil-image {
+  margin-top: 30px;
+  width: 250px;
+  height: 250px;
+  opacity: 1; /* Initially visible */
+  transition: opacity; /* Add transition for smooth effect */
+  transition-duration: 3s;
 
+}
+
+.order-button:hover .order-image,
+.pencil-button:hover .pencil-image {
+  visibility: hidden;
+}
 </style>
