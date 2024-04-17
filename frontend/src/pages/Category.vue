@@ -48,19 +48,4 @@ export default {
 </template>
 
 <style scoped>
-.categories {
-  padding-right: 11%;
-  padding-left: 11%;
-}
-
-.categories ul {
-  list-style-type: none;
-  padding: 0;
-  text-align: center;
-}
-
-.categories li {
-  display: inline-block;
-  margin-top: 20px;
-}
 </style>

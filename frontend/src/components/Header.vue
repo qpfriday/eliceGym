@@ -85,7 +85,7 @@ header ul li a {
   transition: color 0.2s ease; /* Smooth transition effect */
 }
 #eliceGym-logo:hover {
-  color: #dc3746; /* Change the color to a brighter shade when hovered */
+  color: rgba(80, 166, 89, 0.99); /* Change the color to a brighter shade when hovered */
 
 }
 

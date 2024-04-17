@@ -313,7 +313,7 @@ export default {
     style="height: 30vh; margin-top: 200px"
   >
     <div
-      class="spinner-grow text-danger"
+      class="spinner-grow text-success"
       style="width: 50px; height: 50px"
       role="status"
     >

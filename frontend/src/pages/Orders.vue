@@ -75,7 +75,7 @@ export default {
   </div>
 
   <div v-else class="d-flex justify-content-center align-items-center" style="height: 30vh; margin-top: 200px">
-    <div class="spinner-grow text-danger" style="width: 50px; height: 50px" role="status">
+    <div class="spinner-grow text-success" style="width: 50px; height: 50px" role="status">
       <span class="sr-only">Loading...</span>
     </div>
   </div>
