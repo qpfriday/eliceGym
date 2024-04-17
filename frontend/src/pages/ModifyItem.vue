@@ -44,6 +44,7 @@ export default {
     const save = () => {
       console.log(state.form)
       axios.put(`/api/item/${itemId}/update`, state.form)
+      alert("수정이 완료되었습니다")
       state.editable = false
     }
 

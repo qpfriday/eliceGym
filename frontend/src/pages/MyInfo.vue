@@ -44,6 +44,7 @@ export default {
       console.log(state.form);
       const res = await axios.put("/api/account/update", state.form);
       console.log(res);
+      alert("수정이 완료되었습니다")
       state.editable = false;
       addrStatus(true);
     };
