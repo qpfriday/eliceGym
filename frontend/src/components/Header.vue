@@ -43,10 +43,10 @@ export default {
               <li>
                 <router-link class="nav-link link-body-emphasis px-2 active" to="/cart">장바구니</router-link>
               </li>
-              <li v-if="account.role === 'ROLE_ADMIN'">
+              <li v-if="account.role === 'ROLE_ADMIN' || 'ROLE_SELLER'">
                 <router-link class="nav-link link-body-emphasis px-2 active" to="/additem">상품추가</router-link>
               </li>
-              <li v-if="account.role === 'ROLE_ADMIN'">
+              <li v-if="account.role === 'ROLE_ADMIN' || 'ROLE_SELLER'">
                 <router-link class="nav-link link-body-emphasis px-2 active" to="/categoryManagement">카테고리 관리</router-link>
               </li>
               <li><a class="nav-link link-body-emphasis px-2 active" @click="logout">로그아웃</a></li>

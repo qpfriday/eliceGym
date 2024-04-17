@@ -53,7 +53,7 @@ const router = createRouter({
 
 function checkIfUserIsLoggedIn() {
   const store = useStore();
-  // Vuex 스토어에서 로그인 상태를 가져온다.
+  // Vuex 스토어에서 로그인 상태를 가져온다
   return store.getters.isLoggedIn;
 }
 

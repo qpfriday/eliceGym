@@ -177,7 +177,7 @@ export default {
             )
           }}</span>
         </div>
-        <div class="container text-center" v-if="account.role === 'ROLE_ADMIN'">
+        <div class="container text-center" v-if="account.role === 'ROLE_ADMIN' || 'ROLE_SELLER'">
           <div class="row">
             <div class="col"></div>
             <div class="col text-end">
