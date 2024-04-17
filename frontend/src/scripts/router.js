@@ -1,4 +1,3 @@
-import { useStore } from "vuex";
 
 import Home from "@/pages/Home.vue";
 import Login from "@/pages/Login.vue";
@@ -16,45 +15,48 @@ import ModifyCategory from "@/pages/ModifyCategory.vue";
 import ModifyItem from "@/pages/ModifyItem.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
-// 미들웨어 함수 정의
-const requireAuth = (to, from, next) => {
-  const isLoggedIn = checkIfUserIsLoggedIn();
 
-  // 로그인하지 않은 경우 로그인 페이지로 리다이렉션
-  if (!isLoggedIn) {
-    next("/login");
-  } else {
-    next();
-  }
-};
+// function checkIfUserIsLoggedIn() {
+//   const store = useStore();
+//   // Vuex 스토어에서 로그인 상태를 가져온다
+//   return store.getters.isLoggedIn;
+// }
+// // 미들웨어 함수 정의
+// const requireAuth = (to, from, next) => {
+//   const isLoggedIn = checkIfUserIsLoggedIn();
+//
+//   // 로그인하지 않은 경우 로그인 페이지로 리다이렉션
+//   if (!isLoggedIn) {
+//     next("/login");
+//   } else {
+//     next();
+//   }
+// };
 
 const routes = [
   { path: "/", component: Home },
   { path: "/login", component: Login },
   { path: "/join", component: Join },
-  { path: "/my", component: MyPage, beforeEnter: requireAuth },
-  { path: "/info", component: MyInfo, beforeEnter: requireAuth },
-  { path: "/cart", component: Cart, beforeEnter: requireAuth },
-  { path: "/order", component: Order, beforeEnter: requireAuth },
-  { path: "/orders", component: Orders, beforeEnter: requireAuth },
+  { path: "/my", component: MyPage},
+  { path: "/info", component: MyInfo},
+  { path: "/cart", component: Cart},
+  { path: "/order", component: Order},
+  { path: "/orders", component: Orders},
   { path: "/item/:itemId", component: ProductDetail, name: "productDetail" },
-  { path: "/addItem", component: AddItem, beforeEnter: requireAuth },
+  { path: "/addItem", component: AddItem},
   {
     path: "/categoryManagement",
     component: CategoryManagement,
-    beforeEnter: requireAuth,
   },
-  { path: "/add-category", component: AddCategory, beforeEnter: requireAuth },
+  { path: "/add-category", component: AddCategory},
   {
     path: "/modify-category",
     component: ModifyCategory,
-    beforeEnter: requireAuth,
   },
   {
     path: "/item/:itemId/modify-item",
     component: ModifyItem,
     name: "modifyItem",
-    beforeEnter: requireAuth,
   },
   { path: "/:pathMatch(.*)", redirect: "/" }, // 루트 경로로 리다이렉션
 ];
@@ -63,12 +65,6 @@ const router = createRouter({
   history: createWebHistory(),
   routes: routes,
 });
-
-function checkIfUserIsLoggedIn() {
-  const store = useStore();
-  // Vuex 스토어에서 로그인 상태를 가져온다
-  return store.getters.isLoggedIn;
-}
 
 export default router;
 

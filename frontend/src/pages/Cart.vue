@@ -34,6 +34,7 @@ export default {
             imgPath: item.imgPath,
           };
           state.items.push(detail);
+          state.loading = false;
         });
       });
     };
@@ -55,9 +56,9 @@ export default {
 </script>
 
 <template>
-  <div class="cart">
+  <div class="py-5 text-center"><h2>[내 장바구니]</h2></div>
+  <div class="cart" v-if="!state.loading">
     <div class="container">
-      <div class="py-5 text-center"><h2>[내 장바구니]</h2></div>
       <ul>
         <li v-for="(i, idx) in state.items" :key="idx">
           <img :src="i.imgPath" />
@@ -90,6 +91,11 @@ export default {
         <h1 class="text-center">장바구니가 비었습니다</h1>
         <router-link to="/" class="btn btn-primary">쇼핑하러 가기</router-link>
       </div>
+    </div>
+  </div>
+  <div v-else class="d-flex justify-content-center align-items-center" style="height: 30vh; margin-top: 200px">
+    <div class="spinner-grow text-danger" style="width: 50px; height: 50px" role="status">
+      <span class="sr-only">Loading...</span>
     </div>
   </div>
 </template>
