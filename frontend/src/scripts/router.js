@@ -18,14 +18,13 @@ import {createRouter, createWebHistory} from "vue-router";
 
 // 미들웨어 함수 정의
 const requireAuth = (to, from, next) => {
-  // 사용자가 로그인했는지 여부를 확인
-  const isLoggedIn = checkIfUserIsLoggedIn(); // 로그인 여부 확인하는 함수 호출
+  const isLoggedIn = checkIfUserIsLoggedIn();
 
   // 로그인하지 않은 경우 로그인 페이지로 리다이렉션
   if (!isLoggedIn) {
-    next('/login'); // 로그인 페이지로 이동
+    next('/login');
   } else {
-    next(); // 다음 단계 진행
+    next();
   }
 };
 
@@ -33,17 +32,17 @@ const routes = [
   { path: "/", component: Home },
   { path: "/login", component: Login },
   { path: "/join", component: Join },
-  { path: "/my", component: MyPage, beforeEnter: requireAuth }, // 미들웨어 함수 적용
-  { path: "/info", component: MyInfo, beforeEnter: requireAuth }, // 미들웨어 함수 적용
-  { path: "/cart", component: Cart, beforeEnter: requireAuth }, // 미들웨어 함수 적용
-  { path: "/order", component: Order, beforeEnter: requireAuth }, // 미들웨어 함수 적용
-  { path: "/orders", component: Orders, beforeEnter: requireAuth }, // 미들웨어 함수 적용
+  { path: "/my", component: MyPage, beforeEnter: requireAuth },
+  { path: "/info", component: MyInfo, beforeEnter: requireAuth },
+  { path: "/cart", component: Cart, beforeEnter: requireAuth },
+  { path: "/order", component: Order, beforeEnter: requireAuth },
+  { path: "/orders", component: Orders, beforeEnter: requireAuth },
   { path: "/item/:itemId", component: ProductDetail, name: "productDetail" },
-  { path: "/addItem", component: AddItem, beforeEnter: requireAuth }, // 미들웨어 함수 적용
-  { path: "/categoryManagement", component: CategoryManagement, beforeEnter: requireAuth }, // 미들웨어 함수 적용
-  { path: "/add-category", component: AddCategory, beforeEnter: requireAuth }, // 미들웨어 함수 적용
-  { path: "/modify-category", component: ModifyCategory, beforeEnter: requireAuth }, // 미들웨어 함수 적용
-  { path: "/item/:itemId/modify-item", component: ModifyItem , name: "modifyItem", beforeEnter: requireAuth }, // 미들웨어 함수 적용
+  { path: "/addItem", component: AddItem, beforeEnter: requireAuth },
+  { path: "/categoryManagement", component: CategoryManagement, beforeEnter: requireAuth },
+  { path: "/add-category", component: AddCategory, beforeEnter: requireAuth },
+  { path: "/modify-category", component: ModifyCategory, beforeEnter: requireAuth },
+  { path: "/item/:itemId/modify-item", component: ModifyItem , name: "modifyItem", beforeEnter: requireAuth },
   { path: "/:pathMatch(.*)", redirect: "/" } // 루트 경로로 리다이렉션
 ];
 
@@ -53,9 +52,7 @@ const router = createRouter({
 });
 
 function checkIfUserIsLoggedIn() {
-  // Vuex 스토어를 가져온다.
   const store = useStore();
-
   // Vuex 스토어에서 로그인 상태를 가져온다.
   return store.getters.isLoggedIn;
 }

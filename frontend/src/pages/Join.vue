@@ -10,7 +10,7 @@ export default {
         name: "",
         loginId: "",
         password: "",
-        confirmPassword: "", // New field for confirmation password
+        confirmPassword: "",
         email: "",
         phoneNumber: "",
         role: "",
@@ -22,8 +22,8 @@ export default {
           state.form.name &&
           state.form.loginId &&
           state.form.password &&
-          state.form.confirmPassword && // Check confirmation password
-          state.form.password === state.form.confirmPassword && // Check if password matches confirmation password
+          state.form.confirmPassword &&
+          state.form.password === state.form.confirmPassword &&
           state.form.email &&
           state.form.phoneNumber &&
           state.form.role
