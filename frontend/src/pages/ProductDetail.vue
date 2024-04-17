@@ -245,38 +245,7 @@ export default {
             )
           }}</span>
         </div>
-        <div class="container text-center" v-if="account.role === 'ROLE_ADMIN' || 'ROLE_SELLER'">
-          <div class="row">
-            <div class="col"></div>
-            <div class="col text-end">
-              <div class="d-grid gap-2">
-                <a
-                  href="#link"
-                  class="btn btn-danger btn-lg"
-                  role="button"
-                  @click="deleteItem"
-                  style="width: 200px"
-                  >삭제하기</a
-                >
-              </div>
-            </div>
-            <div class="col text-end">
-              <div class="d-grid gap-2">
-                <router-link
-                  class="btn btn-warning btn-lg"
-                  :to="{
-                    name: 'modifyItem',
-                    params: { itemId: `${state.item.id}` },
-                  }"
-                  role="button"
-                  style="width: 200px"
-                  >수정하기</router-link
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="container text-center" v-else>
+        <div class="container text-center" v-if="account.role === 'ROLE_USER'">
           <div class="row">
             <div class="col"></div>
             <div class="col text-end">
@@ -300,6 +269,36 @@ export default {
                   role="button"
                   style="width: 200px"
                   >장바구니 담기</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container text-center" v-else>
+          <div class="row">
+            <div class="col"></div>
+            <div class="col text-end">
+              <div class="d-grid gap-2">
+                <a
+                    class="btn btn-danger btn-lg"
+                    role="button"
+                    @click="deleteItem"
+                    style="width: 200px"
+                >삭제하기</a
+                >
+              </div>
+            </div>
+            <div class="col text-end">
+              <div class="d-grid gap-2">
+                <router-link
+                    class="btn btn-warning btn-lg"
+                    :to="{
+                    name: 'modifyItem',
+                    params: { itemId: `${state.item.id}` },
+                  }"
+                    role="button"
+                    style="width: 200px"
+                >수정하기</router-link
                 >
               </div>
             </div>
