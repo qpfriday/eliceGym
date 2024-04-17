@@ -2,7 +2,7 @@
 import axios from "axios";
 
 export default {
-  name: "Category",
+  name: "CategoryFilter",
   data(){
     return{
       categoryList:[]
@@ -18,26 +18,20 @@ export default {
             console.error("Failed to fetch categories:", error);
           });
     },
-    selectAllCategories() {
-      this.$emit("category-selected", null);
-    },
     selectCategory(categoryId) {
-      console.log(categoryId);
-      this.$emit("category-selected", categoryId);
+      console.log('Emitting category-selected event with ID:', categoryId);
+      this.$emit('category-selected', categoryId);
     }
   },
   mounted() {
     this.fetCategories();
   }
-};
+}
 </script>
 
 <template>
   <div class="categories">
     <ul>
-      <li>
-        <button type="button" class="btn btn-light" @click="selectAllCategories">전체</button>
-      </li>
       <li>
         <button type="button" class="btn btn-light" v-for="category in categoryList" :key="category.id" @click="selectCategory(category.id)">{{ category.name }}</button>
       </li>

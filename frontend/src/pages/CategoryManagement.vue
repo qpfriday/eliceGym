@@ -1,11 +1,11 @@
 <script>
 import axios from "axios";
-import category from "@/components/Category.vue";
+import CategoryFilter from "@/components/CategoryFilter.vue";
 
 export default {
   computed: {
     category() {
-      return category;
+      return CategoryFilter;
     }
   },
   data() {
