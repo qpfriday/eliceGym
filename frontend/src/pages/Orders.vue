@@ -19,8 +19,15 @@ export default {
     const getItems = (order) => {
       return JSON.parse(order.items)
     }
+    const calculateOrderTotal = (order) => {
+      let total = 0;
+      for (const item of getItems(order)) {
+        total += item.price * item.quantity + item.deliveryPrice;
+      }
+      return total;
+    };
 
-    return {state, getItems, addCommas, formatDate, formatTime};
+    return {state, getItems, addCommas, formatDate, formatTime, calculateOrderTotal};
   },
 };
 </script>
@@ -35,6 +42,7 @@ export default {
           <th style="width: 400px">주문 상품</th>
           <th style="width: 100px">상품금액 수량</th>
           <th style="width: 100px">배송비</th>
+          <th style="width: 100px">총금액</th>
           <th style="width: 100px">주문 상태</th>
         </tr>
         </thead>
@@ -57,7 +65,8 @@ export default {
               <div>({{ i.quantity }}개)</div>
             </td>
             <td>{{ addCommas(i.deliveryPrice) }}원</td>
-            <td>구매확정</td>
+            <td :rowspan="getItems(o).length" v-if="idx2 === 0"><h5>{{ addCommas(calculateOrderTotal(o)) }}원</h5></td>
+            <td :rowspan="getItems(o).length" v-if="idx2 === 0">주문 완료</td>
           </tr>
         </template>
         </tbody>
