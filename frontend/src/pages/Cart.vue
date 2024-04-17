@@ -14,15 +14,12 @@ export default {
       axios.get("/api/cart/items").then(({ data }) => {
         state.carts = data;
         makeJSON();
-        console.log(state.items);
-        state.loading = false;
       });
     };
 
     const makeJSON = () => {
-      state.form = [];
-      state.carts.forEach((cart) => {
-        axios.get(`/api/item/${cart.itemId}`).then(({ data }) => {
+      const promises = state.carts.map((cart) => {
+        return axios.get(`/api/item/${cart.itemId}`).then(({ data }) => {
           const item = data;
           const detail = {
             id: cart.itemId,
@@ -34,9 +31,16 @@ export default {
             imgPath: item.imgPath,
           };
           state.items.push(detail);
-          state.loading = false;
         });
       });
+
+      Promise.all(promises)
+          .then(() => {
+            state.loading = false; // 모든 요청이 완료되면 loading 상태를 false로 변경
+          })
+          .catch((error) => {
+            console.log(error);
+          });
     };
 
     const remove = (itemId) =>
