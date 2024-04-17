@@ -2,7 +2,7 @@
 import { computed, reactive, ref } from "vue";
 import axios from "axios";
 import { addCommas } from "@/scripts/lib";
-import router from "@/scripts/router";
+import {router, ROUTER_LINKS} from "@/scripts/router";
 import {useRoute} from "vue-router";
 
 export default {
@@ -87,7 +87,7 @@ export default {
         axios
             .post("api/orders", state.form)
             .then(() => {
-              router.push({ path: "/orders" });
+              router.push(ROUTER_LINKS.ORDERS.path);
               window.alert("주문을 완료하였습니다.");
             })
             .catch(() => {

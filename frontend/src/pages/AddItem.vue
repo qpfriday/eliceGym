@@ -2,7 +2,7 @@
 import { reactive } from "vue";
 import axios from "axios";
 //import store from "@/scripts/store";
-import router from "@/scripts/router";
+import {router, ROUTER_LINKS} from "@/scripts/router";
 
 export default {
   methods: {
@@ -63,7 +63,7 @@ export default {
         })
         .then((res) => {
           console.log(res);
-          router.push({ path: "/" });
+          router.push(ROUTER_LINKS.HOME.path);
         })
         .catch((err) => {
           console.log(err);

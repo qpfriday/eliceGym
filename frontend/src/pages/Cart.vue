@@ -2,8 +2,14 @@
 import { reactive } from "vue";
 import axios from "axios";
 import { addCommas } from "@/scripts/lib";
+import {ROUTER_LINKS} from "@/scripts/router";
 
 export default {
+  computed: {
+    ROUTER_LINKS() {
+      return ROUTER_LINKS
+    }
+  },
   setup() {
     const state = reactive({
       carts: [],
@@ -93,7 +99,7 @@ export default {
       </div>
       <div v-else>
         <h1 class="text-center">장바구니가 비었습니다</h1>
-        <router-link to="/" class="btn btn-primary">쇼핑하러 가기</router-link>
+        <router-link :to="ROUTER_LINKS.HOME.path" class="btn btn-primary">쇼핑하러 가기</router-link>
       </div>
     </div>
   </div>

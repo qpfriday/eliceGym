@@ -1,9 +1,13 @@
 <script>
 import axios from "axios";
 import category from "./Category.vue";
+import {ROUTER_LINKS} from "@/scripts/router";
 
 export default {
   computed: {
+    ROUTER_LINKS() {
+      return ROUTER_LINKS
+    },
     category() {
       return category;
     }
@@ -71,7 +75,7 @@ export default {
         </div>
       </li>
     </ul>
-    <router-link to="/add-category" class="btn btn-success mt-4 addCategory" style="width: 400px">추가</router-link>
+    <router-link :to="ROUTER_LINKS.ADD_CATEGORY.path" class="btn btn-success mt-4 addCategory" style="width: 400px">추가</router-link>
   </div>
   <div v-else class="d-flex justify-content-center align-items-center" style="height: 30vh;">
     <div class="spinner-grow text-danger" style="width: 50px; height: 50px;" role="status">

@@ -1,7 +1,7 @@
 <script>
 import {reactive} from "vue";
 import axios from "axios";
-import router from "@/scripts/router";
+import {router, ROUTER_LINKS} from "@/scripts/router";
 
 export default {
   setup() {
@@ -16,7 +16,7 @@ export default {
       axios.post("/api/categories", state.form)
           .then((res) => {
             console.log(res.data); // 성공적으로 등록되었을 때 메시지
-            router.push("/"); // 카테고리 목록 페이지로 이동
+            router.push(ROUTER_LINKS.HOME.path); // 카테고리 목록 페이지로 이동
           })
           .catch((error) => {
             console.error("카테고리 등록 실패:", error);

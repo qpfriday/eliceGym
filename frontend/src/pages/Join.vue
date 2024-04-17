@@ -1,9 +1,14 @@
 <script>
 import {computed, reactive} from "vue";
 import axios from "axios";
-import router from "@/scripts/router";
+import {router, ROUTER_LINKS} from "@/scripts/router";
 
 export default {
+  computed: {
+    ROUTER_LINK() {
+      return ROUTER_LINKS
+    }
+  },
   setup() {
     const state = reactive({
       form: {
@@ -37,7 +42,7 @@ export default {
             .post("/api/account/join", state.form)
             .then((response) => {
               if (response.status === 200) {
-                router.push({ path: "/login" });
+                router.push(ROUTER_LINKS.LOGIN.path);
                 window.alert("회원가입이 완료되었습니다. 로그인 해주세요.");
               }
             })
@@ -126,7 +131,7 @@ export default {
           </div>
         </div>
         <button class="w-100 btn btn-lg btn-success" type="submit" style="margin-top: 20px" @click.prevent="join">회원가입</button>
-        <a href="login">로그인 하러가기</a>
+        <router-link :to="ROUTER_LINK.LOGIN.path">로그인 하러가기</router-link>
       </form>
     </main>
   </div>

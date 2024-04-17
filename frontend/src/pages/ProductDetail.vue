@@ -6,7 +6,7 @@ import { reactive } from "vue";
 import { addCommas, moveToCart, moveToLogin } from "@/scripts/lib";
 import { useStore } from "vuex";
 import ResultModal from "@/components/ResultModal.vue";
-import router from "@/scripts/router";
+import router, {ROUTER_LINKS} from "@/scripts/router";
 //import router from "@/scripts/router";
 
 export default {
@@ -63,7 +63,7 @@ export default {
           if (error.response && error.response.status === 401) {
             alert("장바구니에 상품을 추가하려면 로그인이 필요합니다.");
             // Redirect to the login page
-            router.push({ path: "/login" });
+            router.push(ROUTER_LINKS.LOGIN.path);
           } else {
             console.error("장바구니에 상품을 추가하는 중 오류 발생:", error);
             alert("장바구니에 상품을 추가하는 중 오류가 발생했습니다.");
@@ -76,7 +76,7 @@ export default {
         .delete(`/api/item/${itemId}/delete`)
         .then(() => {
           alert("상품이 삭제되었습니다.");
-          router.push({ path: "/" }); // 삭제 후 홈 페이지로 이동
+          router.push(ROUTER_LINKS.HOME.path); // 삭제 후 홈 페이지로 이동
         })
         .catch((error) => {
           console.error("상품 삭제 실패:", error);
