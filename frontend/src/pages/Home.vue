@@ -2,7 +2,7 @@
 import Card from "@/components/Card.vue";
 import axios from "axios";
 import {computed, onMounted, reactive, ref} from "vue";
-import Category from "@/pages/Category.vue";
+import Category from "@/components/Category.vue";
 import { useIntersectionObserver } from '@vueuse/core';
 
 export default {
@@ -12,14 +12,14 @@ export default {
   setup() {
     const state = reactive({
       items: [],
-      searchText: "", // 검색어 저장
+      searchText: "",
       filteredItems: [],
       selectedCategory: null,
       categoryList: [],
       loading: false,
       isLastPage: false,
-      offset: 8,
-      limit: 16
+      offset: 0,
+      limit: 8
     });
 
     const loadMoreItems = () => {

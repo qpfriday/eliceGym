@@ -6,15 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="01150da1-6ec9-4d16-b8f4-d19b68a9e345" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/org/example/backend/controller/ItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/org/example/backend/controller/ItemController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/org/example/backend/dto/ItemCreateDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/org/example/backend/dto/ItemCreateDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/org/example/backend/entity/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/org/example/backend/entity/Item.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/org/example/backend/repository/ItemRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/org/example/backend/repository/ItemRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/org/example/backend/service/ItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/org/example/backend/service/ItemService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/AddItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/AddItem.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Category.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Category.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Category.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/CategoryManagement.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/CategoryManagement.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/Home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Home.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -99,7 +92,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1713262240588</updated>
-      <workItem from="1713262245850" duration="31284000" />
+      <workItem from="1713262245850" duration="35562000" />
     </task>
     <servers />
   </component>

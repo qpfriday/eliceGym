@@ -1,6 +1,6 @@
 <script>
 import axios from "axios";
-import category from "./Category.vue";
+import category from "@/components/Category.vue";
 
 export default {
   computed: {
