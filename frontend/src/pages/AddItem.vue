@@ -1,5 +1,5 @@
 <script>
-import { reactive } from "vue";
+import {onMounted, reactive} from "vue";
 import axios from "axios";
 //import store from "@/scripts/store";
 import router from "@/scripts/router";
@@ -17,6 +17,7 @@ export default {
       }
       this.state.form.img = file;
       this.state.form.imgName = file.name;
+      console.log("Selected file:", this.state.form.img);
     },
   },
 
@@ -25,12 +26,12 @@ export default {
       form: {
         name: "",
         price: "",
-        discount_per: "",
-        parent_category: "",
+        discountPer: "",
+        categoryId: "",
         selection: "",
         description: "",
         stock: "",
-        delivery_price: "",
+        deliveryPrice: "",
         imgPath: "",
         imgView: null,
         imgName: "Choose file",
@@ -38,35 +39,57 @@ export default {
       },
     });
 
+    const loadCategories = async () => {
+      try {
+        const response = await axios.get("/api/categories");
+        state.categories = response.data;
+      } catch (error) {
+        console.error("Failed to load categories:", error);
+      }
+    };
+
+    onMounted(() => {
+      loadCategories();
+    });
+
     const add = async () => {
-      console.log(state.form.img);
+      if (!state.form.categoryId || state.form.categoryId === "") {
+        alert("카테고리를 선택해주세요.");
+        return; // 카테고리가 선택되지 않았다면 여기서 함수 실행을 중단
+      }
+      const itemData = {
+        name: state.form.name,
+        price: state.form.price,
+        discount_per: state.form.discountPer,
+        category: state.form.categoryId,
+        selection: state.form.selection,
+        description: state.form.description,
+        stock: state.form.stock,
+        delivery_price: state.form.deliveryPrice,
+      };
+
+      const itemDataBlob = new Blob([JSON.stringify(itemData)], { type: 'application/json' });
+
       const formData = new FormData();
+      formData.append("file", state.form.img); // 파일 데이터 추가
+      formData.append("item", itemDataBlob); // JSON 데이터 추가
 
-      formData.append("file", state.form.img);
-      formData.append("imgName", state.form.imgName);
-      formData.append("name", state.form.name);
-      formData.append("price", state.form.price);
-      formData.append("discount_per", state.form.discount_per);
-      formData.append("parent_category", state.form.parent_category);
-      formData.append("child_category", state.form.child_category);
-      formData.append("selection", state.form.selection);
-      formData.append("description", state.form.description);
-      formData.append("stock", state.form.stock);
-      formData.append("delivery_price", state.form.delivery_price);
+      console.log("FormData to be sent:", Object.fromEntries(formData));
+      console.log("FormData keys and values:");
+      for (let key of formData.keys()) {
+        console.log(key, formData.getAll(key));
+      }
+      console.log("item data:", formData.get('item'));
 
-      await axios
-        .post("/api/item/create", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((res) => {
-          console.log(res);
-          router.push({ path: "/" });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      await axios.post("/api/item/create", formData)
+          .then(response => {
+            console.log("Response:", response.data);
+            router.push({ path: "/" });
+          })
+          .catch(error => {
+            console.error("Error during item creation:", error);
+            alert("상품 등록 중 오류가 발생했습니다: " + error.message);
+          });
     };
     return { state, add };
   },
@@ -153,16 +176,13 @@ export default {
         />
       </div>
       <div class="form-floating">
-        <label for="floatingInput" class="form-label">카테고리</label>
-        <input
-          type="text"
-          class="form-control"
-          id="parent_category"
-          placeholder="카테고리를 선택 해주세요"
-          required
-          style="margin-bottom: 20px"
-          v-model="state.form.parent_category"
-        />
+        <label for="category">카테고리</label>
+        <select id="category" class="form-select" v-model="state.form.categoryId" required>
+          <option disabled value="">카테고리를 선택해주세요</option>
+          <option v-for="category in state.categories" :key="category.id" :value="category.id">
+            {{ category.name }}
+          </option>
+        </select>
       </div>
       <div class="form-floating">
         <label for="floatingInput" class="form-label">옵션</label>
@@ -188,7 +208,7 @@ export default {
         ></textarea>
       </div>
       <div class="form-floating">
-        <label for="floatingInput" class="form-label">숫자만 입력해주세요</label>
+        <label for="floatingInput" class="form-label">재고</label>
         <input
           type="text"
           class="form-control"

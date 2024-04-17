@@ -37,7 +37,7 @@ public class Item extends BaseTime{
     private int stock;
     @Column
     private int deliveryPrice;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 

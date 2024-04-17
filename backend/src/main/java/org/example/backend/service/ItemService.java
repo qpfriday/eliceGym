@@ -26,29 +26,36 @@ public class ItemService {
     private final CategoryRepository categoryRepository;
 
     public int createItem(ItemCreateDto itemCreateDto, MultipartFile file) throws IOException {
-        log.info("Creating item with image file");
-        Item newItem = createItemEntity(itemCreateDto);
-        if (!file.isEmpty()) {
-            newItem.setImg(file.getBytes());
+        try {
+            Item newItem = createItemEntity(itemCreateDto);
+            if (!file.isEmpty()) {
+                newItem.setImg(file.getBytes());
+            }
+            itemRepository.save(newItem);
+            return newItem.getId();
+        } catch (Exception e) {
+            log.error("Failed to create item", e);
+            throw e;
         }
-        itemRepository.save(newItem);
-        return newItem.getId();
     }
 
     private Item createItemEntity(ItemCreateDto itemCreateDto) {
-        Category category = categoryRepository.findById(itemCreateDto.getCategory_id()).orElseThrow(() ->
-                new IllegalArgumentException("Category not found with id: " + itemCreateDto.getCategory_id())
+        if (itemCreateDto.getCategoryId() <= 0) {
+            throw new IllegalArgumentException("Invalid category ID: " + itemCreateDto.getCategoryId());
+        }
+        Category category = categoryRepository.findById(itemCreateDto.getCategoryId()).orElseThrow(() ->
+                new IllegalArgumentException("Category not found with id: " + itemCreateDto.getCategoryId())
         );
 
         Item item = new Item();
         item.setName(itemCreateDto.getName());
         item.setImgPath(itemCreateDto.getImgPath());
         item.setPrice(itemCreateDto.getPrice());
-        item.setDiscountPer(itemCreateDto.getDiscount_per());
+        item.setDiscountPer(itemCreateDto.getDiscountPer());
         item.setSelection(itemCreateDto.getSelection());
         item.setDescription(itemCreateDto.getDescription());
         item.setStock(itemCreateDto.getStock());
-        item.setDeliveryPrice(itemCreateDto.getDelivery_price());
+        item.setDeliveryPrice(itemCreateDto.getDeliveryPrice());
         item.setCategory(category);
 
         return item;
@@ -76,7 +83,7 @@ public class ItemService {
     }
 
     public List<ItemDto> getAllItems() {
-        List<Item> items = itemRepository.findAll();
+        List<Item> items = itemRepository.findAllWithCategory();
         return items.stream()
                 .map(ItemDto::new)
                 .collect(Collectors.toList());

@@ -34,10 +34,14 @@ public class ItemController {
     }
 
     @PostMapping("/api/item/create")
-    public ResponseEntity<String> createItem(@RequestPart("item") ItemCreateDto dto, @RequestPart("file") MultipartFile file) throws IOException {
-        log.info("Creating item with file: {}", dto);
-        int itemId = itemService.createItem(dto, file);
-        return ResponseEntity.ok("Item created successfully with ID: " + itemId);
+    public ResponseEntity<String> createItem(@RequestPart("item") ItemCreateDto itemCreateDto, @RequestPart("file") MultipartFile file) {
+        try {
+            int itemId = itemService.createItem(itemCreateDto, file);
+            return ResponseEntity.ok("Item created successfully with ID: " + itemId);
+        } catch (Exception e) {
+            log.error("Error creating item", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating item");
+        }
     }
 
     @PutMapping("/api/item/update")

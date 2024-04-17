@@ -14,10 +14,10 @@ public class ItemCreateDto {
     private MultipartFile img;
     private String imgPath;
     private int price;
-    private int discount_per;
+    private int discountPer;
     private String selection;
     private String description;
     private int stock;
-    private int delivery_price;
-    private int category_id;
+    private int deliveryPrice;
+    private int categoryId;
 }

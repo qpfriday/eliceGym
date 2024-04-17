@@ -21,9 +21,9 @@ export default {
     selectAllCategories() {
       this.$emit("category-selected", null);
     },
-    selectCategory(categoryName) {
-      console.log(categoryName);
-      this.$emit("category-selected", categoryName);
+    selectCategory(categoryId) {
+      console.log(categoryId);
+      this.$emit("category-selected", categoryId);
     }
   },
   mounted() {
@@ -39,7 +39,7 @@ export default {
         <button type="button" class="btn btn-light" @click="selectAllCategories">전체</button>
       </li>
       <li>
-        <button type="button" class="btn btn-light" v-for="category in categoryList" :key="category.id" @click="selectCategory(category.name)">{{ category.name }}</button>
+        <button type="button" class="btn btn-light" v-for="category in categoryList" :key="category.id" @click="selectCategory(category.id)">{{ category.name }}</button>
       </li>
     </ul>
   </div>
