@@ -264,7 +264,7 @@ export default {
             <div class="col text-end">
               <div class="d-grid gap-2">
                 <a
-                  class="btn btn-primary btn-lg"
+                  class="btn btn-success btn-lg"
                   @click="addToCart"
                   role="button"
                   style="width: 200px"

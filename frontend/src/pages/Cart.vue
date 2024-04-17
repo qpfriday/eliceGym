@@ -92,14 +92,14 @@ export default {
             path: '/order',
             query: { items: JSON.stringify(state.items) },
           }"
-          class="btn btn-primary"
+          class="btn btn-success"
           style="margin-top: 20px"
           >구입하기</router-link
         >
       </div>
       <div v-else>
         <h1 class="text-center">장바구니가 비었습니다</h1>
-        <router-link :to="ROUTER_LINKS.HOME.path" class="btn btn-primary">쇼핑하러 가기</router-link>
+        <router-link :to="ROUTER_LINKS.HOME.path" class="btn btn-success">쇼핑하러 가기</router-link>
       </div>
     </div>
   </div>

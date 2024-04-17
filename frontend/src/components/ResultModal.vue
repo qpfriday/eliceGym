@@ -68,7 +68,7 @@ export default {
           >
             {{ btn1 }}
           </button>
-          <button @click="moveFunction" type="button" class="btn btn-primary">
+          <button @click="moveFunction" type="button" class="btn btn-success">
             {{ btn2 }}
           </button>
         </div>

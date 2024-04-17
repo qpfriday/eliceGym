@@ -223,7 +223,7 @@ export default {
         <button
           id="addressBtn"
           hidden
-          class="btn btn-primary btn-sm"
+          class="btn btn-success btn-sm"
           style="padding: 10px"
           type="button"
           @click="clickAddress"

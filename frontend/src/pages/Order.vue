@@ -224,7 +224,7 @@ export default {
                     value="우편번호 찾기"
                   /><br /> -->
                   <button
-                      class="btn btn-primary btn-sm"
+                      class="btn btn-success btn-sm"
                       style="padding: 10px"
                       type="button"
                       @click="openPostCode"
@@ -344,7 +344,7 @@ export default {
                   required
               />
               <hr class="my-4" />
-              <button class="w-100 btn btn-primary btn-lg" type="submit">
+              <button class="w-100 btn btn-success btn-lg" type="submit">
                 결제하기
               </button>
             </form>
