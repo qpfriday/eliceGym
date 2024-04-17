@@ -7,22 +7,22 @@ export default {
   setup() {
     const state = reactive({
       carts: [],
-      items: []
-    })
-
+      items: [],
+      loading: true,
+    });
     const load = () => {
-      axios.get("/api/cart/items").then(({data}) => {
-        console.log(data);
+      axios.get("/api/cart/items").then(({ data }) => {
         state.carts = data;
-        makeJSON()
-        console.log(state.items)
-      })
-    }
+        makeJSON();
+        console.log(state.items);
+        state.loading = false;
+      });
+    };
 
     const makeJSON = () => {
       state.form = [];
-      state.carts.forEach(cart => {
-        axios.get(`/api/item/${cart.itemId}`).then(({data}) => {
+      state.carts.forEach((cart) => {
+        axios.get(`/api/item/${cart.itemId}`).then(({ data }) => {
           const item = data;
           const detail = {
             id: cart.itemId,
@@ -31,24 +31,27 @@ export default {
             discountPer: item.discountPer,
             deliveryPrice: item.deliveryPrice,
             name: item.name,
-            imgPath: item.imgPath
-          }
-          state.items.push(detail)
+            imgPath: item.imgPath,
+          };
+          state.items.push(detail);
+        });
+      });
+    };
+
+    const remove = (itemId) =>
+      axios
+        .delete(`/api/cart/items/${itemId}`)
+        .then(() => {
+          state.items = state.items.filter((item) => item.id !== itemId);
         })
-      })
-    }
+        .catch((error) => {
+          console.log(error);
+        });
 
-    const remove = (itemId) => (
-        axios.delete(`/api/cart/items/${itemId}`).then(() => {
-          load();
-        })
-    )
-
-
-    load()
-    return {state, addCommas, remove}
+    load();
+    return { state, addCommas, remove };
   },
-}
+};
 </script>
 
 <template>
@@ -57,17 +60,31 @@ export default {
       <div class="py-5 text-center"><h2>[내 장바구니]</h2></div>
       <ul>
         <li v-for="(i, idx) in state.items" :key="idx">
-          <img :src="i.imgPath"/>
+          <img :src="i.imgPath" />
           <span class="name">{{ i.name }}</span>
-          <span class="price">{{ addCommas(i.price - i.price * i.discountPer / 100) }} 원</span>
-          <span class="quantity">{{i.quantity}}개</span>
-          <i class="fa fa-trash" @click="remove(i.id)"></i>
+          <span class="price"
+            >{{ addCommas(i.price - (i.price * i.discountPer) / 100) }} 원</span
+          >
+          <span class="quantity">{{ i.quantity }}개</span>
+          <i class="bi bi-trash" @click="remove(i.id)"></i>
         </li>
       </ul>
       <div v-if="state.items.length > 0">
-        <router-link to="/" class="btn btn-light" style="border: solid 0.5px #ccc; margin-top: 20px">쇼핑 더 하러가기</router-link>
-        <router-link :to="{ path: '/order', query: { items: JSON.stringify(state.items) }}"
-                     class="btn btn-primary" style="margin-top: 20px">구입하기</router-link>
+        <router-link
+          to="/"
+          class="btn btn-light"
+          style="border: solid 0.5px #ccc; margin-top: 20px"
+          >쇼핑 더 하러가기</router-link
+        >
+        <router-link
+          :to="{
+            path: '/order',
+            query: { items: JSON.stringify(state.items) },
+          }"
+          class="btn btn-primary"
+          style="margin-top: 20px"
+          >구입하기</router-link
+        >
       </div>
       <div v-else>
         <h1 class="text-center">장바구니가 비었습니다</h1>

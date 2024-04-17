@@ -1,6 +1,7 @@
 <script>
 import { reactive } from "vue";
 import axios from "axios";
+import { addCommas, formatDate, formatTime } from "@/scripts/lib";
 
 export default {
   setup() {
@@ -13,7 +14,11 @@ export default {
       state.orders.push(...data);
     });
 
-    return { state };
+    const getItems = (order) => {
+      return JSON.parse(order.items)
+    }
+
+    return { state, getItems, addCommas, formatDate, formatTime };
   },
 };
 </script>
@@ -32,61 +37,27 @@ export default {
           </tr>
         </thead>
         <tbody style="font-size: small; text-align: center">
-          <!-- <tr v-for="(o, idx1) in state.orders" :key="idx1">
-            <td>{{ state.orders.length - idx1 }}</td>
-            <td>{{ o.name }}</td>
-            <td>{{ o.phoneNumber }}</td>
-            <td>{{ o.address }}</td>
-            <td>{{ o.request }}</td>
-          </tr> -->
-
-          <tr>
-            <td rowspan="2">2024-03-03</td>
-            <td style="text-align: left; margin-right: 10px">
-              <img
-                style="width: 50px; height: 50px; margin-right: 10px"
-                src="/img/protein.png"
-              />
-              <span class="name">상품이름</span>
-            </td>
-            <td>
-              <div>9,000원</div>
-              <div>(1개)</div>
-            </td>
-            <td>무료</td>
-            <td>구매확정</td>
-          </tr>
-          <tr>
-            <td style="text-align: left">
-              <img
-                style="width: 50px; height: 50px; margin-right: 10px"
-                src="/img/chicken.png"
-              />
-              <span class="name">상품이름</span>
-            </td>
-            <td>
-              <div>9,000원</div>
-              <div>(1개)</div>
-            </td>
-            <td>무료</td>
-            <td>구매확정</td>
-          </tr>
-          <tr>
-            <td>2024-03-04</td>
-            <td style="text-align: left">
-              <img
-                style="width: 50px; height: 50px; margin-right: 10px"
-                src="/img/shorts.png"
-              />
-              <span class="name">상품이름</span>
-            </td>
-            <td>
-              <div>9,000원</div>
-              <div>(1개)</div>
-            </td>
-            <td>3000원</td>
-            <td>구매확정</td>
-          </tr>
+          <template v-for="(o, idx1) in state.orders" :key="idx1">
+            <tr v-for="(i, idx2) in getItems(o)" :key="idx2">
+              <td :rowspan="getItems(o).length" v-if="idx2 === 0">
+                <div>{{ formatDate(o.createdAt) }}</div>
+                <div>{{ formatTime(o.createdAt) }}</div>
+              </td>
+              <td style="text-align: left">
+                <img
+                    style="width: 50px; height: 50px; margin-right: 10px"
+                    :src="i.imgPath == null ? i.img : i.imgPath"
+                />
+                {{ i.name }}
+              </td>
+              <td>
+                <div>{{ addCommas(i.price) }}원</div>
+                <div>({{ i.quantity }}개)</div>
+              </td>
+              <td>{{ addCommas(i.deliveryPrice) }}원</td>
+              <td>구매확정</td>
+            </tr>
+          </template>
         </tbody>
       </table>
     </div>
