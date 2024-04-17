@@ -71,24 +71,6 @@ export default {
         });
     };
 
-    const buy = () => {
-      const items = [];
-
-      const detail = {
-        id: itemId,
-        quantity: state.quantity,
-        price: state.item.price,
-        discountPer: state.item.discountPer,
-        deliveryPrice: state.item.deliveryPrice,
-        name: state.item.name,
-        imgPath: state.item.imgPath,
-      };
-
-      items.push(detail);
-
-      return items;
-    };
-
     const deleteItem = () => {
       axios
         .delete(`/api/item/${itemId}/delete`)
@@ -142,7 +124,6 @@ export default {
       buy,
       deleteItem,
       closeModal,
-      buy,
       account: store.state.account,
     };
   },
