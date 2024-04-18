@@ -2,9 +2,15 @@
 import {onMounted, reactive} from "vue";
 import axios from "axios";
 import {useRoute} from "vue-router";
+import {ROUTER_LINKS} from "@/scripts/router";
 
 export default {
   name: "modifyItem",
+  computed: {
+    ROUTER_LINKS() {
+      return ROUTER_LINKS
+    }
+  },
   setup() {
     const route = useRoute();
     const itemId = route.params.itemId;
@@ -65,6 +71,7 @@ export default {
     const save = () => {
       console.log("Saving data:", state.form);
       axios.put("/api/item/update", state.form).then(() => {
+        alert("수정이 완료되었습니다")
         state.editable = false;
       }).catch(error => {
         console.error("Update failed:", error);
@@ -78,7 +85,7 @@ export default {
 </script>
 
 <template>
-  <div class="container" v-if="!state.loading">
+  <div class="container justify-content-center align-items-center" v-if="!state.loading">
     <main class="form-signin">
       <h1 class="h3 mb-3 fw-normal text-center">상품 정보</h1>
       <div class="form-floating">
@@ -169,10 +176,11 @@ export default {
       </div>
       <button class="w-100 btn btn-lg btn-success" @click="edit" v-if="!state.editable">수정</button>
       <button class="w-100 btn btn-lg btn-success" @click="save" v-if="state.editable">저장</button>
+      <router-link :to="ROUTER_LINKS.PRODUCT_DETAIL.path">상품 페이지로</router-link>
     </main>
   </div>
   <div v-else class="d-flex justify-content-center align-items-center" style="height: 30vh; margin-top: 200px">
-    <div class="spinner-grow text-danger" style="width: 50px; height: 50px" role="status">
+    <div class="spinner-grow text-success" style="width: 50px; height: 50px" role="status">
       <span class="sr-only">Loading...</span>
     </div>
   </div>

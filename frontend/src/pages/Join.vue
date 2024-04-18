@@ -1,41 +1,57 @@
 <script>
 import {computed, reactive} from "vue";
 import axios from "axios";
-import router from "@/scripts/router";
+import {router, ROUTER_LINKS} from "@/scripts/router";
 
 export default {
+  computed: {
+    ROUTER_LINK() {
+      return ROUTER_LINKS
+    }
+  },
   setup() {
     const state = reactive({
       form: {
         name: "",
         loginId: "",
         password: "",
+        confirmPassword: "",
         email: "",
         phoneNumber: "",
         role: "",
       }
-    })
+    });
+
     const validateForm = () => {
       return (
           state.form.name &&
           state.form.loginId &&
           state.form.password &&
+          state.form.confirmPassword &&
+          state.form.password === state.form.confirmPassword &&
           state.form.email &&
           state.form.phoneNumber &&
           state.form.role
       );
     };
 
+
     const join = () => {
       if (validateForm()) {
         axios
             .post("/api/account/join", state.form)
-            .then(() => {
-              router.push({ path: "/login" });
-              window.alert("회원가입이 완료되었습니다. 로그인 해주세요.");
+            .then((response) => {
+              if (response.status === 200) {
+                router.push(ROUTER_LINKS.LOGIN.path);
+                window.alert("회원가입이 완료되었습니다. 로그인 해주세요.");
+              }
             })
-            .catch(() => {
-              window.alert("회원가입에 실패하였습니다. 다시 시도해주세요.");
+            .catch((error) => {
+              if (error.response && error.response.status === 400) {
+                window.alert("이미 존재하는 아이디입니다.");
+              } else {
+                window.alert("회원가입에 실패하였습니다. 다시 시도해주세요.");
+              }
             });
       } else {
         window.alert("모든 필드를 입력해 주세요.");
@@ -79,6 +95,13 @@ export default {
           <div class="invalid-feedback">비밀번호를 입력해 주세요</div>
         </div>
         <div class="form-floating">
+          <label for="validationConfirmPW" class="form-label" style="margin-top: 20px">비밀번호 확인</label>
+          <input type="password" class="form-control" id="validationConfirmPW" placeholder="Confirm Password" required
+                 @keyup.enter="join"
+                 v-model="state.form.confirmPassword">
+          <div class="invalid-feedback">비밀번호를 다시 입력해 주세요</div>
+        </div>
+        <div class="form-floating">
           <label for="validationPN" class="form-label" style="margin-top: 20px">전화번호</label>
           <input type="text" class="form-control" id="validationPN" placeholder="XXX-XXXX-XXXX" required
                  @keyup.enter="join"
@@ -108,7 +131,7 @@ export default {
           </div>
         </div>
         <button class="w-100 btn btn-lg btn-success" type="submit" style="margin-top: 20px" @click.prevent="join">회원가입</button>
-        <a href="login">로그인 하러가기</a>
+        <router-link :to="ROUTER_LINK.LOGIN.path">로그인 하러가기</router-link>
       </form>
     </main>
   </div>

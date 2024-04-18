@@ -36,10 +36,8 @@ public class CartController {
 
         int userId = jwtService.getId(token);
         List<Cart> carts = cartRepository.findByUserId(userId);
-        List<Integer> itemIds = carts.stream().map(Cart::getItemId).toList();
-        List<Item> items = itemRepository.findByIdIn(itemIds);
 
-        return new ResponseEntity<>(items, HttpStatus.OK);
+        return new ResponseEntity<>(carts, HttpStatus.OK);
     }
 
     @PostMapping("/api/cart/items/{itemId}")
@@ -58,13 +56,17 @@ public class CartController {
         int userId = jwtService.getId(token);
         Cart cart = cartRepository.findByUserIdAndItemId(userId, itemId);
 
-        if (cart == null) {
-            Cart newCart = new Cart();
-            newCart.setUserId(userId);
-            newCart.setItemId(itemId);
-            newCart.setQuantity(quantity);
-            cartRepository.save(newCart);
+        if (cart != null) {
+            cart.setQuantity(cart.getQuantity() + quantity);
+            cartRepository.save(cart);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
+
+        Cart newCart = new Cart();
+        newCart.setUserId(userId);
+        newCart.setItemId(itemId);
+        newCart.setQuantity(quantity);
+        cartRepository.save(newCart);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

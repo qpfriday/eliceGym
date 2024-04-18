@@ -1,9 +1,13 @@
 <script>
 import axios from "axios";
 import CategoryFilter from "@/components/CategoryFilter.vue";
+import {ROUTER_LINKS} from "@/scripts/router";
 
 export default {
   computed: {
+    ROUTER_LINKS() {
+      return ROUTER_LINKS
+    },
     category() {
       return CategoryFilter;
     }

@@ -9,7 +9,7 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Integer> {
     User findByLoginIdAndPassword(String loginId, String password);
 
-    User findByLoginId(String loginId);
+    Boolean existsByLoginId(String loginId);
 
     User findById(int Id);
 

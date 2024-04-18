@@ -28,6 +28,13 @@ public class User {
     private String phoneNumber;
     @Column(length = 500)
     private String deliveryAddress;
+
+    @Column(length = 50)
+    private String address1;
+    @Column(length = 50)
+    private String address2;
+    @Column(length = 50)
+    private String postCode;
     @Column(length = 20)
     private String role;
     @CreationTimestamp

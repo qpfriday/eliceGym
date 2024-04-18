@@ -1,2 +1,7 @@
 /.idea/
-/.gradle/
+node_modules/
+dist/
+.gradle
+build/
+**/.gradle
+**/.idea

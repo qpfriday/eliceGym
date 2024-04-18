@@ -2,7 +2,7 @@
 import {onMounted, reactive, watch} from "vue";
 import axios from "axios";
 //import store from "@/scripts/store";
-import router from "@/scripts/router";
+import {router, ROUTER_LINKS} from "@/scripts/router";
 
 export default {
   methods: {
@@ -92,8 +92,16 @@ export default {
       try {
         const response = await axios.post("/api/item/create", formData, {
           headers: {
-            'Content-Type': 'multipart/form-data'
-          }
+
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          router.push(ROUTER_LINKS.HOME.path);
+        })
+        .catch((err) => {
+          console.log(err);
         });
         console.log("Response:", response.data);
         router.push({ path: "/" });

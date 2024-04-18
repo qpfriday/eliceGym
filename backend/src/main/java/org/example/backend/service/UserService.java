@@ -25,11 +25,14 @@ public class UserService {
     }
     public String getRoleById(int userId) {
         User user = userRepository.findById(userId);
-        if (user != null) {
-            return user.getRole();
-        } else {
-            return null;
-        }
+
+        if (user == null) { return null; }
+
+        return user.getRole();
+    }
+
+    public boolean isIdAlreadyExists(String loginId) {
+        return userRepository.existsByLoginId(loginId);
     }
     public void join(UserDto userDto) {
         User newUser = new User();
@@ -43,4 +46,7 @@ public class UserService {
         userRepository.save(newUser);
     }
 
+    public void delete(int userId) {
+        userRepository.deleteById(userId);
+    }
 }

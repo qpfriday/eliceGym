@@ -78,11 +78,24 @@ public class AccountController {
     }
 
     @PostMapping("/api/account/join")
-    public ResponseEntity join(@RequestBody UserDto userDto) {
+    public ResponseEntity joinUser(@RequestBody UserDto userDto) {
+        // 아이디 중복 확인
+        if (userService.isIdAlreadyExists(userDto.getLoginId())) {
+            return new ResponseEntity<>("이미 존재하는 아이디입니다.", HttpStatus.BAD_REQUEST);
+        }
 
         userService.join(userDto);
-
         return new ResponseEntity<>("회원가입이 성공적으로 완료되었습니다.", HttpStatus.OK);
+    }
+
+    @DeleteMapping("api/account/delete")
+    public ResponseEntity deleteUser(@CookieValue(value = "token", required = false) String token) {
+        Claims claims = jwtService.getClaims(token);
+        if (claims != null) {
+            int id = Integer.parseInt(claims.get("id").toString());
+            userService.delete(id);
+        }
+        return new ResponseEntity<>("탈퇴가 완료되었습니다", HttpStatus.OK);
     }
 
     @GetMapping("/api/account/user")
@@ -108,6 +121,12 @@ public class AccountController {
         User user = userRepository.findByEmail(updatedUser.getEmail());
         user.setName(updatedUser.getName());
         user.setDeliveryAddress(updatedUser.getDeliveryAddress());
+        user.setAddress1(updatedUser.getAddress1());
+        user.setAddress2(updatedUser.getAddress2());
+        user.setPostCode(updatedUser.getPostCode());
+        user.setPhoneNumber(updatedUser.getPhoneNumber());
+
+
         userRepository.save(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
