@@ -92,19 +92,11 @@ export default {
       try {
         const response = await axios.post("/api/item/create", formData, {
           headers: {
-
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((res) => {
-          console.log(res);
-          router.push(ROUTER_LINKS.HOME.path);
-        })
-        .catch((err) => {
-          console.log(err);
+            'Content-Type': 'multipart/form-data'
+          }
         });
         console.log("Response:", response.data);
-        router.push({ path: "/" });
+        router.push(ROUTER_LINKS.CATEGORY_MANAGEMENT.path);
       } catch (error) {
         console.error("Error during item creation:", error);
         alert("상품 등록 중 오류가 발생했습니다: " + error.message);
@@ -122,13 +114,13 @@ export default {
       <div class="form-floating">
         <label for="floatingInput" class="form-label">상품명</label>
         <input
-          type="text"
-          class="form-control"
-          id="name"
-          placeholder="상품명을 입력해주세요"
-          required
-          style="margin-bottom: 20px"
-          v-model="state.form.name"
+            type="text"
+            class="form-control"
+            id="name"
+            placeholder="상품명을 입력해주세요"
+            required
+            style="margin-bottom: 20px"
+            v-model="state.form.name"
         />
       </div>
       <div class="form-floating">
@@ -145,9 +137,9 @@ export default {
       </div>
       <div class="imageView">
         <img
-          v-if="state.form.imageView"
-          :src="state.form.imageView"
-          style="
+            v-if="state.form.imageView"
+            :src="state.form.imageView"
+            style="
             width: 100px;
             height: 100px;
             border-radius: 5px;
@@ -158,40 +150,40 @@ export default {
       <div class="input-group mb-3">
         <div class="custom-file">
           <input
-            type="file"
-            class="custom-file-input"
-            id="customFile"
-            aria-describedby="inputGroupFileAddon01"
-            ref="fileInput"
-            @change="onInputImage($event)"
+              type="file"
+              class="custom-file-input"
+              id="customFile"
+              aria-describedby="inputGroupFileAddon01"
+              ref="fileInput"
+              @change="onInputImage($event)"
           />
           <label class="custom-file-label" for="inputGroupFile01">{{
-            state.form.imgName
-          }}</label>
+              state.form.imgName
+            }}</label>
         </div>
       </div>
       <div class="form-floating">
         <label for="floatingInput" class="form-label">가격</label>
         <input
-          type="text"
-          class="form-control"
-          id="price"
-          placeholder="숫자만 입력해주세요"
-          required
-          style="margin-bottom: 20px"
-          v-model="state.form.price"
+            type="text"
+            class="form-control"
+            id="price"
+            placeholder="숫자만 입력해주세요"
+            required
+            style="margin-bottom: 20px"
+            v-model="state.form.price"
         />
       </div>
       <div class="form-floating">
         <label for="floatingInput" class="form-label">할인율 (%)</label>
         <input
-          type="text"
-          class="form-control"
-          id="discount_per"
-          placeholder="할인율을 입력해주세요"
-          required
-          style="margin-bottom: 20px"
-          v-model="state.form.discountPer"
+            type="text"
+            class="form-control"
+            id="discount_per"
+            placeholder="할인율을 입력해주세요"
+            required
+            style="margin-bottom: 20px"
+            v-model="state.form.discountPer"
         />
       </div>
       <div class="form-floating">
@@ -206,48 +198,48 @@ export default {
       <div class="form-floating">
         <label for="floatingInput" class="form-label">옵션</label>
         <input
-          type="text"
-          class="form-control"
-          id="selection"
-          placeholder="옵션을 입력해주세요"
-          required
-          style="margin-bottom: 20px"
-          v-model="state.form.selection"
+            type="text"
+            class="form-control"
+            id="selection"
+            placeholder="옵션을 입력해주세요"
+            required
+            style="margin-bottom: 20px"
+            v-model="state.form.selection"
         />
       </div>
       <div class="form-floating">
         <label for="floatingInput" class="form-label">상품 설명</label>
         <textarea
-          name="description"
-          class="form-control"
-          rows="4"
-          cols="50"
-          style="margin-bottom: 20px"
-          v-model="state.form.description"
+            name="description"
+            class="form-control"
+            rows="4"
+            cols="50"
+            style="margin-bottom: 20px"
+            v-model="state.form.description"
         ></textarea>
       </div>
       <div class="form-floating">
         <label for="floatingInput" class="form-label">재고</label>
         <input
-          type="text"
-          class="form-control"
-          id="stock"
-          placeholder="숫자만 입력해주세요"
-          required
-          style="margin-bottom: 20px"
-          v-model="state.form.stock"
+            type="text"
+            class="form-control"
+            id="stock"
+            placeholder="숫자만 입력해주세요"
+            required
+            style="margin-bottom: 20px"
+            v-model="state.form.stock"
         />
       </div>
       <div class="form-floating">
         <label for="floatingInput" class="form-label">배송비</label>
         <input
-          type="text"
-          class="form-control"
-          id="delivery_price"
-          placeholder="숫자만 입력해주세요"
-          required
-          style="margin-bottom: 20px"
-          v-model="state.form.deliveryPrice"
+            type="text"
+            class="form-control"
+            id="delivery_price"
+            placeholder="숫자만 입력해주세요"
+            required
+            style="margin-bottom: 20px"
+            v-model="state.form.deliveryPrice"
         />
       </div>
       <button class="w-100 btn btn-lg btn-success" @click="add">
@@ -266,3 +258,4 @@ export default {
   border-radius: 10px;
 }
 </style>
+
