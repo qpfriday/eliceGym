@@ -1,10 +1,11 @@
 <script>
+import { useIntersectionObserver } from '@vueuse/core';
 import Card from "@/components/Card.vue";
 import CategoryFilter from "@/components/CategoryFilter.vue";
 import SearchBar from "@/components/SearchBar.vue";
 import SortOptions from "@/components/SortOptions.vue";
 import axios from "axios";
-import {computed, onMounted, reactive} from "vue";
+import {computed, onMounted, onUnmounted, reactive, ref} from "vue";
 
 export default {
   name: "Home",
@@ -17,12 +18,50 @@ export default {
       selectedCategory: null,
       categoryList: [],
       loading: false,
+      pageNumber: 0,
       sortOptions: [
         { value: 'discountHigh', text: '높은 할인률순' },
         { value: 'discountLow', text: '낮은 할인률순' },
         { value: 'priceHigh', text: '높은 가격순' },
         { value: 'priceLow', text: '낮은 가격순' }
       ]
+    });
+
+    const target = ref(null);
+    const allItemsLoaded = ref(false);
+
+    const loadItems = async () => {
+      if (allItemsLoaded.value || state.loading) return;
+      state.loading = true;
+      const itemsPerPage = state.pageNumber === 0 ? 16 : 8;
+      try {
+        const { data } = await axios.get(`/api/items?page=${state.pageNumber}&size=${itemsPerPage}`);
+        if (data.length > 0) {
+          state.items.push(...data);
+          state.pageNumber++;
+        } else {
+          allItemsLoaded.value = true;
+        }
+      } catch (error) {
+        console.error("Error loading items:", error);
+        alert("상품 로딩 중 문제가 발생했습니다.");
+      } finally {
+        state.loading = false;
+      }
+    };
+
+    const { stop } = useIntersectionObserver(
+        target,
+        ([{ isIntersecting }]) => {
+          if (isIntersecting) {
+            loadItems();
+          }
+        },
+        { threshold: 0.5 }
+    );
+
+    onUnmounted(() => {
+      stop();
     });
 
     const sortItems = (criteria) => {
@@ -44,16 +83,16 @@ export default {
     };
 
     const handleCategorySelected = categoryId => {
-      console.log('Category selected with ID:', categoryId);
       state.selectedCategory = categoryId;
-      state.filteredItems = state.items.filter(item => item.category && item.category.id === state.selectedCategory);
+      handleSearch(state.searchText);
     };
 
     const handleSearch = searchTerm => {
-      state.searchText = searchTerm;
-      state.filteredItems = [];
-      state.filteredItems = state.items.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
-      console.log("Filtered items after search:", state.filteredItems);
+      state.searchText = searchTerm.toLowerCase();
+      state.filteredItems = state.items.filter(item =>
+          item.name.toLowerCase().includes(state.searchText) &&
+          (!state.selectedCategory || item.categoryId === state.selectedCategory)
+      );
     };
 
     const filteredItemsByCategory = computed(() => {
@@ -66,18 +105,10 @@ export default {
     });
 
     onMounted(async () => {
-      state.loading = true;
-      try {
-        const { data } = await axios.get("/api/items");
-        state.items = data;
-        state.filteredItems = data;
-      } catch (error) {
-        console.error("Error loading items:", error);
-      }
-      state.loading = false;
+      loadItems();
     });
 
-    return { state, handleCategorySelected, handleSearch, filteredItemsByCategory, sortItems};
+    return { state, handleCategorySelected, handleSearch, filteredItemsByCategory, sortItems, target, allItemsLoaded};
   }
 };
 </script>
@@ -122,6 +153,9 @@ export default {
       <div v-else class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
         <Card v-for="(item, index) in filteredItemsByCategory" :key="index" :item="item"/>
       </div>
+      <div v-if="state.loading" class="loading-indicator">
+        로딩 중...
+      </div>
     </div>
     <div v-else class="d-flex justify-content-center align-items-center" style="height: 30vh;">
       <div class="spinner-grow text-danger" style="width: 50px; height: 50px;" role="status">
@@ -132,6 +166,14 @@ export default {
 </template>
 
 <style scoped>
+.loading-indicator {
+  background-color: rgba(0, 0, 0, 0.5);
+  font-size: 16px;
+  animation: blink 1.5s linear infinite;
+}
+@keyframes blink {
+  50% { opacity: 0.5; }
+}
 .filter-search-bar {
   display: flex;
   justify-content: space-between;
