@@ -48,19 +48,19 @@ export default {
 
 <template>
   <router-link
-    :to="{ name: 'productDetail', params: { itemId: `${item.id}` } }"
+      :to="{ name: 'productDetail', params: { itemId: `${item.id}` } }"
   >
     <div class="card h-100">
       <div
-        class="badge bg-danger text-white position-absolute"
-        style="top: 0.5rem; right: 0.5rem"
-        v-if="item.discountPer != 0"
+          class="badge bg-danger text-white position-absolute"
+          style="top: 0.5rem; right: 0.5rem"
+          v-if="item.discountPer != 0"
       >
         {{ item.discountPer }}%
       </div>
       <div
-        class="img"
-        :style="{
+          class="img"
+          :style="{
           backgroundImage: `url(${
             item.imgPath == null ? state.imageSrc : item.imgPath
           })`,
@@ -70,12 +70,12 @@ export default {
         <div class="text-center">
           <h5 class="fw-bolder">{{ item.name }}</h5>
           <span class="text-secondary" v-if="item.discountPer != 0"
-            ><del>{{ addCommas(item.price) }} 원</del></span
+          ><del>{{ addCommas(item.price) }} 원</del></span
           >
           <h5>
             {{
               addCommas(
-                Math.round(item.price - (item.price * item.discountPer) / 100.0)
+                  Math.round(item.price - (item.price * item.discountPer) / 100.0)
               )
             }}
             원
@@ -85,7 +85,7 @@ export default {
       <div class="card-footer pb-4 border-top-0 bg-transparent">
         <div class="text-center">
           <a class="btn btn-outline-dark mt-auto" @click.prevent="toCart()"
-            >장바구니 추가</a
+          >장바구니 추가</a
           >
         </div>
       </div>

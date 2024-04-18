@@ -38,7 +38,6 @@ public class AccountController {
     public ResponseEntity login(@RequestBody Map<String, String> params, HttpServletResponse res) {
 
         User user = userRepository.findByLoginIdAndPassword(params.get("loginId"), params.get("password"));
-        System.out.println(params.get("loginId") + params.get("password"));
         if (user != null) {
             int id = user.getId();
             String token = jwtService.getToken("id", id);

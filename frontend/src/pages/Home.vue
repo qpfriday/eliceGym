@@ -6,10 +6,14 @@ import SearchBar from "@/components/SearchBar.vue";
 import SortOptions from "@/components/SortOptions.vue";
 import axios from "axios";
 import {computed, onMounted, onUnmounted, reactive, ref} from "vue";
+import store from "@/scripts/store";
+import ResultModal from "@/components/ResultModal.vue";
+import {moveToCart, moveToLogin} from "@/scripts/lib";
 
 export default {
   name: "Home",
-  components: {Card, CategoryFilter, SearchBar, SortOptions},
+  components: {Card, CategoryFilter, SearchBar, SortOptions, ResultModal },
+  methods: { moveToCart, moveToLogin },
   setup() {
     const state = reactive({
       items: [],
@@ -18,6 +22,8 @@ export default {
       selectedCategory: null,
       categoryList: [],
       loading: false,
+      showModal: false,
+      accountModal: false,
       pageNumber: 0,
       sortOptions: [
         {value: 'discountHigh', text: '높은 할인률순'},
@@ -82,6 +88,27 @@ export default {
       state.filteredItems = [...state.items];
     };
 
+    const addToCart = (id) => {
+      if (
+          store.state.account.id === null ||
+          store.state.account.id === undefined
+      ) {
+        state.accountModal = true;
+        return;
+      }
+      axios.post(`/api/cart/items/${id}`).then(() => {
+        state.showModal = true;
+        //alert("장바구니에 추가되었습니다.");
+        console.log("success");
+      });
+    };
+
+    const closeModal = () => {
+      state.showModal = false;
+      state.accountModal = false;
+    };
+
+
     const handleCategorySelected = categoryId => {
       state.selectedCategory = categoryId;
       handleSearch(state.searchText);
@@ -108,12 +135,34 @@ export default {
       loadItems();
     });
 
-    return {state, handleCategorySelected, handleSearch, filteredItemsByCategory, sortItems, target, allItemsLoaded};
+    return {state, closeModal, handleCategorySelected, handleSearch, addToCart, filteredItemsByCategory, sortItems, target, allItemsLoaded};
   }
 };
 </script>
 
 <template>
+  <div v-if="state.accountModal">
+    <ResultModal
+        title="알림"
+        content="로그인이 필요합니다."
+        btn1="구경하기"
+        btn2="로그인하기"
+        :moveFunction="moveToLogin"
+        :closeFunction="closeModal"
+    />
+  </div>
+
+  <div v-if="state.showModal">
+    <ResultModal
+        title="알림"
+        content="장바구니에 담겼습니다."
+        btn1="계속 쇼핑하기"
+        btn2="장바구니 이동"
+        :moveFunction="moveToCart"
+        :closeFunction="closeModal"
+    />
+  </div>
+
   <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
       <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
