@@ -35,6 +35,7 @@ export default {
             deliveryPrice: item.deliveryPrice,
             name: item.name,
             imgPath: item.imgPath,
+            img: item.img
           };
           state.items.push(detail);
         });
