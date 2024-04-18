@@ -46,12 +46,12 @@ export default {
   height: 250px;
   opacity: 1; /* Initially visible */
   transition: opacity; /* Add transition for smooth effect */
-  transition-duration: 3s;
-
+  transition-duration: 2s;
+  filter: invert(51%) sepia(76%) saturate(514%) hue-rotate(81deg) brightness(88%) contrast(81%);
 }
 
 .order-button:hover .order-image,
 .pencil-button:hover .pencil-image {
-  visibility: hidden;
+  filter: invert(100%) sepia(46%) saturate(467%) hue-rotate(87deg) brightness(108%) contrast(98%);
 }
 </style>
