@@ -30,7 +30,4 @@ export default {
 </template>
 
 <style scoped>
-.custom-search-space {
-  margin-right: 12%;
-}
 </style>

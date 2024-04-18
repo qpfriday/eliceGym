@@ -75,10 +75,10 @@ export default {
         </div>
       </li>
     </ul>
-    <router-link to="/add-category" class="btn btn-primary btn-block mt-4 addCategory">추가</router-link>
+    <router-link to="/add-category" class="btn btn-success btn-block mt-4 addCategory">추가</router-link>
   </div>
   <div v-else class="d-flex justify-content-center align-items-center" style="height: 30vh;">
-    <div class="spinner-grow text-danger" style="width: 50px; height: 50px;" role="status">
+    <div class="spinner-grow text-success" style="width: 50px; height: 50px;" role="status">
       <span class="sr-only">Loading...</span>
     </div>
   </div>

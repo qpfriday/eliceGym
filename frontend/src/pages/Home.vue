@@ -1,5 +1,5 @@
 <script>
-import { useIntersectionObserver } from '@vueuse/core';
+import {useIntersectionObserver} from '@vueuse/core';
 import Card from "@/components/Card.vue";
 import CategoryFilter from "@/components/CategoryFilter.vue";
 import SearchBar from "@/components/SearchBar.vue";
@@ -20,10 +20,10 @@ export default {
       loading: false,
       pageNumber: 0,
       sortOptions: [
-        { value: 'discountHigh', text: '높은 할인률순' },
-        { value: 'discountLow', text: '낮은 할인률순' },
-        { value: 'priceHigh', text: '높은 가격순' },
-        { value: 'priceLow', text: '낮은 가격순' }
+        {value: 'discountHigh', text: '높은 할인률순'},
+        {value: 'discountLow', text: '낮은 할인률순'},
+        {value: 'priceHigh', text: '높은 가격순'},
+        {value: 'priceLow', text: '낮은 가격순'}
       ]
     });
 
@@ -35,7 +35,7 @@ export default {
       state.loading = true;
       const itemsPerPage = state.pageNumber === 0 ? 16 : 8;
       try {
-        const { data } = await axios.get(`/api/items?page=${state.pageNumber}&size=${itemsPerPage}`);
+        const {data} = await axios.get(`/api/items?page=${state.pageNumber}&size=${itemsPerPage}`);
         if (data.length > 0) {
           state.items.push(...data);
           state.pageNumber++;
@@ -50,14 +50,14 @@ export default {
       }
     };
 
-    const { stop } = useIntersectionObserver(
+    const {stop} = useIntersectionObserver(
         target,
-        ([{ isIntersecting }]) => {
+        ([{isIntersecting}]) => {
           if (isIntersecting) {
             loadItems();
           }
         },
-        { threshold: 0.5 }
+        {threshold: 0.5}
     );
 
     onUnmounted(() => {
@@ -108,7 +108,7 @@ export default {
       loadItems();
     });
 
-    return { state, handleCategorySelected, handleSearch, filteredItemsByCategory, sortItems, target, allItemsLoaded};
+    return {state, handleCategorySelected, handleSearch, filteredItemsByCategory, sortItems, target, allItemsLoaded};
   }
 };
 </script>
@@ -140,29 +140,35 @@ export default {
       <span class="sr-only">Next</span>
     </button>
   </div>
-  <CategoryFilter :categoryList="state.categoryList" @category-selected="handleCategorySelected" />
-  <div class="d-flex justify-content-between align-items-center filter-search-bar">
-    <SortOptions :options="state.sortOptions" @option-selected="sortItems" />
-    <SearchBar @search="handleSearch" />
-  </div>
   <div class="container">
+    <CategoryFilter :categoryList="state.categoryList" @category-selected="handleCategorySelected"/>
+    <div class="d-flex justify-content-between align-items-center filter-search-bar">
+      <SortOptions :options="state.sortOptions" @option-selected="sortItems"/>
+      <SearchBar @search="handleSearch"/>
+    </div>
     <div v-if="!state.loading">
       <div v-if="state.searchText !== '' && state.filteredItems.length === 0" class="m-5 text-center">
         <h1>검색한 상품이 없습니다.</h1>
       </div>
       <div v-else class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
-        <Card v-for="(item, index) in filteredItemsByCategory" :key="index" :item="item"/>
+        <div
+            class="col my-4"
+            v-for="(item, index) in filteredItemsByCategory"
+            :key="index">
+          <Card :item="item" :addToCart="(id) => addToCart(id)"/>
+        </div>
       </div>
       <div v-if="state.loading" class="loading-indicator">
         로딩 중...
       </div>
     </div>
     <div v-else class="d-flex justify-content-center align-items-center" style="height: 30vh;">
-      <div class="spinner-grow text-danger" style="width: 50px; height: 50px;" role="status">
+      <div class="spinner-grow text-success" style="width: 50px; height: 50px;" role="status">
         <span class="sr-only">Loading...</span>
       </div>
     </div>
   </div>
+
 </template>
 
 <style scoped>
@@ -171,21 +177,28 @@ export default {
   font-size: 16px;
   animation: blink 1.5s linear infinite;
 }
+
 @keyframes blink {
-  50% { opacity: 0.5; }
+  50% {
+    opacity: 0.5;
+  }
 }
+
 .filter-search-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
 a {
   text-decoration: none;
   color: black;
 }
-.carousel-inner{
+
+.carousel-inner {
   max-height: 700px;
 }
+
 .carousel-inner img {
   margin-top: -10%;
 }

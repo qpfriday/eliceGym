@@ -33,9 +33,6 @@ export default {
 </template>
 
 <style scoped>
-.sort-container {
-  padding-left: 12%;
-}
 .dropdown-menu {
   cursor: pointer;
 }
