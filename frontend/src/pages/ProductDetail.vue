@@ -244,36 +244,7 @@ export default {
             )
           }}</span>
         </div>
-        <div class="container text-center" v-if="account.role === 'ROLE_USER'">
-          <div class="row">
-            <div class="col"></div>
-            <div class="col text-end">
-              <div class="d-grid gap-2">
-                <router-link
-                  :to="{
-                    path: '/order',
-                    query: { items: JSON.stringify(buy()) },
-                  }"
-                  class="btn btn-secondary btn-lg"
-                  style="width: 200px"
-                  >구입하기</router-link
-                >
-              </div>
-            </div>
-            <div class="col text-end">
-              <div class="d-grid gap-2">
-                <a
-                  class="btn btn-success btn-lg"
-                  @click="addToCart"
-                  role="button"
-                  style="width: 200px"
-                  >장바구니 담기</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="container text-center" v-else>
+        <div class="container text-center" v-if="account.role === 'ROLE_ADMIN' || account.role === 'ROLE_SELLER'">
           <div class="row">
             <div class="col"></div>
             <div class="col text-end">
@@ -303,6 +274,36 @@ export default {
             </div>
           </div>
         </div>
+        <div class="container text-center" v-else>
+          <div class="row">
+            <div class="col"></div>
+            <div class="col text-end">
+              <div class="d-grid gap-2">
+                <router-link
+                  :to="{
+                    path: '/order',
+                    query: { items: JSON.stringify(buy()) },
+                  }"
+                  class="btn btn-secondary btn-lg"
+                  style="width: 200px"
+                  >구입하기</router-link
+                >
+              </div>
+            </div>
+            <div class="col text-end">
+              <div class="d-grid gap-2">
+                <a
+                  class="btn btn-success btn-lg"
+                  @click="addToCart"
+                  role="button"
+                  style="width: 200px"
+                  >장바구니 담기</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
