@@ -1,8 +1,8 @@
 <script>
 import { ref, onMounted } from "vue";
 import axios from "axios";
-import router from "@/scripts/router";
 import { useRoute } from "vue-router";
+import {router, ROUTER_LINKS} from "@/scripts/router";
 
 export default {
   setup() {
@@ -17,7 +17,7 @@ export default {
       console.log("Category ID on mount:", categoryId.value);
       if (!categoryId.value) {
         console.error("Category ID is undefined!");
-        router.push('/');  // ID가 없을 경우 목록 페이지로 리다이렉션
+        router.push(ROUTER_LINKS.CATEGORY_MANAGEMENT.path);
       } else {
         loadCategory();
       }

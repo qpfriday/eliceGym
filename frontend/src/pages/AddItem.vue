@@ -96,7 +96,7 @@ export default {
           }
         });
         console.log("Response:", response.data);
-        router.push(ROUTER_LINKS.CATEGORY_MANAGEMENT.path);
+        router.push(ROUTER_LINKS.HOME.path);
       } catch (error) {
         console.error("Error during item creation:", error);
         alert("상품 등록 중 오류가 발생했습니다: " + error.message);

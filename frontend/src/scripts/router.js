@@ -98,7 +98,7 @@ const ROUTER_LINKS = {
   ADD_ITEM: { path: "/addItem"},
   CATEGORY_MANAGEMENT: { path: "/categoryManagement"},
   ADD_CATEGORY: { path: "/add-category"},
-  MODIFY_CATEGORY: { path: "/modify-category"},
+  MODIFY_CATEGORY: { path: "/modify-category/:id"},
   MODIFY_ITEM: { path: "/item/:itemId/modify-item"},
 };
 
