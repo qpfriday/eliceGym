@@ -13,11 +13,11 @@ export default {
 
 <template>
   <div class="scroll-controls">
-    <button @click="scrollToTop">
-      <i class="bi bi-arrow-up-circle"></i>
+    <button @click="scrollToTop()">
+      <i class="bi bi-chevron-up"></i>
     </button>
-    <button @click="scrollToBottom">
-      <i class="bi bi-arrow-down-circle"></i>
+    <button @click="scrollToBottom()">
+      <i class="bi bi-chevron-down"></i>
     </button>
   </div>
 </template>
@@ -30,22 +30,30 @@ export default {
   display: flex;
   flex-direction: column;
 }
-button {
+
+.scroll-controls button {
   margin-top: 10px;
-  padding: 5px;
-  background-color: transparent;
-  border: none;
+  padding: 0; /* padding을 제거하거나 줄여서 버튼 크기를 조절 */
+  width: 50px; /* 버튼의 너비와 높이를 같게 설정하여 원형 만들기 */
+  height: 50px;
+  background-color: #fff; /* 배경색을 흰색으로 설정 */
+  border: none; /* 테두리 선 제거 */
+  border-radius: 50%; /* 완전한 원형 버튼 스타일 */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* 그림자 효과 추가 */
   cursor: pointer;
-  border-radius: 50%;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  outline: none; /* 버튼 클릭 시 발생하는 아웃라인 제거 */
 }
-button i {
-  font-size: 35px;
-  color: #6c757d;
+
+.scroll-controls button i {
+  font-size: 24px; /* 아이콘 크기 조정 */
+  color: #000; /* 아이콘 색상을 검은색으로 설정 */
 }
-button:hover i {
-  color: #000;
+
+.scroll-controls button:hover {
+  background-color: #e9ecef; /* 버튼 호버 시 배경색 변경 */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* 호버 시 그림자 효과 강화 */
 }
 </style>
