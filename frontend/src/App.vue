@@ -1,12 +1,14 @@
 <template>
   <Header />
   <RouterView />
+  <ScrollControl />
   <Footer />
 </template>
 
 <script>
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
+import ScrollControl from "@/components/ScrollControl.vue";
 import store from "@/scripts/store";
 import axios from "axios";
 import { useRoute } from "vue-router";
@@ -17,6 +19,7 @@ export default {
   components: {
     Footer,
     Header,
+    ScrollControl
   },
   setup() {
     const check = async () => {
