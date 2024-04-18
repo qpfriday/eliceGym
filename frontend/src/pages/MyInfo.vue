@@ -2,6 +2,8 @@
 import { reactive } from "vue";
 import axios from "axios";
 import { openPostCode } from "@/scripts/lib";
+import {router, ROUTER_LINKS} from "@/scripts/router";
+import store from "@/scripts/store";
 
 export default {
   methods: { openPostCode },
@@ -49,13 +51,26 @@ export default {
       addrStatus(true);
     };
 
+    const deleteUser = async () => {
+      if (confirm("정말로 계정을 삭제하시겠습니까?")) {
+        const res = await axios.delete("/api/account/delete");
+        console.log(res);
+        alert("계정이 삭제되었습니다");
+        // 계정 삭제 후, 로그인 페이지로 이동하거나 다른 작업 수행
+      }
+      axios.post("/api/account/logout").then(() => {
+        store.commit('resetAccount');
+        router.push(ROUTER_LINKS.HOME.path);
+      });
+    };
+
     load();
 
     const clickAddress = () => {
       openPostCode(state);
     };
 
-    return { state, edit, save, clickAddress };
+    return { state, edit, save, deleteUser, clickAddress };
   },
 };
 </script>
@@ -178,7 +193,7 @@ export default {
           class="form-control"
           id="floatingInput"
           placeholder="Email"
-          required
+          required 
           style="margin-bottom: 20px"
           v-else
           v-model="state.form.email"
@@ -269,6 +284,9 @@ export default {
       >
         저장
       </button>
+      <div class="d-flex justify-content-center align-items-center my-3">
+        <button class="btn btn-outline-danger" @click="deleteUser">회원 탈퇴</button>
+      </div>
     </main>
   </div>
 </template>
