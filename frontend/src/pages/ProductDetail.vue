@@ -1,12 +1,12 @@
 <script>
 import axios from "axios";
-import { watch } from "vue";
+import {onMounted, watch} from "vue";
 import { useRoute } from "vue-router";
 import { reactive } from "vue";
 import { addCommas, moveToCart, moveToLogin } from "@/scripts/lib";
 import { useStore } from "vuex";
 import ResultModal from "@/components/ResultModal.vue";
-import router, {ROUTER_LINKS} from "@/scripts/router";
+import {router, ROUTER_LINKS} from "@/scripts/router";
 //import router from "@/scripts/router";
 
 export default {
@@ -30,11 +30,31 @@ export default {
 
     const state = reactive({
       item: {},
+      category: "",
       img: null,
       quantity: 1,
       loading: true,
       showModal: false,
       accountModal: false,
+    });
+
+    onMounted(async () => {
+      try {
+        const { data: itemData } = await axios.get(`/api/item/${itemId}`);
+        state.item = itemData;
+        state.img = `data:image/jpeg;base64,` + itemData.img;
+
+        // 카테고리 정보 불러오기
+        if (itemData.categoryId) {
+          const { data: categoryData } = await axios.get(`/api/categories/${itemData.categoryId}`);
+          state.category = categoryData.name; // 카테고리 이름 저장
+        }
+
+        state.loading = false;
+      } catch (error) {
+        console.error("Failed to load item details:", error);
+        state.loading = false;
+      }
     });
 
     axios.get(`/api/item/${itemId}`).then(({ data }) => {
@@ -165,7 +185,7 @@ export default {
       </div>
       <div class="col-6">
         <h3>{{ state.item.name }}</h3>
-        <h6 class="">상품 상세</h6>
+        <h6 class="">{{ state.category }}</h6>
         <div class="d-flex flex-row mb-3">
           <h4 class="p-2" style="color: #fd7e14">
             [{{ state.item.discountPer }}%]
@@ -244,36 +264,7 @@ export default {
             )
           }}</span>
         </div>
-        <div class="container text-center" v-if="account.role === 'ROLE_USER'">
-          <div class="row">
-            <div class="col"></div>
-            <div class="col text-end">
-              <div class="d-grid gap-2">
-                <router-link
-                  :to="{
-                    path: '/order',
-                    query: { items: JSON.stringify(buy()) },
-                  }"
-                  class="btn btn-secondary btn-lg"
-                  style="width: 200px"
-                  >구입하기</router-link
-                >
-              </div>
-            </div>
-            <div class="col text-end">
-              <div class="d-grid gap-2">
-                <a
-                  class="btn btn-success btn-lg"
-                  @click="addToCart"
-                  role="button"
-                  style="width: 200px"
-                  >장바구니 담기</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="container text-center" v-else>
+        <div class="container text-center" v-if="account.role === 'ROLE_ADMIN'">
           <div class="row">
             <div class="col"></div>
             <div class="col text-end">
@@ -298,6 +289,35 @@ export default {
                     role="button"
                     style="width: 200px"
                 >수정하기</router-link
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container text-center" v-else>
+          <div class="row">
+            <div class="col"></div>
+            <div class="col text-end">
+              <div class="d-grid gap-2">
+                <router-link
+                  :to="{
+                    path: '/order',
+                    query: { items: JSON.stringify(buy()) },
+                  }"
+                  class="btn btn-secondary btn-lg"
+                  style="width: 200px"
+                  >구입하기</router-link
+                >
+              </div>
+            </div>
+            <div class="col text-end">
+              <div class="d-grid gap-2">
+                <a
+                  class="btn btn-success btn-lg"
+                  @click="addToCart"
+                  role="button"
+                  style="width: 200px"
+                  >장바구니 담기</a
                 >
               </div>
             </div>
