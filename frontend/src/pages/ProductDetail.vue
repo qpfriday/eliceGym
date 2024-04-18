@@ -1,12 +1,12 @@
 <script>
 import axios from "axios";
-import { watch } from "vue";
+import {onMounted, watch} from "vue";
 import { useRoute } from "vue-router";
 import { reactive } from "vue";
 import { addCommas, moveToCart, moveToLogin } from "@/scripts/lib";
 import { useStore } from "vuex";
 import ResultModal from "@/components/ResultModal.vue";
-import router, {ROUTER_LINKS} from "@/scripts/router";
+import {router, ROUTER_LINKS} from "@/scripts/router";
 //import router from "@/scripts/router";
 
 export default {
@@ -30,11 +30,31 @@ export default {
 
     const state = reactive({
       item: {},
+      category: "",
       img: null,
       quantity: 1,
       loading: true,
       showModal: false,
       accountModal: false,
+    });
+
+    onMounted(async () => {
+      try {
+        const { data: itemData } = await axios.get(`/api/item/${itemId}`);
+        state.item = itemData;
+        state.img = `data:image/jpeg;base64,` + itemData.img;
+
+        // 카테고리 정보 불러오기
+        if (itemData.categoryId) {
+          const { data: categoryData } = await axios.get(`/api/categories/${itemData.categoryId}`);
+          state.category = categoryData.name; // 카테고리 이름 저장
+        }
+
+        state.loading = false;
+      } catch (error) {
+        console.error("Failed to load item details:", error);
+        state.loading = false;
+      }
     });
 
     axios.get(`/api/item/${itemId}`).then(({ data }) => {
@@ -165,7 +185,7 @@ export default {
       </div>
       <div class="col-6">
         <h3>{{ state.item.name }}</h3>
-        <h6 class="">상품 상세</h6>
+        <h6 class="">{{ state.category }}</h6>
         <div class="d-flex flex-row mb-3">
           <h4 class="p-2" style="color: #fd7e14">
             [{{ state.item.discountPer }}%]
@@ -303,7 +323,6 @@ export default {
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
