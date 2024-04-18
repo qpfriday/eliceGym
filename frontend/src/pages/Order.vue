@@ -57,6 +57,14 @@ export default {
       );
     };
 
+    const totalPrice = computed(() => {
+      let result = 0;
+      for (let i of state.items) {
+        result += i.price * i.quantity + i.deliveryPrice;
+      }
+      return result;
+    });
+
     const computedPrice = computed(() => {
       let result = 0;
       for (let i of state.items) {
@@ -124,6 +132,7 @@ export default {
     return {
       state,
       addCommas,
+      totalPrice,
       computedPrice,
       purchase,
       fillUserInfo,
@@ -140,10 +149,10 @@ export default {
       <main>
         <div class="py-5 text-center"><h2>주문하기</h2></div>
         <div class="row g-5">
-          <div class="col-md-7 col-lg-4 order-md-last">
+          <div class="col-md-7 col-lg-6 order-md-last">
             <h4 class="d-flex justify-content-between align-items-center mb-3">
-              <span class="text-primary">장바구니 목록</span>
-              <span class="badge bg-primary rounded-pill">{{
+              <span class="text-success">장바구니 목록</span>
+              <span class="badge bg-success rounded-pill">{{
                   state.items.length
                 }}</span>
             </h4>
@@ -157,17 +166,25 @@ export default {
                   <h6 class="my-0">{{ i.name }}</h6>
                 </div>
                 <span class="text-body-secondary">
+                  <del>{{ addCommas(i.price)}}  </del> >
                   {{ addCommas(i.price - (i.price * i.discountPer) / 100) }} 원
                 </span>
                 <span class="text-body-last">{{i.quantity}} 개</span>
+                <span class="text-body-last">{{ addCommas((i.price - (i.price * i.discountPer) / 100 ) * i.quantity) }} 원</span>
               </li>
             </ul>
+            <h5 class="text-center total-price text-secondary">
+              할인 전 금액 : {{ addCommas(totalPrice) }} 원
+            </h5>
             <h2 class="text-center total-price">
-              {{ addCommas(computedPrice) }} 원
+              총 결제 금액 : {{ addCommas(computedPrice) }} 원
             </h2>
+            <h6 class="text-center total-price">
+              {{ addCommas(totalPrice - computedPrice) }} 원 할인 되셨습니다!
+            </h6>
           </div>
 
-          <div class="col-md-5 col-lg-8" id="layer">
+          <div class="col-md-5 col-lg-6" id="layer">
             <h4 class="mb-3">주문 정보</h4>
             <div class="form-check">
               <input

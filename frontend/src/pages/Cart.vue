@@ -68,15 +68,17 @@ export default {
 <template>
   <div class="py-5 text-center"><h2>[내 장바구니]</h2></div>
   <div class="cart" v-if="!state.loading">
-    <div class="container">
+    <div class="container" style="width: 1000px">
       <ul>
-        <li v-for="(i, idx) in state.items" :key="idx">
+        <li class="list-group-item d-flex justify-content-between align-items-center  lh-sm" v-for="(i, idx) in state.items" :key="idx">
           <img :src="i.imgPath" />
           <span class="name">{{ i.name }}</span>
-          <span class="price"
-            >{{ addCommas(i.price - (i.price * i.discountPer) / 100) }} 원</span
-          >
-          <span class="quantity">{{ i.quantity }}개</span>
+          <span class="text-body-secondary">
+                  <del>{{ addCommas(i.price)}}  </del> >
+                  {{ addCommas(i.price - (i.price * i.discountPer) / 100) }} 원
+                </span>
+          <span class="text-body-last">{{i.quantity}} 개</span>
+          <span class="text-body-last">{{ addCommas((i.price - (i.price * i.discountPer) / 100 ) * i.quantity) }} 원</span>
           <i class="bi bi-trash" @click="remove(i.id)"></i>
         </li>
       </ul>
@@ -132,13 +134,6 @@ export default {
   margin-left: 25px;
 }
 
-.cart ul li .price {
-  margin-left: 25px;
-}
-
-.cart ul li .quantity {
-  margin-left: 25px;
-}
 
 .cart ul li i {
   float: right;
