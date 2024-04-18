@@ -31,7 +31,7 @@ export default {
           });
     },
     deleteCategory(categoryId, categoryName) {
-      if (confirm(`'${categoryName}' 카테고리를 삭제하시겠습니까?`)) {
+      if (confirm(`'${categoryName}' 카테고리를 삭제하시겠습니까? 카테고리에 속한 상품들도 함께 삭제됩니다.`)) {
         axios.delete(`/api/categories/${categoryId}`)
             .then(() => {
               this.fetCategories();

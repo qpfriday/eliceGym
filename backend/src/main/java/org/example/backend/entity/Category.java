@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Getter
 @Entity
 @Table(name = "category")
@@ -27,12 +29,16 @@ public class Category {
     @Column
     private String updatedAt;
 
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Item> items;
+
     @Builder
-    public Category(String name, String description, String createdAt, String updatedAt){
+    public Category(String name, String description, String createdAt, String updatedAt, Set<Item> items){
         this.name = name;
         this.description = description;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.items = items;
     }
 
     public void update(String name, String description, String updatedAt){
