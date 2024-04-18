@@ -93,7 +93,7 @@ export default {
 
     const deleteItem = () => {
       axios
-        .delete(`/api/item/${itemId}/delete`)
+        .delete(`/api/item/${itemId}`)
         .then(() => {
           alert("상품이 삭제되었습니다.");
           router.push(ROUTER_LINKS.HOME.path); // 삭제 후 홈 페이지로 이동
