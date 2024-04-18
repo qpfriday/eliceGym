@@ -1,8 +1,9 @@
 <script>
-import {onMounted, reactive, watch} from "vue";
-import axios from "axios";
+import { onMounted, reactive, watch } from "vue";
+//import axios from "axios";
 //import store from "@/scripts/store";
-import {router, ROUTER_LINKS} from "@/scripts/router";
+import { router, ROUTER_LINKS } from "@/scripts/router";
+import baseURL from "@/scripts/baseURL";
 
 export default {
   methods: {
@@ -40,13 +41,17 @@ export default {
       categories: [],
     });
 
-    watch(() => state.form.categoryId, (newVal, oldVal) => {
-      console.log(`카테고리 ID 변경됨: ${oldVal} -> ${newVal}`);
-    }, { immediate: true });
+    watch(
+      () => state.form.categoryId,
+      (newVal, oldVal) => {
+        console.log(`카테고리 ID 변경됨: ${oldVal} -> ${newVal}`);
+      },
+      { immediate: true }
+    );
 
     const loadCategories = async () => {
       try {
-        const response = await axios.get("/api/categories");
+        const response = await baseURL.get("/api/categories");
         state.categories = response.data;
         console.log("Loaded categories:", response.data);
       } catch (error) {
@@ -76,7 +81,9 @@ export default {
       };
 
       // JSON 데이터를 문자열화하고 Blob으로 변환
-      const itemDataBlob = new Blob([JSON.stringify(itemData)], { type: 'application/json' });
+      const itemDataBlob = new Blob([JSON.stringify(itemData)], {
+        type: "application/json",
+      });
 
       const formData = new FormData();
       formData.append("file", state.form.img); // 파일 데이터 추가
@@ -87,13 +94,13 @@ export default {
       for (let key of formData.keys()) {
         console.log(key, formData.getAll(key));
       }
-      console.log("item data:", formData.get('item'));
+      console.log("item data:", formData.get("item"));
 
       try {
-        const response = await axios.post("/api/item/create", formData, {
+        const response = await baseURL.post("/api/item/create", formData, {
           headers: {
-            'Content-Type': 'multipart/form-data'
-          }
+            "Content-Type": "multipart/form-data",
+          },
         });
         console.log("Response:", response.data);
         router.push(ROUTER_LINKS.HOME.path);
@@ -114,13 +121,13 @@ export default {
       <div class="form-floating">
         <label for="floatingInput" class="form-label">상품명</label>
         <input
-            type="text"
-            class="form-control"
-            id="name"
-            placeholder="상품명을 입력해주세요"
-            required
-            style="margin-bottom: 20px"
-            v-model="state.form.name"
+          type="text"
+          class="form-control"
+          id="name"
+          placeholder="상품명을 입력해주세요"
+          required
+          style="margin-bottom: 20px"
+          v-model="state.form.name"
         />
       </div>
       <div class="form-floating">
@@ -137,9 +144,9 @@ export default {
       </div>
       <div class="imageView">
         <img
-            v-if="state.form.imageView"
-            :src="state.form.imageView"
-            style="
+          v-if="state.form.imageView"
+          :src="state.form.imageView"
+          style="
             width: 100px;
             height: 100px;
             border-radius: 5px;
@@ -150,47 +157,56 @@ export default {
       <div class="input-group mb-3">
         <div class="custom-file">
           <input
-              type="file"
-              class="custom-file-input"
-              id="customFile"
-              aria-describedby="inputGroupFileAddon01"
-              ref="fileInput"
-              @change="onInputImage($event)"
+            type="file"
+            class="custom-file-input"
+            id="customFile"
+            aria-describedby="inputGroupFileAddon01"
+            ref="fileInput"
+            @change="onInputImage($event)"
           />
           <label class="custom-file-label" for="inputGroupFile01">{{
-              state.form.imgName
-            }}</label>
+            state.form.imgName
+          }}</label>
         </div>
       </div>
       <div class="form-floating">
         <label for="floatingInput" class="form-label">가격</label>
         <input
-            type="text"
-            class="form-control"
-            id="price"
-            placeholder="숫자만 입력해주세요"
-            required
-            style="margin-bottom: 20px"
-            v-model="state.form.price"
+          type="text"
+          class="form-control"
+          id="price"
+          placeholder="숫자만 입력해주세요"
+          required
+          style="margin-bottom: 20px"
+          v-model="state.form.price"
         />
       </div>
       <div class="form-floating">
         <label for="floatingInput" class="form-label">할인율 (%)</label>
         <input
-            type="text"
-            class="form-control"
-            id="discount_per"
-            placeholder="할인율을 입력해주세요"
-            required
-            style="margin-bottom: 20px"
-            v-model="state.form.discountPer"
+          type="text"
+          class="form-control"
+          id="discount_per"
+          placeholder="할인율을 입력해주세요"
+          required
+          style="margin-bottom: 20px"
+          v-model="state.form.discountPer"
         />
       </div>
       <div class="form-floating">
         <label for="category">카테고리</label>
-        <select id="category" class="form-select" v-model="state.form.categoryId" required>
+        <select
+          id="category"
+          class="form-select"
+          v-model="state.form.categoryId"
+          required
+        >
           <option disabled value="">카테고리를 선택해주세요</option>
-          <option v-for="category in state.categories" :key="category.id" :value="category.id">
+          <option
+            v-for="category in state.categories"
+            :key="category.id"
+            :value="category.id"
+          >
             {{ category.name }}
           </option>
         </select>
@@ -198,48 +214,48 @@ export default {
       <div class="form-floating">
         <label for="floatingInput" class="form-label">옵션</label>
         <input
-            type="text"
-            class="form-control"
-            id="selection"
-            placeholder="옵션을 입력해주세요"
-            required
-            style="margin-bottom: 20px"
-            v-model="state.form.selection"
+          type="text"
+          class="form-control"
+          id="selection"
+          placeholder="옵션을 입력해주세요"
+          required
+          style="margin-bottom: 20px"
+          v-model="state.form.selection"
         />
       </div>
       <div class="form-floating">
         <label for="floatingInput" class="form-label">상품 설명</label>
         <textarea
-            name="description"
-            class="form-control"
-            rows="4"
-            cols="50"
-            style="margin-bottom: 20px"
-            v-model="state.form.description"
+          name="description"
+          class="form-control"
+          rows="4"
+          cols="50"
+          style="margin-bottom: 20px"
+          v-model="state.form.description"
         ></textarea>
       </div>
       <div class="form-floating">
         <label for="floatingInput" class="form-label">재고</label>
         <input
-            type="text"
-            class="form-control"
-            id="stock"
-            placeholder="숫자만 입력해주세요"
-            required
-            style="margin-bottom: 20px"
-            v-model="state.form.stock"
+          type="text"
+          class="form-control"
+          id="stock"
+          placeholder="숫자만 입력해주세요"
+          required
+          style="margin-bottom: 20px"
+          v-model="state.form.stock"
         />
       </div>
       <div class="form-floating">
         <label for="floatingInput" class="form-label">배송비</label>
         <input
-            type="text"
-            class="form-control"
-            id="delivery_price"
-            placeholder="숫자만 입력해주세요"
-            required
-            style="margin-bottom: 20px"
-            v-model="state.form.deliveryPrice"
+          type="text"
+          class="form-control"
+          id="delivery_price"
+          placeholder="숫자만 입력해주세요"
+          required
+          style="margin-bottom: 20px"
+          v-model="state.form.deliveryPrice"
         />
       </div>
       <button class="w-100 btn btn-lg btn-success" @click="add">
@@ -258,4 +274,3 @@ export default {
   border-radius: 10px;
 }
 </style>
-
