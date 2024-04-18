@@ -166,22 +166,19 @@ export default {
                   <h6 class="my-0">{{ i.name }}</h6>
                 </div>
                 <span class="text-body-secondary">
-                  <del>{{ addCommas(i.price)}}  </del> >
                   {{ addCommas(i.price - (i.price * i.discountPer) / 100) }} 원
                 </span>
                 <span class="text-body-last">{{i.quantity}} 개</span>
                 <span class="text-body-last">{{ addCommas((i.price - (i.price * i.discountPer) / 100 ) * i.quantity) }} 원</span>
               </li>
             </ul>
-            <h5 class="text-center total-price text-secondary">
+            <h4 class="text-center total-price text-secondary my-4">
               할인 전 금액 : {{ addCommas(totalPrice) }} 원
-            </h5>
+            </h4>
+
             <h2 class="text-center total-price">
               총 결제 금액 : {{ addCommas(computedPrice) }} 원
             </h2>
-            <h6 class="text-center total-price">
-              {{ addCommas(totalPrice - computedPrice) }} 원 할인 되셨습니다!
-            </h6>
           </div>
 
           <div class="col-md-5 col-lg-6" id="layer">
