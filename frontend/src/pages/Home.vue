@@ -25,28 +25,39 @@ export default {
       showModal: false,
       accountModal: false,
       pageNumber: 0,
+      isFirstLoad: true,
+      allItemsLoaded: false,
       sortOptions: [
-        {value: 'discountHigh', text: '높은 할인률순'},
-        {value: 'discountLow', text: '낮은 할인률순'},
-        {value: 'priceHigh', text: '높은 가격순'},
-        {value: 'priceLow', text: '낮은 가격순'}
+        { value: 'discountHigh', text: '높은 할인률순' },
+        { value: 'discountLow', text: '낮은 할인률순' },
+        { value: 'priceHigh', text: '높은 가격순' },
+        { value: 'priceLow', text: '낮은 가격순' }
       ]
     });
 
-    const target = ref(null);
-    const allItemsLoaded = ref(false);
+    const loadMoreRef = ref(null);
+    let stop = null;
 
     const loadItems = async () => {
-      if (allItemsLoaded.value || state.loading) return;
+      if (state.loading || state.allItemsLoaded) return;
       state.loading = true;
-      const itemsPerPage = state.pageNumber === 0 ? 16 : 8;
+
+      const itemsPerPage = state.isFirstLoad ? 16 : 8; // 첫 번째 로드시 16개 아이템, 그 후 8개
       try {
-        const {data} = await axios.get(`/api/items?page=${state.pageNumber}&size=${itemsPerPage}`);
+        const response = await axios.get(`/api/items?page=${state.pageNumber}&size=${itemsPerPage}`);
+        const data = response.data.content; // API 응답에서 상품 데이터 추출
         if (data.length > 0) {
-          state.items.push(...data);
+          if (state.isFirstLoad) {
+            state.items = data;
+            state.isFirstLoad = false;
+          } else {
+            // 중복 로드 방지 로직
+            const newItems = data.filter(item => !state.items.some(existItem => existItem.id === item.id));
+            state.items.push(...newItems);
+          }
           state.pageNumber++;
         } else {
-          allItemsLoaded.value = true;
+          state.allItemsLoaded = true;
         }
       } catch (error) {
         console.error("Error loading items:", error);
@@ -55,20 +66,6 @@ export default {
         state.loading = false;
       }
     };
-
-    const {stop} = useIntersectionObserver(
-        target,
-        ([{isIntersecting}]) => {
-          if (isIntersecting) {
-            loadItems();
-          }
-        },
-        {threshold: 0.5}
-    );
-
-    onUnmounted(() => {
-      stop();
-    });
 
     const sortItems = (criteria) => {
       switch (criteria) {
@@ -89,17 +86,15 @@ export default {
     };
 
     const addToCart = (id) => {
-      if (
-          store.state.account.id === null ||
-          store.state.account.id === undefined
-      ) {
+      if (store.state.account.id === null || store.state.account.id === undefined) {
         state.accountModal = true;
         return;
       }
       axios.post(`/api/cart/items/${id}`).then(() => {
         state.showModal = true;
-        //alert("장바구니에 추가되었습니다.");
-        console.log("success");
+        console.log("Item added to cart successfully.");
+      }).catch(error => {
+        console.error("Failed to add item to cart:", error);
       });
     };
 
@@ -107,7 +102,6 @@ export default {
       state.showModal = false;
       state.accountModal = false;
     };
-
 
     const handleCategorySelected = categoryId => {
       state.selectedCategory = categoryId;
@@ -123,19 +117,41 @@ export default {
     };
 
     const filteredItemsByCategory = computed(() => {
-      if (state.searchText) {
-        return state.items.filter(item => item.name.toLowerCase().includes(state.searchText.toLowerCase()));
-      } else if (state.selectedCategory) {
-        return state.items.filter(item => item.categoryId === state.selectedCategory);
-      }
-      return state.items;
+      return state.items.filter(item =>
+          (!state.searchText || item.name.toLowerCase().includes(state.searchText.toLowerCase())) &&
+          (!state.selectedCategory || item.categoryId === state.selectedCategory)
+      );
     });
 
-    onMounted(async () => {
-      loadItems();
+    onMounted(() => {
+      const { stop: localStop } = useIntersectionObserver(
+          loadMoreRef,
+          ([{ isIntersecting }]) => {
+            if (isIntersecting && !state.allItemsLoaded) {
+              loadItems();
+            }
+          },
+          { threshold: 0.1 }  // 임계값 조정
+      );
+      stop = localStop;
+      loadItems();  // 초기 아이템 로드
     });
 
-    return {state, closeModal, handleCategorySelected, handleSearch, addToCart, filteredItemsByCategory, sortItems, target, allItemsLoaded};
+    onUnmounted(() => {
+      if (stop) stop();
+    });
+
+    return {
+      state,
+      loadMoreRef,
+      loadItems,
+      addToCart,
+      closeModal,
+      handleCategorySelected,
+      handleSearch,
+      filteredItemsByCategory,
+      sortItems
+    };
   }
 };
 </script>
@@ -207,6 +223,7 @@ export default {
           <Card :item="item" :addToCart="(id) => addToCart(id)"/>
         </div>
       </div>
+      <div ref="loadMoreRef" style="height: 20px;"></div>
       <div v-if="state.loading" class="loading-indicator">
         로딩 중...
       </div>
@@ -217,7 +234,6 @@ export default {
       </div>
     </div>
   </div>
-
 </template>
 
 <style scoped>
