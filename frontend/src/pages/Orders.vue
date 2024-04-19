@@ -23,7 +23,9 @@ export default {
     const calculateOrderTotal = (order) => {
       let total = 0;
       for (const item of getItems(order)) {
-        total += item.price * item.quantity + item.deliveryPrice;
+        total +=
+            (item.price - (item.price * item.discountPer) / 100) * item.quantity +
+            item.deliveryPrice;
       }
       return total;
     };
@@ -51,7 +53,6 @@ export default {
             <th style="width: 100px">상품금액 수량</th>
             <th style="width: 100px">배송비</th>
             <th style="width: 100px">총금액</th>
-            <th style="width: 100px">주문 상태</th>
           </tr>
         </thead>
         <tbody style="font-size: small; text-align: center">
@@ -76,7 +77,6 @@ export default {
               <td :rowspan="getItems(o).length" v-if="idx2 === 0">
                 <h5>{{ addCommas(calculateOrderTotal(o)) }}원</h5>
               </td>
-              <td :rowspan="getItems(o).length" v-if="idx2 === 0">주문 완료</td>
             </tr>
           </template>
         </tbody>
