@@ -72,19 +72,29 @@ export default {
           <span class="text-secondary" v-if="item.discountPer != 0"
           ><del>{{ addCommas(item.price) }} 원</del></span
           >
-          <h5>
+          <div v-if="item.discountPer != 0">
+            <h4 class="text-success">
+              {{
+                addCommas(
+                    Math.round(item.price - (item.price * item.discountPer) / 100.0)
+                )
+              }}
+              원
+            </h4>
+          </div>
+          <h4 v-else style="margin-top: 20px">
             {{
               addCommas(
                   Math.round(item.price - (item.price * item.discountPer) / 100.0)
               )
             }}
             원
-          </h5>
+          </h4>
         </div>
       </div>
       <div class="card-footer pb-4 border-top-0 bg-transparent">
         <div class="text-center">
-          <a class="btn btn-outline-dark mt-auto" @click.prevent="toCart()"
+          <a class="btn btn-outline-secondary mt-auto" @click.prevent="toCart()"
           >장바구니 추가</a
           >
         </div>
