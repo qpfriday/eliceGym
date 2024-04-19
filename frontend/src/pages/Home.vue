@@ -254,7 +254,7 @@ export default {
       @category-selected="handleCategorySelected"
     />
     <div
-      class="d-flex justify-content-between align-items-center filter-search-bar"
+      class="filter-search-bar"
     >
       <SortOptions :options="state.sortOptions" @option-selected="sortItems" />
       <SearchBar @search="handleSearch" />
@@ -309,7 +309,6 @@ export default {
 
 .filter-search-bar {
   display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 

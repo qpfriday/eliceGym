@@ -16,8 +16,8 @@ export default {
 </script>
 
 <template>
-  <div class="row sort-container">
-    <div class="col-md-4">
+  <div class="container col-9">
+  <div class="row justify-content-end sort-container">
       <div class="dropdown my-2">
         <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
           정렬 기준

@@ -38,25 +38,24 @@ export default {
 <template>
   <div class="categories">
     <div
-      class="container d-flex justify-content-center align-items-center my-5"
+      class="container d-flex align-items-center my-4"
     >
       <div
         class="btn-group-toggle"
         data-toggle="buttons"
-        style="margin-bottom: 50px"
       >
         <label
-          class="btn btn-outline-secondary btn-lg active m-4"
+          class="btn btn-outline-success btn active m-2"
           @click="selectAllCategories"
-          style="width: 200px; border-radius: 0"
+          style="width: 130px; border-radius: 0"
         >
           <input type="radio" name="options" id="option1" checked /> 전체
         </label>
         <label
-          class="btn btn-outline-secondary btn-lg m-4"
+          class="btn btn-outline-success btn m-2"
           v-for="category in categoryList"
           :key="category.id"
-          style="width: 200px; border-radius: 0"
+          style="width: 130px; border-radius: 0"
           @click="selectCategory(category.id)"
         >
           <input type="radio" name="options" id="option2" /> {{ category.name }}
