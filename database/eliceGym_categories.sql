@@ -1,3 +1,11 @@
-INSERT INTO elicegym.category (id, name, description, created_at, updated_at) VALUES (1,'의류', '옷입자', null, null);
-INSERT INTO elicegym.category (id, name, description, created_at, updated_at) VALUES (2,'보충제', '약먹자', null, null);
-INSERT INTO elicegym.category (id, name, description, created_at, updated_at) VALUES (3,'용품', '장비빨', null, null);
+INSERT INTO elice_db.category (id, name, description, created_at, updated_at) VALUES (1, '티셔츠', '옷입자', null, null);
+INSERT INTO elice_db.category (id, name, description, created_at, updated_at) VALUES (2, '단백질', '약먹자', null, null);
+INSERT INTO elice_db.category (id, name, description, created_at, updated_at) VALUES (3, '스트랩', '장비빨', null, null);
+INSERT INTO elice_db.category (id, name, description, created_at, updated_at) VALUES (4, '장갑', '장갑', '', null);
+INSERT INTO elice_db.category (id, name, description, created_at, updated_at) VALUES (5, '신발', '신발', '', null);
+INSERT INTO elice_db.category (id, name, description, created_at, updated_at) VALUES (6, '양말', '양말', '', null);
+INSERT INTO elice_db.category (id, name, description, created_at, updated_at) VALUES (7, '모자', '모자', null, null);
+INSERT INTO elice_db.category (id, name, description, created_at, updated_at) VALUES (8, '닭가슴살', '닭가슴살', null, null);
+INSERT INTO elice_db.category (id, name, description, created_at, updated_at) VALUES (9, '바지', '바지', null, null);
+INSERT INTO elice_db.category (id, name, description, created_at, updated_at) VALUES (10, '크레아틴', '크레아틴', null, null);
+INSERT INTO eliceGym.category (id, name, description, created_at, updated_at) VALUES (11, '벨트', '벨트', null, null);
