@@ -36,6 +36,7 @@ export default {
             deliveryPrice: item.deliveryPrice,
             name: item.name,
             imgPath: item.imgPath,
+            img: `data:image/jpeg;base64,` + item.img,
           };
           state.items.push(detail);
         });
@@ -76,7 +77,7 @@ export default {
           v-for="(i, idx) in state.items"
           :key="idx"
         >
-          <img :src="i.imgPath" />
+          <img :src="i.imgPath == null ? i.img : i.imgPath" />
           <span class="name">{{ i.name }}</span>
           <span class="text-body-secondary">
             <del>{{ addCommas(i.price) }} </del> >

@@ -12,7 +12,7 @@ export default {
     });
 
     baseURL.get("/api/orders").then(({ data }) => {
-      console.log(data);
+      console.log(data[0].items);
       state.orders.push(...data);
       state.loading = false;
     });
