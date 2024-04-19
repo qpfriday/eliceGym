@@ -8,6 +8,8 @@ import org.example.backend.entity.Category;
 import org.example.backend.entity.Item;
 import org.example.backend.repository.CategoryRepository;
 import org.example.backend.repository.ItemRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -82,11 +84,9 @@ public class ItemService {
         return new ItemDto(item);
     }
 
-    public List<ItemDto> getAllItems() {
-        List<Item> items = itemRepository.findAllWithCategory();
-        return items.stream()
-                .map(ItemDto::new)
-                .collect(Collectors.toList());
+    public Page<ItemDto> getAllItems(Pageable pageable) {
+        Page<Item> itemPage = itemRepository.findAll(pageable);
+        return itemPage.map(ItemDto::new);
     }
 
     public void deleteItemById(int itemId) {
