@@ -1,14 +1,15 @@
 <script>
 import { reactive } from "vue";
-import axios from "axios";
+//import axios from "axios";
 import { addCommas } from "@/scripts/lib";
-import {ROUTER_LINKS} from "@/scripts/router";
+import { ROUTER_LINKS } from "@/scripts/router";
+import baseURL from "@/scripts/baseURL";
 
 export default {
   computed: {
     ROUTER_LINKS() {
-      return ROUTER_LINKS
-    }
+      return ROUTER_LINKS;
+    },
   },
   setup() {
     const state = reactive({
@@ -17,7 +18,7 @@ export default {
       loading: true,
     });
     const load = () => {
-      axios.get("/api/cart/items").then(({ data }) => {
+      baseURL.get("/api/cart/items").then(({ data }) => {
         state.carts = data;
         makeJSON();
       });
@@ -25,7 +26,7 @@ export default {
 
     const makeJSON = () => {
       const promises = state.carts.map((cart) => {
-        return axios.get(`/api/item/${cart.itemId}`).then(({ data }) => {
+        return baseURL.get(`/api/item/${cart.itemId}`).then(({ data }) => {
           const item = data;
           const detail = {
             id: cart.itemId,
@@ -35,22 +36,23 @@ export default {
             deliveryPrice: item.deliveryPrice,
             name: item.name,
             imgPath: item.imgPath,
+            img: `data:image/jpeg;base64,` + item.img,
           };
           state.items.push(detail);
         });
       });
 
       Promise.all(promises)
-          .then(() => {
-            state.loading = false; // 모든 요청이 완료되면 loading 상태를 false로 변경
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        .then(() => {
+          state.loading = false; // 모든 요청이 완료되면 loading 상태를 false로 변경
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     };
 
     const remove = (itemId) =>
-      axios
+      baseURL
         .delete(`/api/cart/items/${itemId}`)
         .then(() => {
           state.items = state.items.filter((item) => item.id !== itemId);
@@ -70,15 +72,26 @@ export default {
   <div class="cart" v-if="!state.loading">
     <div class="container" style="width: 1000px">
       <ul>
-        <li class="list-group-item d-flex justify-content-between align-items-center  lh-sm" v-for="(i, idx) in state.items" :key="idx">
-          <img :src="i.imgPath" />
+        <li
+          class="list-group-item d-flex justify-content-between align-items-center lh-sm"
+          v-for="(i, idx) in state.items"
+          :key="idx"
+        >
+          <img :src="i.imgPath == null ? i.img : i.imgPath" />
           <span class="name">{{ i.name }}</span>
           <span class="text-body-secondary">
-                  <del>{{ addCommas(i.price)}}  </del> >
-                  {{ addCommas(i.price - (i.price * i.discountPer) / 100) }} 원
-                </span>
-          <span class="text-body-last">{{i.quantity}} 개</span>
-          <span class="text-body-last">{{ addCommas((i.price - (i.price * i.discountPer) / 100 ) * i.quantity) }} 원</span>
+            <del>{{ addCommas(i.price) }} </del> >
+            {{ addCommas(i.price - (i.price * i.discountPer) / 100) }} 원
+          </span>
+          <span class="text-body-last">{{ i.quantity }} 개</span>
+          <span class="text-body-last"
+            >{{
+              addCommas(
+                (i.price - (i.price * i.discountPer) / 100) * i.quantity
+              )
+            }}
+            원</span
+          >
           <i class="bi bi-trash" @click="remove(i.id)"></i>
         </li>
       </ul>
@@ -101,12 +114,22 @@ export default {
       </div>
       <div v-else>
         <h1 class="text-center">장바구니가 비었습니다</h1>
-        <router-link :to="ROUTER_LINKS.HOME.path" class="btn btn-success">쇼핑하러 가기</router-link>
+        <router-link :to="ROUTER_LINKS.HOME.path" class="btn btn-success"
+          >쇼핑하러 가기</router-link
+        >
       </div>
     </div>
   </div>
-  <div v-else class="d-flex justify-content-center align-items-center" style="height: 30vh; margin-top: 200px">
-    <div class="spinner-grow text-success" style="width: 50px; height: 50px" role="status">
+  <div
+    v-else
+    class="d-flex justify-content-center align-items-center"
+    style="height: 30vh; margin-top: 200px"
+  >
+    <div
+      class="spinner-grow text-success"
+      style="width: 50px; height: 50px"
+      role="status"
+    >
       <span class="sr-only">Loading...</span>
     </div>
   </div>
@@ -133,7 +156,6 @@ export default {
 .cart ul li .name {
   margin-left: 25px;
 }
-
 
 .cart ul li i {
   float: right;

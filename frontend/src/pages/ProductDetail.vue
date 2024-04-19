@@ -1,12 +1,13 @@
 <script>
-import axios from "axios";
-import {onMounted, watch} from "vue";
+//import axios from "axios";
+import { onMounted, watch } from "vue";
 import { useRoute } from "vue-router";
 import { reactive } from "vue";
 import { addCommas, moveToCart, moveToLogin } from "@/scripts/lib";
 import { useStore } from "vuex";
 import ResultModal from "@/components/ResultModal.vue";
-import {router, ROUTER_LINKS} from "@/scripts/router";
+import { router, ROUTER_LINKS } from "@/scripts/router";
+import baseURL from "@/scripts/baseURL";
 //import router from "@/scripts/router";
 
 export default {
@@ -40,13 +41,15 @@ export default {
 
     onMounted(async () => {
       try {
-        const { data: itemData } = await axios.get(`/api/item/${itemId}`);
+        const { data: itemData } = await baseURL.get(`/api/item/${itemId}`);
         state.item = itemData;
         state.img = `data:image/jpeg;base64,` + itemData.img;
 
         // 카테고리 정보 불러오기
         if (itemData.categoryId) {
-          const { data: categoryData } = await axios.get(`/api/categories/${itemData.categoryId}`);
+          const { data: categoryData } = await baseURL.get(
+            `/api/categories/${itemData.categoryId}`
+          );
           state.category = categoryData.name; // 카테고리 이름 저장
         }
 
@@ -57,7 +60,7 @@ export default {
       }
     });
 
-    axios.get(`/api/item/${itemId}`).then(({ data }) => {
+    baseURL.get(`/api/item/${itemId}`).then(({ data }) => {
       state.item = data;
       state.img = `data:image/jpeg;base64,` + data.img;
       state.loading = false;
@@ -72,7 +75,7 @@ export default {
         state.accountModal = true;
         return;
       }
-      axios
+      baseURL
         .post(`/api/cart/items/${itemId}?quantity=${state.quantity}`)
         .then(() => {
           state.showModal = true;
@@ -92,7 +95,7 @@ export default {
     };
 
     const deleteItem = () => {
-      axios
+      baseURL
         .delete(`/api/item/${itemId}/delete`)
         .then(() => {
           alert("상품이 삭제되었습니다.");
@@ -264,31 +267,34 @@ export default {
             )
           }}</span>
         </div>
-        <div class="container text-center" v-if="account.role === 'ROLE_ADMIN' || account.role === 'ROLE_SELLER'">
+        <div
+          class="container text-center"
+          v-if="account.role === 'ROLE_ADMIN' || account.role === 'ROLE_SELLER'"
+        >
           <div class="row">
             <div class="col"></div>
             <div class="col text-end">
               <div class="d-grid gap-2">
                 <a
-                    class="btn btn-danger btn-lg"
-                    role="button"
-                    @click="deleteItem"
-                    style="width: 200px"
-                >삭제하기</a
+                  class="btn btn-danger btn-lg"
+                  role="button"
+                  @click="deleteItem"
+                  style="width: 200px"
+                  >삭제하기</a
                 >
               </div>
             </div>
             <div class="col text-end">
               <div class="d-grid gap-2">
                 <router-link
-                    class="btn btn-warning btn-lg"
-                    :to="{
+                  class="btn btn-warning btn-lg"
+                  :to="{
                     name: 'modifyItem',
                     params: { itemId: `${state.item.id}` },
                   }"
-                    role="button"
-                    style="width: 200px"
-                >수정하기</router-link
+                  role="button"
+                  style="width: 200px"
+                  >수정하기</router-link
                 >
               </div>
             </div>
