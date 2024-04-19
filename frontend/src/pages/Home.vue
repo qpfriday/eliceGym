@@ -45,7 +45,7 @@ export default {
 
       const itemsPerPage = state.isFirstLoad ? 16 : 8; // 첫 번째 로드시 16개 아이템, 그 후 8개
       try {
-        const response = await axios.get(
+        const response = await baseURL.get(
           `/api/items?page=${state.pageNumber}&size=${itemsPerPage}`
         );
         const data = response.data.content; // API 응답에서 상품 데이터 추출
@@ -73,19 +73,19 @@ export default {
       }
     };
 
-    const { stop } = useIntersectionObserver(
-      target,
-      ([{ isIntersecting }]) => {
-        if (isIntersecting) {
-          loadItems();
-        }
-      },
-      { threshold: 0.5 }
-    );
+    // const { stop } = useIntersectionObserver(
+    //   target,
+    //   ([{ isIntersecting }]) => {
+    //     if (isIntersecting) {
+    //       loadItems();
+    //     }
+    //   },
+    //   { threshold: 0.5 }
+    // );
 
-    onUnmounted(() => {
-      stop();
-    });
+    // onUnmounted(() => {
+    //   stop();
+    // });
 
     const sortItems = (criteria) => {
       switch (criteria) {
@@ -167,7 +167,6 @@ export default {
       stop = localStop;
       loadItems(); // 초기 아이템 로드
     });
-
     onUnmounted(() => {
       if (stop) stop();
     });

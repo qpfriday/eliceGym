@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const baseURL = axios.create({
-  baseURL: "http://34.64.138.49:8080",
+  baseURL: "http://localhost:8080",
   withCredentials: true,
 });
 
