@@ -67,7 +67,6 @@ export default {
         }
       } catch (error) {
         console.error("Error loading items:", error);
-        alert("상품 로딩 중 문제가 발생했습니다.");
       } finally {
         state.loading = false;
       }
@@ -221,13 +220,13 @@ export default {
     </ol>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="../assets/workout.jpg" class="d-block w-100" alt="..." />
+        <img src="../assets/outdoor.jpg" class="d-block w-100" alt="..." />
       </div>
       <div class="carousel-item">
-        <img src="../assets/strap.jpg" class="d-block w-100" alt="..." />
+        <img src="../assets/shoes.jpg" class="d-block w-100" alt="..." />
       </div>
       <div class="carousel-item">
-        <img src="../assets/protein.jpg" class="d-block w-100" alt="..." />
+        <img src="../assets/greenprotein.jpg" class="d-block w-100" alt="..." />
       </div>
     </div>
     <button
@@ -317,13 +316,5 @@ export default {
 a {
   text-decoration: none;
   color: black;
-}
-
-.carousel-inner {
-  max-height: 700px;
-}
-
-.carousel-inner img {
-  margin-top: -10%;
 }
 </style>
