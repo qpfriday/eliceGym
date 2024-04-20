@@ -1,9 +1,9 @@
 package org.example.backend.dto;
 
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @NoArgsConstructor
@@ -14,10 +14,9 @@ public class ItemCreateDto {
     private String imgPath;
     private int price;
     private int discountPer;
-    private String parentCategory;
-    private String childCategory;
     private String selection;
     private String description;
     private int stock;
     private int deliveryPrice;
+    private int categoryId;
 }

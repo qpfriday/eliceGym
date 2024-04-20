@@ -3,6 +3,10 @@ package org.example.backend.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.sql.Timestamp;
 
 @Getter
 @Setter
@@ -19,7 +23,11 @@ public class Order {
     @Column(length = 50, nullable = false)
     private String phoneNumber;
     @Column(length = 500, nullable = false)
-    private String address;
+    private String address1;
+    @Column(length = 500, nullable = false)
+    private String address2;
+    @Column(length = 500, nullable = false)
+    private String postCode;
     @Column(length = 100, nullable = false)
     private String request;
     @Column(length = 10, nullable = false)
@@ -28,8 +36,8 @@ public class Order {
     private String cardNumber;
     @Column(length = 5000, nullable = false)
     private String items;
-    @Column(length = 50)
-    private String createdAt;
-    @Column(length = 50)
-    private String updatedAt;
+    @CreationTimestamp
+    private Timestamp createdAt;
+    @UpdateTimestamp
+    private Timestamp updatedAt;
 }

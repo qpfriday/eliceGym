@@ -1,143 +1,316 @@
 <script>
+import { useIntersectionObserver } from "@vueuse/core";
 import Card from "@/components/Card.vue";
-import axios from "axios";
-import {reactive} from "vue";
+import CategoryFilter from "@/components/CategoryFilter.vue";
+import SearchBar from "@/components/SearchBar.vue";
+import SortOptions from "@/components/SortOptions.vue";
+//import axios from "axios";
+import { computed, onMounted, onUnmounted, reactive, ref } from "vue";
+import store from "@/scripts/store";
+import ResultModal from "@/components/ResultModal.vue";
+import { moveToCart, moveToLogin } from "@/scripts/lib";
+import baseURL from "@/scripts/baseURL";
 
-const parentCategories = [
-  {name: "보충제", id: 1},
-  {name: "용품", id: 2},
-  {name: "헬스", id: 3},
-];
-
-const childCategories = [
-  {name: "보충제", id: 1, parentId: 1},
-  {name: "보충제", id: 2, parentId: 1},
-  {name: "보충제", id: 3, parentId: 1},
-  {name: "보충제", id: 4, parentId: 1},
-  {name: "보충제", id: 5, parentId: 1},
-  {name: "보충제", id: 6, parentId: 2},
-  {name: "보충제", id: 7, parentId: 2},
-  {name: "보충제", id: 8, parentId: 2},
-  {name: "보충제", id: 9, parentId: 2},
-  {name: "보충제", id: 10, parentId: 3},
-  {name: "보충제", id: 11, parentId: 3},
-  {name: "보충제", id: 12, parentId: 3},
-  {name: "보충제", id: 13, parentId: 3},
-  {name: "보충제", id: 14, parentId: 3},
-  {name: "보충제", id: 15, parentId: 3},
-];
-
-let selectedParentId = 1;
-
-const filterProducts = (category) => {
-  console.log(category);
-  // axios.get(`/api/product/list/${category}`).then(({ data }) => {
-  //   state.products = data;
-  // });
-};
 export default {
   name: "Home",
-  components: {Card},
-
+  components: { Card, CategoryFilter, SearchBar, SortOptions, ResultModal },
+  methods: { moveToCart, moveToLogin },
   setup() {
     const state = reactive({
       items: [],
-    });
-    axios.get("/api/item/list").then(({data}) => {
-      state.items = data;
+      searchText: "",
+      filteredItems: [],
+      selectedCategory: null,
+      categoryList: [],
+      loading: false,
+      showModal: false,
+      accountModal: false,
+      pageNumber: 0,
+      isFirstLoad: true,
+      allItemsLoaded: false,
+      sortOptions: [
+        { value: "discountHigh", text: "높은 할인률순" },
+        { value: "discountLow", text: "낮은 할인률순" },
+        { value: "priceHigh", text: "높은 가격순" },
+        { value: "priceLow", text: "낮은 가격순" },
+      ],
     });
 
-    const showChildren = (parentId) => {
-      selectedParentId = parentId;
-      const child_list = document.getElementById("child_list");
-      child_list.innerHTML = "";
+    const loadMoreRef = ref(null);
+    let stop = null;
 
-      childCategories
-          .filter((child) => child.parentId === parentId)
-          .forEach((child) => {
-            child_list.innerHTML += `<div
-                v-bind:key=${child.id}
-                v-on:click="filterProducts(${child.id})"
-                data-id=${child.id}
-                id="childCategory"
-                class="category childCategory btn btn-secondary"
-              >
-               ${child.name}
-              </div>`;
-          });
+    const loadItems = async () => {
+      if (state.loading || state.allItemsLoaded) return;
+      state.loading = true;
+
+      const itemsPerPage = state.isFirstLoad ? 16 : 8; // 첫 번째 로드시 16개 아이템, 그 후 8개
+      try {
+        const response = await baseURL.get(
+          `/api/items?page=${state.pageNumber}&size=${itemsPerPage}`
+        );
+        const data = response.data.content; // API 응답에서 상품 데이터 추출
+        if (data.length > 0) {
+          if (state.isFirstLoad) {
+            state.items = data;
+            state.isFirstLoad = false;
+          } else {
+            // 중복 로드 방지 로직
+            const newItems = data.filter(
+              (item) =>
+                !state.items.some((existItem) => existItem.id === item.id)
+            );
+            state.items.push(...newItems);
+          }
+          state.pageNumber++;
+        } else {
+          state.allItemsLoaded = true;
+        }
+      } catch (error) {
+        console.error("Error loading items:", error);
+      } finally {
+        state.loading = false;
+      }
     };
 
-    // const filterProducts = (category) => {
-    //   console.log(category);
-    //   // axios.get(`/api/product/list/${category}`).then(({ data }) => {
-    //   //   state.products = data;
-    //   // });
-    // };
+    // const { stop } = useIntersectionObserver(
+    //   target,
+    //   ([{ isIntersecting }]) => {
+    //     if (isIntersecting) {
+    //       loadItems();
+    //     }
+    //   },
+    //   { threshold: 0.5 }
+    // );
 
-    // const getChildCategories = (parentId) => {
-    //   console.log(parentId);
-    //   return childCategories.filter((child) => child.parentId === parentId);
-    // };
+    // onUnmounted(() => {
+    //   stop();
+    // });
+
+    const sortItems = (criteria) => {
+      switch (criteria) {
+        case "discountHigh":
+          state.items.sort((a, b) => b.discountPer - a.discountPer);
+          break;
+        case "discountLow":
+          state.items.sort((a, b) => a.discountPer - b.discountPer);
+          break;
+        case "priceHigh":
+          state.items.sort((a, b) => b.price - a.price);
+          break;
+        case "priceLow":
+          state.items.sort((a, b) => a.price - b.price);
+          break;
+      }
+      state.filteredItems = [...state.items];
+    };
+
+    const addToCart = (id) => {
+      if (
+        store.state.account.id === null ||
+        store.state.account.id === undefined
+      ) {
+        state.accountModal = true;
+        return;
+      }
+      baseURL
+        .post(`/api/cart/items/${id}`)
+        .then(() => {
+          state.showModal = true;
+          console.log("Item added to cart successfully.");
+        })
+        .catch((error) => {
+          console.error("Failed to add item to cart:", error);
+        });
+    };
+
+    const closeModal = () => {
+      state.showModal = false;
+      state.accountModal = false;
+    };
+
+    const handleCategorySelected = (categoryId) => {
+      state.selectedCategory = categoryId;
+      handleSearch(state.searchText);
+    };
+
+    const handleSearch = (searchTerm) => {
+      state.searchText = searchTerm.toLowerCase();
+      state.filteredItems = state.items.filter(
+        (item) =>
+          item.name.toLowerCase().includes(state.searchText) &&
+          (!state.selectedCategory ||
+            item.categoryId === state.selectedCategory)
+      );
+    };
+
+    const filteredItemsByCategory = computed(() => {
+      return state.items.filter(
+        (item) =>
+          (!state.searchText ||
+            item.name.toLowerCase().includes(state.searchText.toLowerCase())) &&
+          (!state.selectedCategory ||
+            item.categoryId === state.selectedCategory)
+      );
+    });
+
+    onMounted(() => {
+      const { stop: localStop } = useIntersectionObserver(
+        loadMoreRef,
+        ([{ isIntersecting }]) => {
+          if (isIntersecting && !state.allItemsLoaded) {
+            loadItems();
+          }
+        },
+        { threshold: 0.1 } // 임계값 조정
+      );
+      stop = localStop;
+      loadItems(); // 초기 아이템 로드
+    });
+    onUnmounted(() => {
+      if (stop) stop();
+    });
 
     return {
       state,
-      parentCategories,
-      childCategories,
-      showChildren,
-      selectedParentId,
-      filterProducts,
-      //   getChildCategories,
+      loadMoreRef,
+      loadItems,
+      addToCart,
+      closeModal,
+      handleCategorySelected,
+      handleSearch,
+      filteredItemsByCategory,
+      sortItems,
     };
   },
 };
 </script>
 
 <template>
-  <div class="align-middle bg-danger text-white d-flex justify-content-center align-items-center" style="height: 300px">
-    <div class="text-center">
-      <h1 class="display-4 fw-bolder">엘리스짐</h1>
-      <h5 class="lead fw-normal text-white-50">불가능 한 것을 이루는 유일한 방법은 가능하다고 믿는 것 입니다!</h5>
+  <div v-if="state.accountModal">
+    <ResultModal
+      title="알림"
+      content="로그인이 필요합니다."
+      btn1="구경하기"
+      btn2="로그인하기"
+      :moveFunction="moveToLogin"
+      :closeFunction="closeModal"
+    />
+  </div>
+
+  <div v-if="state.showModal">
+    <ResultModal
+      title="알림"
+      content="장바구니에 담겼습니다."
+      btn1="계속 쇼핑하기"
+      btn2="장바구니 이동"
+      :moveFunction="moveToCart"
+      :closeFunction="closeModal"
+    />
+  </div>
+
+  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li
+        data-target="#carouselExampleIndicators"
+        data-slide-to="0"
+        class="active"
+      ></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="../assets/outdoor.jpg" class="d-block w-100" alt="..." />
+      </div>
+      <div class="carousel-item">
+        <img src="../assets/shoes.jpg" class="d-block w-100" alt="..." />
+      </div>
+      <div class="carousel-item">
+        <img src="../assets/greenprotein.jpg" class="d-block w-100" alt="..." />
+      </div>
     </div>
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-target="#carouselExampleControls"
+      data-slide="prev"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-target="#carouselExampleControls"
+      data-slide="next"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </button>
   </div>
   <div class="container">
-    <div>
-      <div class="dropdown my-2 d-flex justify-content-end">
-        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          정렬 기준
-        </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">높은 할인률순</a></li>
-          <li><a class="dropdown-item" href="#">낮은 할인률순</a></li>
-          <li><a class="dropdown-item" href="#">높은 가격순</a></li>
-          <li><a class="dropdown-item" href="#">낮은 가격순</a></li>
-        </ul>
+    <CategoryFilter
+      :categoryList="state.categoryList"
+      @category-selected="handleCategorySelected"
+    />
+    <div
+      class="filter-search-bar"
+    >
+      <SortOptions :options="state.sortOptions" @option-selected="sortItems" />
+      <SearchBar @search="handleSearch" />
+    </div>
+    <div v-if="!state.loading">
+      <div
+        v-if="state.searchText !== '' && state.filteredItems.length === 0"
+        class="m-5 text-center"
+      >
+        <h1>검색한 상품이 없습니다.</h1>
+      </div>
+      <div v-else class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
+        <div
+          class="col my-4"
+          v-for="(item, index) in filteredItemsByCategory"
+          :key="index"
+        >
+          <Card :item="item" :addToCart="(id) => addToCart(id)" />
+        </div>
+      </div>
+      <div ref="loadMoreRef" style="height: 20px"></div>
+      <div v-if="state.loading" class="loading-indicator">로딩 중...</div>
+    </div>
+    <div
+      v-else
+      class="d-flex justify-content-center align-items-center"
+      style="height: 30vh"
+    >
+      <div
+        class="spinner-grow text-success"
+        style="width: 50px; height: 50px"
+        role="status"
+      >
+        <span class="sr-only">Loading...</span>
       </div>
     </div>
-
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-      <div class="col my-4" v-for="(item, idx) in state.items" :key="idx">
-        <Card :item="item"/>
-      </div>
-    </div>
-    <nav aria-label="..." style="margin-top: 150px">
-      <ul class="pagination justify-content-center">
-        <li class="page-item disabled">
-          <span class="page-link">Previous</span>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item active" aria-current="page">
-          <span class="page-link">2</span>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-          <a class="page-link" href="#">Next</a>
-        </li>
-      </ul>
-    </nav>
   </div>
 </template>
 
 <style scoped>
+.loading-indicator {
+  background-color: rgba(0, 0, 0, 0.5);
+  font-size: 16px;
+  animation: blink 1.5s linear infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.filter-search-bar {
+  display: flex;
+  align-items: center;
+}
 
 a {
   text-decoration: none;

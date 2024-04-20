@@ -56,13 +56,17 @@ public class CartController {
         int userId = jwtService.getId(token);
         Cart cart = cartRepository.findByUserIdAndItemId(userId, itemId);
 
-        if (cart == null) {
-            Cart newCart = new Cart();
-            newCart.setUserId(userId);
-            newCart.setItemId(itemId);
-            newCart.setQuantity(quantity);
-            cartRepository.save(newCart);
+        if (cart != null) {
+            cart.setQuantity(cart.getQuantity() + quantity);
+            cartRepository.save(cart);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
+
+        Cart newCart = new Cart();
+        newCart.setUserId(userId);
+        newCart.setItemId(itemId);
+        newCart.setQuantity(quantity);
+        cartRepository.save(newCart);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
