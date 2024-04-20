@@ -297,9 +297,7 @@ export default {
       >
         저장
       </button>
-      <router-link :to="ROUTER_LINKS.PRODUCT_DETAIL.path"
-        >상품 페이지로</router-link
-      >
+      <a class="d-flex justify-content-end" @click="this.$router.go(-1)" style="cursor:pointer;">상품 페이지로</a>
     </main>
   </div>
   <div
