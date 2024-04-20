@@ -124,7 +124,11 @@ console.log("routes", routes)
 console.log("ROUTER_LINKS", ROUTER_LINKS)
 const router = createRouter({
   history: createWebHistory(),
-  routes: routes
+  routes: routes,
+  scrollBehavior() {
+    // 언제나 페이지 제일 위로 이동하기
+    return { top: 0 }
+  },
 });
 
 export { router, ROUTER_LINKS };

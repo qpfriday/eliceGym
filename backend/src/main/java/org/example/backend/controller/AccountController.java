@@ -117,7 +117,7 @@ public class AccountController {
 
     @PutMapping("/api/account/update")
     public ResponseEntity updateAccountInfo(@RequestBody UserDto updatedUser) {
-        User user = userRepository.findByEmail(updatedUser.getEmail());
+        User user = userRepository.findByLoginId(updatedUser.getLoginId());
         user.setName(updatedUser.getName());
         user.setDeliveryAddress(updatedUser.getDeliveryAddress());
         user.setAddress1(updatedUser.getAddress1());

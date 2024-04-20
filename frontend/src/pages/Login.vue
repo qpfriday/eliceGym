@@ -67,7 +67,7 @@ export default {
       <button class="w-100 btn btn-lg btn-success" @click="login">
         로그인
       </button>
-      <router-link :to="ROUTER_LINKS.LOGIN.path">로그인 하러가기</router-link>
+      <router-link :to="ROUTER_LINKS.JOIN.path">회원가입 하러가기</router-link>
     </main>
   </div>
 </template>
