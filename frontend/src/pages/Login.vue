@@ -1,30 +1,39 @@
 <script>
-import {reactive} from "vue";
-import axios from "axios";
+import { reactive } from "vue";
+//import axios from "axios";
 import store from "@/scripts/store";
-import router from "@/scripts/router";
+import { router, ROUTER_LINKS } from "@/scripts/router";
+import baseURL from "@/scripts/baseURL";
 
 export default {
+  computed: {
+    ROUTER_LINKS() {
+      return ROUTER_LINKS;
+    },
+  },
   setup() {
     const state = reactive({
       form: {
         loginId: "",
-        password: ""
-      }
-    })
+        password: "",
+      },
+    });
     const login = () => {
-      axios.post("/api/account/login", state.form).then((res) => {
-        store.commit("setAccount", res.data);
-        sessionStorage.setItem("id", res.data)
-        router.push({path: "/"})
-        window.alert("로그인하였습니다.")
-      }).catch(() => {
-        window.alert("로그인 정보가 존재하지 않습니다.")
-      })
-    }
-    return {state, login}
+      baseURL
+        .post("/api/account/login", state.form)
+        .then((res) => {
+          store.commit("setAccount", res.data);
+          sessionStorage.setItem("id", res.data);
+          router.push(ROUTER_LINKS.HOME.path);
+          window.alert("로그인하였습니다.");
+        })
+        .catch(() => {
+          window.alert("로그인 정보가 존재하지 않습니다.");
+        });
+    };
+    return { state, login };
   },
-}
+};
 </script>
 
 <template>
@@ -32,19 +41,33 @@ export default {
     <main class="form-signin">
       <h1 class="h3 mb-3 fw-normal text-center">로그인</h1>
       <div class="form-floating">
-        <input type="text" class="form-control" id="floatingInput" placeholder="ID"
-               @keyup.enter="login()"
-               v-model="state.form.loginId">
-        <label for="floatingInput"></label>
+        <label for="floatingInput" class="form-label">아이디</label>
+        <input
+          type="text"
+          class="form-control"
+          id="floatingInput"
+          placeholder="ID"
+          style="margin-bottom: 20px"
+          @keyup.enter="login()"
+          v-model="state.form.loginId"
+        />
       </div>
       <div class="form-floating">
-        <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
-               @keyup.enter="login()"
-               v-model="state.form.password">
-        <label for="floatingPassword"></label>
+        <label for="floatingPassword" class="form-label">비밀번호</label>
+        <input
+          type="password"
+          class="form-control"
+          id="floatingPassword"
+          placeholder="Password"
+          style="margin-bottom: 20px"
+          @keyup.enter="login()"
+          v-model="state.form.password"
+        />
       </div>
-      <button class="w-100 btn btn-lg btn-success" @click="login">로그인</button>
-      <a href="join">회원가입 하러가기</a>
+      <button class="w-100 btn btn-lg btn-success" @click="login">
+        로그인
+      </button>
+      <router-link :to="ROUTER_LINKS.JOIN.path">회원가입 하러가기</router-link>
     </main>
   </div>
 </template>
@@ -55,6 +78,6 @@ export default {
   width: 500px;
   padding: 100px 50px 100px 50px;
   border: solid lightgray 0.5px;
-  border-radius: 10px
+  border-radius: 10px;
 }
 </style>

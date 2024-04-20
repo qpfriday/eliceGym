@@ -5,6 +5,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.backend.dto.UserDto;
 import org.example.backend.entity.User;
+import org.example.backend.repository.ItemRepository;
 import org.example.backend.repository.UserRepository;
 import org.example.backend.service.JwtService;
 import org.example.backend.service.UserService;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -28,13 +28,16 @@ public class AccountController {
     UserService userService;
 
     @Autowired
+    ItemRepository itemRepository;
+
+
+    @Autowired
     JwtService jwtService;
 
     @PostMapping("/api/account/login")
     public ResponseEntity login(@RequestBody Map<String, String> params, HttpServletResponse res) {
 
         User user = userRepository.findByLoginIdAndPassword(params.get("loginId"), params.get("password"));
-        System.out.println(params.get("loginId") + params.get("password"));
         if (user != null) {
             int id = user.getId();
             String token = jwtService.getToken("id", id);
@@ -49,7 +52,7 @@ public class AccountController {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("api/account/check")
+    @GetMapping("/api/account/check")
     public ResponseEntity check(@CookieValue(value = "token", required = false) String token) {
         Claims claims = jwtService.getClaims(token);
         if (claims != null) {
@@ -57,6 +60,7 @@ public class AccountController {
             Map<String, Object> responseData = new HashMap<>();
             responseData.put("id", id);
             responseData.put("name", userService.getNameById(id));
+            responseData.put("role", userService.getRoleById(id));
             return new ResponseEntity<>(responseData, HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.OK);
@@ -73,11 +77,24 @@ public class AccountController {
     }
 
     @PostMapping("/api/account/join")
-    public ResponseEntity join(@RequestBody UserDto userDto) {
+    public ResponseEntity joinUser(@RequestBody UserDto userDto) {
+        // 아이디 중복 확인
+        if (userService.isIdAlreadyExists(userDto.getLoginId())) {
+            return new ResponseEntity<>("이미 존재하는 아이디입니다.", HttpStatus.BAD_REQUEST);
+        }
 
         userService.join(userDto);
-
         return new ResponseEntity<>("회원가입이 성공적으로 완료되었습니다.", HttpStatus.OK);
+    }
+
+    @DeleteMapping("api/account/delete")
+    public ResponseEntity deleteUser(@CookieValue(value = "token", required = false) String token) {
+        Claims claims = jwtService.getClaims(token);
+        if (claims != null) {
+            int id = Integer.parseInt(claims.get("id").toString());
+            userService.delete(id);
+        }
+        return new ResponseEntity<>("탈퇴가 완료되었습니다", HttpStatus.OK);
     }
 
     @GetMapping("/api/account/user")
@@ -88,21 +105,27 @@ public class AccountController {
         }
 
         int userId = jwtService.getId(token);
-        List<User> user = userRepository.findById(userId);
+        User user = userRepository.findById(userId);
 
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @GetMapping("/api/account/info")
     public User getAccountInfo(@CookieValue(value = "token", required = false) String token) {
-        return userRepository.findById(jwtService.getId(token)).get(0);
+        return userRepository.findById(jwtService.getId(token));
     }
 
     @PutMapping("/api/account/update")
     public ResponseEntity updateAccountInfo(@RequestBody UserDto updatedUser) {
-        User user = userRepository.findByEmail(updatedUser.getEmail());
+        User user = userRepository.findByLoginId(updatedUser.getLoginId());
         user.setName(updatedUser.getName());
         user.setDeliveryAddress(updatedUser.getDeliveryAddress());
+        user.setAddress1(updatedUser.getAddress1());
+        user.setAddress2(updatedUser.getAddress2());
+        user.setPostCode(updatedUser.getPostCode());
+        user.setPhoneNumber(updatedUser.getPhoneNumber());
+
+
         userRepository.save(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }

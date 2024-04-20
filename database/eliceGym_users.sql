@@ -1,4 +1,3 @@
-INSERT INTO elicegym.users (id, name, email, password, login_id, delivery_address, role, phone_number, created_at, updated_at)
-VALUES (1, 'example', 'example@gmail.com', '1234', 'example', null, 'ROLE_USER', '010-1234-4321',null, null);
-INSERT INTO elicegym.users (id, name, email, password, login_id, delivery_address, role, phone_number, created_at, updated_at)
-VALUES (2, 'chandol', 'chandol@gmail.com', '1234', 'chandol', null, 'ROLE_USER', '010-1234-5678', null, null);
+INSERT INTO elice_db.users (id, created_at, updated_at, role, name, email, login_id, phone_number, password, delivery_address) VALUES (1, '2024-04-11 19:36:16.093252', '2024-04-11 19:36:16.093252', 'ROLE_ADMIN', '어드민', 'admin@gmail.com', 'admin', '010-1111-1111', '1234', null);
+INSERT INTO elice_db.users (id, created_at, updated_at, role, name, email, login_id, phone_number, password, delivery_address) VALUES (2, '2024-04-11 19:37:03.024614', '2024-04-11 19:37:03.024614', 'ROLE_USER', '찬돌', 'chandol@gmail.com', 'chandol', '010-2222-3333', '1234', null);
+INSERT INTO elice_db.users (id, created_at, updated_at, role, name, email, login_id, phone_number, password, delivery_address) VALUES (3, '2024-04-11 19:37:50.475563', '2024-04-11 19:37:50.475563', 'ROLE_SELLER', '셀러', 'seller@gmail.com', 'seller', '010-3333-3333', '1234', null);

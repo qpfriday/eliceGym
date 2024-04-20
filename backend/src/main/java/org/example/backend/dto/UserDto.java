@@ -12,4 +12,9 @@ public class UserDto {
     private String email;
     private String deliveryAddress;
     private String phoneNumber;
+    private String role;
+    private String postCode;
+    private String address1;
+    private String address2;
+
 }

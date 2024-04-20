@@ -1,10 +1,23 @@
-INSERT INTO elicegym.items (id, name, img_path, price, discount_per, parent_category, child_category, selection, description, stock, delivery_price, created_at, updated_at)VALUES (1, '삼디오백 헬스스트랩', '/img/strap-black.png', 37000, 30, '용품', '스트랩', '블랙', '운동할 때 사용하는 스트랩', 30, 3000, null, null);
-INSERT INTO elicegym.items (id, name, img_path, price, discount_per, parent_category, child_category, selection, description, stock, delivery_price, created_at, updated_at)VALUES (2, '삼디오백 헬스스트랩', '/img/strap-pink.png', 37000, 30, '용품', '스트랩', '핑크', '운동할 때 사용하는 스트랩', 30, 3000, null, null);
-INSERT INTO elicegym.items (id, name, img_path, price, discount_per, parent_category, child_category, selection, description, stock, delivery_price, created_at, updated_at)VALUES (3, '냉동 닭안심살', '/img/chicken.png', 25000, 15, '보충제', '닭가슴살', '2kg', '개쩐닭 냉동 닭안심살 2kg', 100, 2000, null, null);
-INSERT INTO elicegym.items (id, name, img_path, price, discount_per, parent_category, child_category, selection, description, stock, delivery_price, created_at, updated_at)VALUES (4, '냉동 닭안심살', '/img/chicken.png', 40000, 15, '보충제', '닭가슴살', '4kg', '개쩐닭 냉동 닭안심살 4kg', 100, 2000, null, null);
-INSERT INTO elicegym.items (id, name, img_path, price, discount_per, parent_category, child_category, selection, description, stock, delivery_price, created_at, updated_at)VALUES (5, '바벨 티셔츠', '/img/barbell-tshirts.png', 41000, 15, '의류', '티셔츠', 'S', '땀흡수가 좋은 티셔츠', 40, 3000, null, null);
-INSERT INTO elicegym.items (id, name, img_path, price, discount_per, parent_category, child_category, selection, description, stock, delivery_price, created_at, updated_at)VALUES (6, '바벨 티셔츠', '/img/barbell-tshirts.png', 41000, 15, '의류', '티셔츠', 'M', '땀흡수가 좋은 티셔츠', 40, 3000, null, null);
-INSERT INTO elicegym.items (id, name, img_path, price, discount_per, parent_category, child_category, selection, description, stock, delivery_price, created_at, updated_at)VALUES (7, '바벨 티셔츠', '/img/barbell-tshirts.png', 41000, 15, '의류', '티셔츠', 'L', '땀흡수가 좋은 티셔츠', 40, 3000, null, null);
-INSERT INTO elicegym.items (id, name, img_path, price, discount_per, parent_category, child_category, selection, description, stock, delivery_price, created_at, updated_at)VALUES (8, '리프팅 벨트', '/img/liftingbelt.png', 210000, 10, '용품', '리프팅벨트', 'M', '리프팅 종목을 할 때 허리를 보호해 줍니다', 50, 3000, null, null);
-INSERT INTO elicegym.items (id, name, img_path, price, discount_per, parent_category, child_category, selection, description, stock, delivery_price, created_at, updated_at)VALUES (9, '리프팅 벨트', '/img/liftingbelt.png', 210000, 10, '용품', '리프팅벨트', 'L', '리프팅 종목을 할 때 허리를 보호해 줍니다', 50, 3000, null, null);
-INSERT INTO elicegym.items (id, name, img_path, price, discount_per, parent_category, child_category, selection, description, stock, delivery_price, created_at, updated_at)VALUES (10, '아이소토프 프로틴', '/img/protein.png', 75000, 0, '보충제', '프로틴', '초코맛', '단백질을 보충해주는 보조제입니다', 100, 3000, null, null);
+INSERT INTO elice_db.items (id, created_at, updated_at, delivery_price, description, discount_per, img, img_path, name, price, selection, stock, category_id)
+VALUES
+    (1, null, null, 2000, '티셔츠', 5, null, '/img/barbell-tshirts.png', '바벨 티셔츠', 48000, 'M', 100, 1),
+    (2, null, null, 2000, '티셔츠', 0, null, '/img/whitetshirts.jpg', '록 티셔츠', 42000, 'M', 100, 1),
+    (3, null, null, 3000, '크레아틴', 15, null, '/img/creatineA.png', '알큐브 크레아틴', 72000, '1kg', 100, 10),
+    (4, null, null, 3000, '크레아틴', 5, null, '/img/creatineB.png', '츄즈 크레아틴', 69000, '1kg', 100, 10),
+    (5, null, null, 2000, '장갑', 20, null, '/img/glovesA.png', '라이트 장갑', 35000, 'blue', 100, 4),
+    (6, null, null, 2000, '장갑', 0, null, '/img/glovesB.png', '플로스 장갑', 31000, 'black', 100, 4),
+    (7, null, null, 3000, '모자', 10, null, '/img/hatA.jpg', '나이키 모자', 39000, 'black', 100, 7),
+    (8, null, null, 3000, '모자', 10, null, '/img/hatB.jpg', '스포츠 모자', 29000, 'black', 100, 7),
+    (9, null, null, 2000, '리프팅 벨트', 5, null, '/img/liftingbelt.png', '리프팅 벨트', 130000, 'white', 100, 11),
+    (10, null, null, 2000, '리프팅 벨트', 20, null, '/img/liftingbelt.png', '리프팅 벨트', 130000, 'white', 100, 11),
+    (11, null, null, 3000, '바지', 5, null, '/img/pantsA.jpg', '스웻 팬츠', 42000, 'gray', 100, 9),
+    (12, null, null, 3000, '반바지', 0, null, '/img/shorts.png', '힛더짐 반바지', 39000, 'black', 100, 9),
+    (13, null, null, 2000, '단백질', 0, null, '/img/proteinB.jpg', '룰 프로틴', 61000, '1kg', 100, 2),
+    (14, null, null, 2000, '단밸질', 10, null, '/img/proteinC.jpg', '엑스텐드 프로틴', 59000, '1kg', 100, 2),
+    (15, null, null, 3000, '신발', 15, null, '/img/shoesA.png', '나이키 스포츠', 129000, '270', 100, 5),
+    (16, null, null, 3000, '신발', 5, null, '/img/shoesB.jpg', '아디다스 신발', 89000, '270', 100, 5),
+    (17, null, null, 2000, '양말', 20, null, '/img/socksA.jpg', '메시브 양말', 34000, 'white', 100, 6),
+    (18, null, null, 2000, '양말', 0, null, '/img/socksB.jpg', '블랙 롱 삭스', 16000, 'black', 100, 6),
+    (19, null, null, 3000, '스트랩', 10, null, '/img/strap-black.png', '스트랩 블랙', 24000, 'black', 100, 3),
+    (20, null, null, 3000, '스트랩', 5, null, '/img/strap-pink.png', '스트랩 핑크', 24000, 'pink', 100, 3),
+    (21, null, null, 3000, '닭가슴살', 25, null, '/img/chicken.png', '닭안심살 개쩐닭', 18000, '1kg', 100, 2);
