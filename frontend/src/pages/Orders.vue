@@ -49,6 +49,7 @@ export default {
         <thead>
           <tr>
             <th style="width: 100px">주문일자</th>
+            <th style="width: 200px">배송 정보</th>
             <th style="width: 400px">주문 상품</th>
             <th style="width: 100px">상품금액 수량</th>
             <th style="width: 100px">배송비</th>
@@ -61,6 +62,11 @@ export default {
               <td :rowspan="getItems(o).length" v-if="idx2 === 0">
                 <div>{{ formatDate(o.createdAt) }}</div>
                 <div>{{ formatTime(o.createdAt) }}</div>
+              </td>
+              <td :rowspan="getItems(o).length" v-if="idx2 === 0" style="text-align: left">
+                <div>이름: {{ o.name }}</div>
+                <div>전화번호: {{ o.phoneNumber }}</div>
+                <div>배송지 주소: {{ o.address1 }} ({{ o.address2 }})</div>
               </td>
               <td style="text-align: left">
                 <img
