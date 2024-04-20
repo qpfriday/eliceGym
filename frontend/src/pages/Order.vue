@@ -14,7 +14,9 @@ export default {
       user: {
         name: "",
         phoneNumber: "",
-        deliveryAddress: "",
+        address1: "",
+        address2: "",
+        postCode: "",
       },
       form: {
         name: "",
@@ -80,12 +82,16 @@ export default {
         const user = state.user;
         state.form.name = user.name;
         state.form.phoneNumber = user.phoneNumber;
-        state.form.address = user.deliveryAddress;
+        state.form.address1 = user.address1;
+        state.form.address2 = user.address2;
+        state.form.postCode = user.postCode;
       } else {
         // Clear form fields if unchecked or if user data is not available
         state.form.name = "";
         state.form.phoneNumber = "";
-        state.form.address = "";
+        state.form.address1 = "";
+        state.form.address2 = "";
+        state.form.postCode = "";
       }
     };
     const showCustomRequest = ref(false);
@@ -173,11 +179,12 @@ export default {
                 </span>
                 <span class="text-body-last">{{ i.quantity }} 개</span>
                 <span class="text-body-last"
-                  >{{
-                    addCommas(
-                      (i.price - (i.price * i.discountPer) / 100) * i.quantity
-                    )
-                  }}
+                  >
+                  <b>{{
+                      addCommas(
+                          (i.price - (i.price * i.discountPer) / 100) * i.quantity
+                      )
+                    }}</b>
                   원</span
                 >
               </li>
@@ -241,6 +248,7 @@ export default {
                     id="postcode"
                     placeholder="우편번호"
                     class="form-control"
+                    v-model="state.form.postCode"
                   />
                   <button
                     class="btn btn-success "
@@ -255,6 +263,7 @@ export default {
                     class="form-control"
                     id="roadAddress"
                     placeholder="도로명주소"
+                    v-model="state.form.address1"
                   />
                   <input
                     type="text"
