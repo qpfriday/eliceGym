@@ -1,5 +1,4 @@
 
-
 FROM bellsoft/liberica-openjdk-alpine:17
 CMD ["./gradlew", "clean", "build"]
 ARG JAR_FILE=build/libs/*.jar
@@ -14,7 +13,7 @@ ENTRYPOINT ["java","-jar","app.jar"]
 FROM node:lts-alpine as build-stage
 WORKDIR /app
 COPY package*.json ./
-RUN npm install --production
+RUN npm install 
 COPY . .
 RUN npm run build
 
