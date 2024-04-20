@@ -200,33 +200,8 @@ export default {
           v-model="state.form.email"
         />
       </div>
-      <!-- <div class="form-floating">
-        <label for="floatingInput" class="form-label">배송지</label>
-        <textarea
-          class="form-control"
-          id="floatingInput"
-          placeholder="Address"
-          rows="3"
-          disabled
-          style="margin-bottom: 50px"
-          v-if="!state.editable"
-          v-model="state.form.deliveryAddress"
-        ></textarea>
-        <textarea
-          class="form-control"
-          id="floatingInput"
-          placeholder="Address"
-          rows="3"
-          required
-          style="margin-bottom: 50px"
-          v-else
-          v-model="state.form.deliveryAddress"
-        ></textarea>
-      </div> -->
-
       <div class="col-12 address-fields">
         <label for="address" class="form-label">주소</label>
-
         <input
           disabled
           type="text"
@@ -235,12 +210,11 @@ export default {
           class="form-control"
           v-model="state.form.postCode"
         />
-
         <button
           id="addressBtn"
           hidden
-          class="btn btn-success btn-sm"
-          style="padding: 10px"
+          class="btn btn-success"
+          style="margin: 8px 0 8px 0"
           type="button"
           @click="clickAddress"
         >

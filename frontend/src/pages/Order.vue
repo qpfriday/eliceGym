@@ -242,14 +242,9 @@ export default {
                     placeholder="우편번호"
                     class="form-control"
                   />
-                  <!-- <input
-                    type="button"
-                    @click="openPostCode"
-                    value="우편번호 찾기"
-                  /><br /> -->
                   <button
-                    class="btn btn-success btn-sm"
-                    style="padding: 10px"
+                    class="btn btn-success "
+                    style="margin: 8px 0 8px 0"
                     type="button"
                     @click="openPostCode"
                   >
