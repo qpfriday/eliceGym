@@ -37,12 +37,27 @@
 
 # 화면 구성
 
+<table>
+  <tr> 
+    <td align="center">메인페이지</td>
+    <td align="center">주문관리</td>      
+  </tr>
+  <tr>  
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
+
+
+
 # 팀원 소개
 <table>
   <tr> 
     <td align="center"><a href="https://github.com/qpfriday"><img src="https://avatars.githubusercontent.com/u/156289356?s=400&u=80a63713a6e4abf063f32f2af0d5bb823daaefae&v=4" width="100px;" alt=""/><br /><sub><b>BE 팀장 김찬혁</b></sub></a><br /></td>
     <td align="center"><img src="https://secure.gravatar.com/avatar/577de660ddcf91387b28fe6148a2eaf2?s=80&d=identicon" width="100px;" alt=""/><br /><sub><b>BE 팀원 김소영</b></sub><br /></td>      
-    <td align="center"><img src="https://secure.gravatar.com/avatar/f820ffb8b3c0facdea23c598b54257ef?s=80&d=identicon" width="100px;" alt=""/><br /><sub><b>BE 팀원 노셕규</b></sub><br /></td>     
+    <td align="center"><img src="https://secure.gravatar.com/avatar/f820ffb8b3c0facdea23c598b54257ef?s=80&d=identicon" width="100px;" alt=""/><br /><sub><b>BE 팀원 노석규</b></sub><br /></td>     
     <td align="center"><img src="https://secure.gravatar.com/avatar/f36ed20143746db91aeb1b90adfb43bd?s=80&d=identicon" width="100px;" alt=""/><br /><sub><b>BE 팀원 이정수</b></sub><br /></td>     
     <td align="center"><img src="https://secure.gravatar.com/avatar/90cbaf1bfc881fc606cc7078cc3ca8b9?s=80&d=identicon" width="100px;" alt=""/><br /><sub><b>BE 팀원 선주영</b></sub><br /></td>     
   </tr>
